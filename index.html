@@ -1168,19 +1168,23 @@ adhkarPrevWeekBtn.disabled = false;
                 adhkarWeekTitle.textContent = `${title} (${formatDateDisplay(startDate)} - ${formatDateDisplay(endDate)})`;
             }
 
-          function handleAdhkarDayClick(e) {
+       function handleAdhkarDayClick(e) {
     const item = e.target.closest('.adhkar-status-item');
     const dayCard = e.target.closest('.day-card');
     if (!item || !dayCard) return;
 
     const dateString = dayCard.dataset.date;
-    const clickedDate = new Date(dateString);
 
-    // تاريخ اليوم حسب توقيت الجهاز (وليس السعودية)
-    const today = new Date(anchorDate);
+    // تحويل التاريخ بشكل محلي بدون مشاكل UTC
+    const [year, month, day] = dateString.split('-').map(Number);
+    const clickedDate = new Date(year, month - 1, day);
+    clickedDate.setHours(0, 0, 0, 0);
+
+    // تاريخ اليوم حسب جهاز المستخدم (وليس UTC)
+    const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    // نمنع المستقبل فقط
+    // 🔒 منع المستقبل فقط (السماح باليوم والماضي)
     if (clickedDate > today) {
         return;
     }
@@ -1201,9 +1205,9 @@ adhkarPrevWeekBtn.disabled = false;
         : `adhkarUnmarked${type.charAt(0).toUpperCase() + type.slice(1)}`;
 
     showNotification(translations[key][currentLang]);
+
     renderAdhkarWeek();
 }
-
 
             function updateAdhkarStats() {
                 const today = new Date(anchorDate);

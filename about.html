@@ -234,8 +234,8 @@
             margin: 0 auto;
         }
 
-        /* ===== بطاقة المطور ===== */
-        .developer-card {
+        /* ===== بطاقة المطور (نسخة محسنة للجوال) ===== */
+        .developer-card { 
             background: var(--background-color);
             border: 1px solid var(--border-color);
             border-radius: var(--radius);
@@ -309,11 +309,125 @@
             align-items: center;
             gap: 8px;
             text-decoration: none;
+            font-size: 0.95rem;
         }
         
         .contact-btn:hover {
             transform: translateY(-3px);
             box-shadow: var(--shadow);
+        }
+
+        /* تحسينات مخصصة للجوال */
+        @media (max-width: 768px) { 
+            .developer-card { 
+                flex-direction: column; 
+                text-align: center; 
+                padding: 20px 15px;
+                gap: 20px;
+            }
+            
+            .developer-image {
+                width: 150px;
+                height: 150px;
+                margin-bottom: 5px;
+            }
+            
+            .developer-image i {
+                font-size: 6rem;
+            }
+            
+            .developer-info {
+                min-width: 100%;
+            }
+            
+            .developer-name {
+                font-size: 1.8rem;
+            }
+            
+            .developer-title {
+                justify-content: center;
+                font-size: 1.1rem;
+                flex-wrap: wrap;
+            }
+            
+            .developer-bio {
+                font-size: 0.95rem;
+                padding: 0 5px;
+            }
+            
+            .developer-contact {
+                justify-content: center;
+                gap: 10px;
+            }
+            
+            .contact-btn {
+                padding: 8px 20px;
+                font-size: 0.9rem;
+            }
+        }
+
+        /* تحسينات للشاشات الصغيرة جداً */
+        @media (max-width: 480px) {
+            .developer-card {
+                padding: 15px 10px;
+            }
+            
+            .developer-image {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .developer-image i {
+                font-size: 5rem;
+            }
+            
+            .developer-name {
+                font-size: 1.5rem;
+            }
+            
+            .developer-title {
+                font-size: 1rem;
+                flex-direction: column;
+                gap: 5px;
+            }
+            
+            .developer-bio {
+                font-size: 0.9rem;
+                line-height: 1.6;
+            }
+            
+            .developer-contact {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+            }
+            
+            .contact-btn {
+                justify-content: center;
+                padding: 10px 15px;
+                width: 100%;
+            }
+        }
+
+        /* تحسينات للشاشات المتوسطة */
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .developer-card {
+                gap: 30px;
+                padding: 25px;
+            }
+            
+            .developer-image {
+                width: 180px;
+                height: 180px;
+            }
+            
+            .developer-image i {
+                font-size: 7rem;
+            }
+            
+            .developer-info {
+                min-width: 250px;
+            }
         }
 
         /* ===== أهداف الموقع ===== */
@@ -544,11 +658,6 @@
                 padding: 8px 12px; 
                 font-size: 0.8rem;
             }
-            .developer-card { 
-                flex-direction: column; 
-                text-align: center; 
-            }
-            .developer-contact { justify-content: center; }
         }
     </style>
 </head>
@@ -602,7 +711,7 @@
                     <p data-key="aboutDescription">تطبيق إسلامي متكامل يهدف لمساعدتك على متابعة عباداتك اليومية وتحقيق أهدافك الروحانية</p>
                 </div>
 
-                <!-- بطاقة المطور -->
+                <!-- بطاقة المطور (نسخة محسنة) -->
                 <div class="developer-card">
                     <div class="developer-image">
                         <i class="fas fa-user-circle"></i>
@@ -930,8 +1039,7 @@
             };
 
             // --- الحالة الحالية ---
-// قراءة اللغة من نفس المفتاح المستخدم في باقي صفحات الموقع
-let currentLang = localStorage.getItem('language') || 'ar';
+            let currentLang = localStorage.getItem('lang') || 'ar';
 
             // --- دوال الثيم واللغة ---
             function setupTheme() {
