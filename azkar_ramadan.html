@@ -1,0 +1,1677 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صلاتي - أدعية رمضان</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🕌</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ========== الأنماط الأساسية ========== */
+        :root {
+            --primary-color: #2a9d8f;
+            --primary-dark: #264653;
+            --secondary-color: #e76f51;
+            --accent-color: #f4a261;
+            --background-color-light: #F8FAFC;
+            --card-color-light: #FFFFFF;
+            --text-color-light: #0F172A;
+            --light-text-light: #64748B;
+            --border-color-light: #E2E8F0;
+            --background-color-dark: #0F172A;
+            --card-color-dark: #1E293B;
+            --text-color-dark: #F8FAFC;
+            --light-text-dark: #94A3B8;
+            --border-color-dark: #334155;
+
+            --background-color: var(--background-color-light);
+            --card-color: var(--card-color-light);
+            --text-color: var(--text-color-light);
+            --light-text: var(--light-text-light);
+            --border-color: var(--border-color-light);
+            
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --radius: 16px;
+            --transition: all 0.3s ease;
+            --gradient: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+        }
+
+        body.dark-mode {
+            --background-color: var(--background-color-dark);
+            --card-color: var(--card-color-dark);
+            --text-color: var(--text-color-dark);
+            --light-text: var(--light-text-dark);
+            --border-color: var(--border-color-dark);
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
+
+        body { 
+            background-color: var(--background-color); 
+            color: var(--text-color); 
+            line-height: 1.6; 
+            padding: 20px; 
+            min-height: 100vh; 
+            transition: background-color 0.3s, color 0.2s;
+        }
+        
+        body::before { 
+            content: ''; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100vh; 
+            background-color: var(--transition-bg, transparent); 
+            z-index: 9999; 
+            clip-path: circle(0% at var(--clip-x, 50%) var(--clip-y, 50%)); 
+            transition: clip-path 0.6s cubic-bezier(0.65, 0, 0.35, 1); 
+            pointer-events: none; 
+        }
+        body.transition-active::before { 
+            clip-path: circle(150% at var(--clip-x, 50%) var(--clip-y, 50%)); 
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        /* ===== الهيدر ===== */
+        header { 
+            text-align: center; 
+            margin-bottom: 40px; 
+            padding: 30px; 
+            background: var(--gradient); 
+            border-radius: var(--radius); 
+            box-shadow: var(--shadow); 
+            position: relative; 
+            overflow: hidden; 
+            color: white; 
+        }
+        header::before { 
+            content: ""; 
+            position: absolute; 
+            top: -50%; 
+            left: -50%; 
+            width: 200%; 
+            height: 200%; 
+            background: rgba(255, 255, 255, 0.1); 
+            transform: rotate(25deg); 
+        }
+        .header-top { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: relative; 
+            z-index: 2; 
+            margin-bottom: 20px; 
+        }
+        .header-controls { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+        }
+
+        .theme-switcher, .lang-switcher { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-around; 
+            background-color: rgba(0, 0, 0, 0.25); 
+            padding: 5px 15px; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            position: relative; 
+            height: 40px; 
+            color: white;
+            gap: 8px;
+        }
+        .theme-switcher { width: 70px; }
+        .lang-switcher { 
+            width: 60px; 
+            justify-content: center; 
+            font-weight: bold; 
+            font-size: 1rem; 
+        }
+        
+        .theme-switcher-handle { 
+            position: absolute; 
+            width: 30px; 
+            height: 30px; 
+            background-color: var(--secondary-color); 
+            border-radius: 50%; 
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
+            top: 5px; 
+        }
+        html[dir="rtl"] .theme-switcher-handle { right: 5px; }
+        html[dir="ltr"] .theme-switcher-handle { left: 5px; }
+        
+        html[dir="rtl"] body.dark-mode .theme-switcher-handle { transform: translateX(-30px); }
+        html[dir="ltr"] body.dark-mode .theme-switcher-handle { transform: translateX(30px); }
+        
+        .theme-switcher i { 
+            width: 30px; 
+            height: 30px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: white; 
+            z-index: 1; 
+            transition: transform 0.3s ease, color 0.3s ease; 
+        }
+        body:not(.dark-mode) .fa-sun { color: #fff; transform: scale(1.1) rotate(360deg); }
+        body.dark-mode .fa-moon { color: #fff; transform: scale(1.1) rotate(360deg); }
+        
+        h1 { 
+            margin-bottom: 10px; 
+            font-size: 2.5rem; 
+            position: relative; 
+            font-weight: 800; 
+        }
+        .subtitle { 
+            font-size: 1.2rem; 
+            opacity: 0.9; 
+            font-weight: 300; 
+        }
+
+        /* ===== شريط التنقل ===== */
+        .main-nav { 
+            display: flex; 
+            justify-content: center; 
+            background-color: rgba(0,0,0,0.2); 
+            border-radius: 50px; 
+            padding: 5px; 
+            margin-top: 20px; 
+            position: relative; 
+            z-index: 2; 
+            flex-wrap: wrap; 
+            gap: 5px;
+        }
+        .nav-tab { 
+            background-color: transparent; 
+            border: none; 
+            color: white; 
+            padding: 10px 25px; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            transition: var(--transition); 
+            font-weight: bold; 
+            font-size: 1rem; 
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .nav-tab.active { 
+            background-color: var(--secondary-color); 
+        }
+
+        /* ===== محدد اليوم ===== */
+        .day-selector {
+            background-color: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .day-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .day-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .day-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: none;
+            background: var(--gradient);
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .day-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+        
+        .day-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: var(--border-color);
+        }
+        
+        .day-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .day-progress {
+            margin-top: 15px;
+        }
+        
+        .progress-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .progress-bar {
+            flex-grow: 1;
+            height: 20px;
+            background: var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: var(--primary-color);
+            transition: width 0.5s ease;
+        }
+
+        /* ===== قائمة الأدعية ===== */
+        .duas-section {
+            background-color: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .duas-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .duas-header h2 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .dua-counter {
+            background: var(--background-color);
+            padding: 10px 20px;
+            border-radius: 50px;
+            color: var(--primary-color);
+            font-weight: bold;
+            border: 1px solid var(--border-color);
+        }
+        
+        .duas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 20px;
+            max-height: 600px;
+            overflow-y: auto;
+            padding: 10px 5px;
+        }
+        
+        .dua-card {
+            background: var(--background-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 20px;
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+        }
+        
+        .dua-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .dua-card.completed {
+            border-color: var(--primary-color);
+            background-color: rgba(42, 157, 143, 0.05);
+        }
+        
+        .dua-card.locked {
+            opacity: 0.7;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+        
+        .dua-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            color: var(--text-color);
+            padding-left: 40px;
+        }
+        
+        .dua-reference {
+            color: var(--light-text);
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .dua-status {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 1.5rem;
+            color: var(--light-text);
+            transition: var(--transition);
+        }
+        
+        .dua-card.completed .dua-status {
+            color: var(--primary-color);
+        }
+        
+        .lock-icon {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 1.2rem;
+            color: var(--light-text);
+        }
+
+        /* ===== شبكة الأيام ===== */
+        .calendar-section {
+            background-color: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .calendar-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .calendar-day {
+            background-color: var(--background-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 15px;
+            transition: var(--transition);
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .calendar-day:hover:not(.locked):not(.future) {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .calendar-day.today {
+            border: 2px solid var(--primary-color);
+        }
+        
+        .calendar-day.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background-color: var(--border-color);
+        }
+        
+        .calendar-day.future {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .calendar-day.completed {
+            border-color: var(--primary-color);
+            background-color: rgba(42, 157, 143, 0.05);
+        }
+        
+        .calendar-day.active {
+            border: 3px solid var(--secondary-color);
+            transform: scale(1.02);
+        }
+
+        .calendar-day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .calendar-day-name {
+            font-size: 1rem;
+        }
+        
+        .calendar-day-date {
+            color: var(--light-text);
+            font-size: 0.8rem;
+        }
+        
+        .calendar-day-status {
+            font-size: 1.5rem;
+            margin: 10px 0;
+            color: var(--light-text);
+        }
+        
+        .calendar-day.completed .calendar-day-status {
+            color: var(--primary-color);
+        }
+        
+        .calendar-day-stats {
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+
+        /* ===== الإحصائيات ===== */
+        .stats-section {
+            background-color: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .stats-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 25px;
+            background: var(--background-color);
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .stat-value {
+            font-size: 2.2rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .stat-label {
+            color: var(--light-text);
+            font-size: 1rem;
+        }
+
+        /* ===== عناصر مساعدة ===== */
+        .notification { 
+            position: fixed; 
+            top: 30px; 
+            right: 30px; 
+            background: var(--gradient); 
+            color: white; 
+            padding: 15px 25px; 
+            border-radius: var(--radius); 
+            box-shadow: var(--shadow); 
+            transform: translateX(150%); 
+            transition: transform 0.4s ease; 
+            z-index: 3000; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            max-width: 400px; 
+        }
+        .notification.show { 
+            transform: translateX(0); 
+        }
+
+        #back-to-top-btn { 
+            position: fixed; 
+            bottom: 30px; 
+            right: 30px; 
+            width: 50px; 
+            height: 50px; 
+            background: var(--primary-color); 
+            color: white; 
+            border: none; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 1.2rem; 
+            cursor: pointer; 
+            box-shadow: var(--shadow); 
+            opacity: 0; 
+            visibility: hidden; 
+            transform: translateY(20px); 
+            transition: all 0.3s ease; 
+            z-index: 1500; 
+        }
+        #back-to-top-btn.show { 
+            opacity: 1; 
+            visibility: visible; 
+            transform: translateY(0); 
+        }
+
+        .no-items-msg {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--light-text);
+            grid-column: 1 / -1;
+        }
+
+        .no-items-msg i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--border-color);
+        }
+
+        @media (max-width: 768px) { 
+            .header-top { flex-wrap: wrap; gap: 20px; justify-content: center; }
+            h1 { font-size: 1.8rem; }
+            .day-nav { flex-direction: column; text-align: center; }
+            .duas-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <div class="header-controls">
+                    <div class="theme-switcher" id="theme-switcher" title="تبديل المظهر">
+                        <div class="theme-switcher-handle"></div>
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <div class="lang-switcher" id="lang-switcher" title="تغيير اللغة">
+                        <span id="lang-toggle">EN</span>
+                    </div>
+                </div>
+                <div style="flex-grow: 1;"></div>
+                             <h1>
+   <h1>
+    <i class="fas fa-mosque"></i>
+    <span data-key="appTitle">صلاتي</span>
+    <span class="title-separator"> | </span>
+    <span data-key="ramadanDuasTitle">أدعية رمضان</span>
+</h1>
+
+</h1>
+
+                <div style="flex-grow: 1;"></div>
+                <div class="header-controls" style="visibility: hidden;">
+                    <div class="theme-switcher"></div>
+                    <div class="lang-switcher"></div>
+                </div>
+            </div>
+            
+            <p class="subtitle" data-key="subtitle">30 دعاءً يومياًس</p>
+
+            <!-- شريط التنقل -->
+           <div class="main-nav">
+    <a href="index.html" class="nav-tab" data-key="navHome">
+        <i class="fas fa-home"></i> الرئيسية
+    </a>
+
+    <a href="Taktem.html" class="nav-tab" data-key="navQuranKhatm">
+        <i class="fas fa-book-quran"></i> ختم القرآن
+    </a>
+
+    <a href="ramadan-duas.html" class="nav-tab active" data-key="navRamadanDuas">
+        <i class="fas fa-moon"></i> أدعية رمضان
+    </a>
+
+    <a href="traweh.html" class="nav-tab" data-key="navTaraweeh">
+        <i class="fas fa-mosque"></i> التراويح
+    </a>
+
+    <a href="sadakate.html" class="nav-tab" data-key="navSadaqati">
+        <i class="fas fa-hand-holding-heart"></i> صدقاتي
+    </a>
+
+    <a href="lessons.html" class="nav-tab" data-key="navVideos">
+        <i class="fas fa-video"></i> الدروس الدينية
+    </a>
+    <a href="about.html" class="nav-tab" data-key="navAbout">
+    عن الموقع
+</a>
+</div>
+
+        </header>
+
+        <main>
+            <!-- محدد اليوم -->
+            <div class="day-selector">
+                <div class="day-nav">
+                    <div class="day-buttons">
+                        <button class="day-btn" id="prev-day" title="اليوم السابق"><i class="fas fa-chevron-right"></i></button>
+                        <button class="day-btn" id="next-day" title="اليوم التالي"><i class="fas fa-chevron-left"></i></button>
+                    </div>
+                    <div class="day-title" id="day-title"></div>
+                    <button class="day-btn" id="today-btn" title="اليوم الحالي"><i class="fas fa-calendar-day"></i></button>
+                </div>
+                <div class="day-progress">
+                    <div class="progress-wrapper">
+                        <div class="progress-bar">
+                            <div class="progress" id="day-progress-bar" style="width: 0%"></div>
+                        </div>
+                        <span id="day-progress-text">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قائمة الأدعية -->
+            <div class="duas-section">
+                <div class="duas-header">
+                    <h2><i class="fas fa-book-open"></i> <span id="duas-title">أدعية اليوم</span></h2>
+                    <div class="dua-counter" id="dua-counter">0/30 دعاء</div>
+                </div>
+                <div class="duas-grid" id="duas-grid">
+                    <div class="no-items-msg">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>جاري تحميل الأدعية...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- التقويم -->
+            <div class="calendar-section">
+                <h2><i class="fas fa-calendar-alt"></i> <span data-key="calendarTitle">أيام التحدي</span></h2>
+                <div class="calendar-grid" id="calendar-grid"></div>
+            </div>
+
+            <!-- الإحصائيات الشاملة -->
+            <div class="stats-section">
+                <h2><i class="fas fa-chart-pie"></i> <span data-key="statsTitle">إحصائيات التحدي</span></h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" id="completed-days">0</div>
+                        <div class="stat-label" data-key="completedDays">أيام كاملة</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="total-duas">0</div>
+                        <div class="stat-label" data-key="totalDuas">إجمالي الأدعية</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="avg-duas">0</div>
+                        <div class="stat-label" data-key="avgDuas">متوسط يومي</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="best-day">-</div>
+                        <div class="stat-label" data-key="bestDay">أفضل يوم</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="remaining-days">0</div>
+                        <div class="stat-label" data-key="remainingDays">أيام متبقية</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="streak">0</div>
+                        <div class="stat-label" data-key="streak">أطول سلسلة</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <button id="back-to-top-btn" title="العودة للأعلى"><i class="fas fa-arrow-up"></i></button>
+    <div class="notification" id="notification"></div>
+
+    <script>
+        (function() {
+            // --- عناصر DOM ---
+            const themeSwitcher = document.getElementById('theme-switcher');
+            const langSwitcher = document.getElementById('lang-switcher');
+            const notification = document.getElementById('notification');
+            const backToTopBtn = document.getElementById('back-to-top-btn');
+            const duasGrid = document.getElementById('duas-grid');
+            const calendarGrid = document.getElementById('calendar-grid');
+            
+            const prevDayBtn = document.getElementById('prev-day');
+            const nextDayBtn = document.getElementById('next-day');
+            const todayBtn = document.getElementById('today-btn');
+            const dayTitle = document.getElementById('day-title');
+            const dayProgressBar = document.getElementById('day-progress-bar');
+            const dayProgressText = document.getElementById('day-progress-text');
+            const duaCounter = document.getElementById('dua-counter');
+            const duasTitle = document.getElementById('duas-title');
+            
+            const completedDaysEl = document.getElementById('completed-days');
+            const totalDuasEl = document.getElementById('total-duas');
+            const avgDuasEl = document.getElementById('avg-duas');
+            const bestDayEl = document.getElementById('best-day');
+            const remainingDaysEl = document.getElementById('remaining-days');
+            const streakEl = document.getElementById('streak');
+
+            // --- الترجمات ---
+            const translations = {
+              ar: {
+    pageTitle: "أدعية رمضان",
+    appTitle: "صلاتي",
+    ramadanDuasTitle: "أدعية رمضان",
+        navAbout: "عن الموقع", // ← أضف هذا السطر
+
+    subtitle: "30 دعاءً يومياً  ",
+    navHome: "الرئيسية",
+    navQuranKhatm: "ختم القرآن",
+    navRamadanDuas: "أدعية رمضان",
+    navTaraweeh: "التراويح",
+    navSadaqati: "صدقاتي",
+    navVideos: "الدروس الدينية",
+    navDuas: "الأدعية",
+    calendarTitle: "أيام ",
+    statsTitle: "إحصائيات ",
+    completedDays: "أيام كاملة",
+    totalDuas: "إجمالي الأدعية",
+    avgDuas: "متوسط يومي",
+    bestDay: "أفضل يوم",
+    remainingDays: "أيام متبقية",
+    streak: "أطول سلسلة",
+    notificationAdded: "تم تسجيل الدعاء",
+    notificationRemoved: "تم إلغاء الدعاء",
+    notificationLocked: "هذا اليوم غير متاح بعد",
+    day: "اليوم",
+    duasForDay: "أدعية يوم",
+    locked: "مقفل",
+    future: "قادم",
+    open: "مفتوح"
+},
+
+               en: {
+    pageTitle: "Ramadan Duas",
+    subtitle: "30 daily duas - New set every day ",
+    navHome: "Home",
+    navQuranKhatm: "Quran Khatm",
+    navRamadanDuas: "Ramadan Duas",
+    navTaraweeh: "Taraweeh",
+    navSadaqati: "My Charity",
+    navVideos: "Islamic Lessons",
+  appTitle: "My Salah",
+    ramadanDuasTitle: "Ramadan Duas",
+    navDuas: "Duas",
+    calendarTitle: " Days",
+    statsTitle: " Statistics",
+    completedDays: "Complete Days",
+    totalDuas: "Total Duas",
+    avgDuas: "Daily Average",
+    bestDay: "Best Day",
+    remainingDays: "Remaining Days",
+    streak: "Longest Streak",
+    notificationAdded: "Dua recorded",
+    notificationRemoved: "Dua removed",
+    notificationLocked: "This day is not available yet",
+    day: "Day",
+    duasForDay: "Duas for",
+    locked: "Locked",
+        navAbout: "About the Website", // ← أضف هذا السطر
+    future: "Future",
+    open: "Open"
+},
+
+            };
+
+            const dayNames = {
+                ar: ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'],
+                en: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+            };
+
+            const months = {
+                ar: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
+                en: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+            };
+
+            const duasDatabase = [
+                { ar: "رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ", en: "Our Lord, give us in this world good and in the Hereafter good and protect us from the punishment of the Fire", ref: "البقرة 201" },
+                { ar: "رَبَّنَا لَا تُؤَاخِذْنَا إِن نَّسِينَا أَوْ أَخْطَأْنَا", en: "Our Lord, do not impose blame upon us if we forget or make a mistake", ref: "البقرة 286" },
+                { ar: "رَبَّنَا لَا تَجْعَلْنَا فِتْنَةً لِّلَّذِينَ كَفَرُوا وَاغْفِرْ لَنَا رَبَّنَا", en: "Our Lord, make us not [objects of] torment for the disbelievers and forgive us, our Lord", ref: "الممتحنة 5" },
+                { ar: "رَبِّ اشْرَحْ لِي صَدْرِي وَيَسِّرْ لِي أَمْرِي", en: "My Lord, expand for me my breast and ease for me my task", ref: "طه 25-26" },
+                { ar: "رَبِّ زِدْنِي عِلْماً", en: "My Lord, increase me in knowledge", ref: "طه 114" },
+                { ar: "رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ", en: "Our Lord, grant us from among our wives and offspring comfort to our eyes", ref: "الفرقان 74" },
+                { ar: "رَبَّنَا اغْفِرْ لَنَا ذُنُوبَنَا وَإِسْرَافَنَا فِي أَمْرِنَا", en: "Our Lord, forgive us our sins and the excess [committed] in our affairs", ref: "آل عمران 147" },
+                { ar: "رَبِّ أَعُوذُ بِكَ مِنْ هَمَزَاتِ الشَّيَاطِينِ", en: "My Lord, I seek refuge in You from the incitements of the devils", ref: "المؤمنون 97" },
+                { ar: "رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنتَ السَّمِيعُ الْعَلِيمُ", en: "Our Lord, accept [this] from us. Indeed You are the All-Hearing, the All-Knowing", ref: "البقرة 127" },
+                { ar: "رَبَّنَا آتِنَا مِن لَّدُنكَ رَحْمَةً وَهَيِّئْ لَنَا مِنْ أَمْرِنَا رَشَداً", en: "Our Lord, grant us from Yourself mercy and prepare for us from our affair right guidance", ref: "الكهف 10" },
+                { ar: "رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ", en: "My Lord, enable me to be grateful for Your favor which You have bestowed upon me", ref: "النمل 19" },
+                { ar: "رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْراً وَتَوَفَّنَا مُسْلِمِينَ", en: "Our Lord, pour upon us patience and let us die as Muslims", ref: "الأعراف 126" },
+                { ar: "رَبِّ لَا تَذَرْنِي فَرْداً وَأَنتَ خَيْرُ الْوَارِثِينَ", en: "My Lord, leave me not alone [with no heir], while You are the best of inheritors", ref: "الأنبياء 89" },
+                { ar: "رَبَّنَا أَتْمِمْ لَنَا نُورَنَا وَاغْفِرْ لَنَا", en: "Our Lord, perfect for us our light and forgive us", ref: "التحريم 8" },
+                { ar: "رَبِّ اجْعَلْنِي مُقِيمَ الصَّلَاةِ وَمِن ذُرِّيَّتِي", en: "My Lord, make me an establisher of prayer, and [many] from my descendants", ref: "إبراهيم 40" },
+                { ar: "رَبَّنَا إِنَّنَا سَمِعْنَا مُنَادِياً يُنَادِي لِلْإِيمَانِ أَنْ آمِنُوا بِرَبِّكُمْ فَآمَنَّا", en: "Our Lord, indeed we have heard a caller calling to faith, [saying], 'Believe in your Lord,' and we have believed", ref: "آل عمران 193" },
+                { ar: "رَبِّ هَبْ لِي حُكْماً وَأَلْحِقْنِي بِالصَّالِحِينَ", en: "My Lord, grant me authority and join me with the righteous", ref: "الشعراء 83" },
+                { ar: "رَبَّنَا آمَنَّا فَاغْفِرْ لَنَا وَارْحَمْنَا وَأَنتَ خَيْرُ الرَّاحِمِينَ", en: "Our Lord, we have believed, so forgive us and have mercy upon us, and You are the best of the merciful", ref: "المؤمنون 109" },
+                { ar: "رَبَّنَا اصْرِفْ عَنَّا عَذَابَ جَهَنَّمَ إِنَّ عَذَابَهَا كَانَ غَرَاماً", en: "Our Lord, avert from us the punishment of Hell. Indeed its punishment is ever adhering", ref: "الفرقان 65" },
+                { ar: "رَبَّنَا هَبْ لَنَا مِن لَّدُنكَ رَحْمَةً", en: "Our Lord, grant us from Yourself mercy", ref: "الكهف 10" },
+                { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْهُدَى وَالتُّقَى وَالْعَفَافَ وَالْغِنَى", en: "O Allah, I ask You for guidance, piety, chastity and self-sufficiency", ref: "صحيح مسلم" },
+                { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ وَأَعُوذُ بِكَ مِنَ النَّارِ", en: "O Allah, I ask You for Paradise and seek refuge in You from the Fire", ref: "أبو داود" },
+                { ar: "اللَّهُمَّ أَعِنِّي عَلَى ذِكْرِكَ وَشُكْرِكَ وَحُسْنِ عِبَادَتِكَ", en: "O Allah, help me to remember You, to thank You, and to worship You well", ref: "أبو داود" },
+                { ar: "اللَّهُمَّ إِنِّي ظَلَمْتُ نَفْسِي ظُلْماً كَثِيراً وَلَا يَغْفِرُ الذُّنُوبَ إِلَّا أَنْتَ", en: "O Allah, I have greatly wronged myself, and no one forgives sins except You", ref: "البخاري" },
+                { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ", en: "O Allah, I ask You for pardon and well-being in this world and the Hereafter", ref: "أبو داود" },
+                { ar: "اللَّهُمَّ اغْفِرْ لِي وَارْحَمْنِي وَاهْدِنِي وَعَافِنِي وَارْزُقْنِي", en: "O Allah, forgive me, have mercy on me, guide me, grant me well-being, and provide for me", ref: "صحيح مسلم" },
+                { ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ حُبَّكَ وَحُبَّ مَنْ يُحِبُّكَ", en: "O Allah, I ask You for Your love and the love of those who love You", ref: "الترمذي" },
+                { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ الْهَمِّ وَالْحَزَنِ وَالْعَجْزِ وَالْكَسَلِ", en: "O Allah, I seek refuge in You from anxiety and sorrow, weakness and laziness", ref: "البخاري" },
+                { ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ جَهْدِ الْبَلَاءِ وَدَرَكِ الشَّقَاءِ", en: "O Allah, I seek refuge in You from the hardships of trial and the reach of misery", ref: "البخاري" },
+                { ar: "اللَّهُمَّ اجْعَلْ خَيْرَ عُمْرِي آخِرَهُ وَخَيْرَ عَمَلِي خَوَاتِمَهُ", en: "O Allah, make the best of my life its end, and the best of my deeds my last actions", ref: "دعاء مأثور" },
+                { ar: "رَبَّنَا اغْفِرْ لَنَا وَلِإِخْوَانِنَا الَّذِينَ سَبَقُونَا بِالْإِيمَانِ", en: "Our Lord, forgive us and our brothers who preceded us in faith", ref: "الحشر 10" },
+                { ar: "رَبَّنَا عَلَيْكَ تَوَكَّلْنَا وَإِلَيْكَ أَنَبْنَا وَإِلَيْكَ الْمَصِيرُ", en: "Our Lord, upon You we have relied, and to You we have returned, and to You is the destination", ref: "الممتحنة 4" },
+                { ar: "رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْرًا وَثَبِّتْ أَقْدَامَنَا", en: "Our Lord, pour upon us patience and plant firmly our feet", ref: "البقرة 250" },
+                { ar: "رَبِّ إِنِّي لِمَا أَنزَلْتَ إِلَيَّ مِنْ خَيْرٍ فَقِيرٌ", en: "My Lord, indeed I am, for whatever good You would send down to me, in need", ref: "القصص 24" },
+                { ar: "رَبِّ نَجِّنِي مِنَ الْقَوْمِ الظَّالِمِينَ", en: "My Lord, save me from the wrongdoing people", ref: "القصص 21" },
+                { ar: "رَبَّنَا آمَنَّا بِمَا أَنزَلْتَ وَاتَّبَعْنَا الرَّسُولَ", en: "Our Lord, we have believed in what You revealed and have followed the messenger", ref: "آل عمران 53" },
+                { ar: "رَبَّنَا إِنَّنَا نَخَافُ أَن يَفْرُطَ عَلَيْنَا أَوْ أَن يَطْغَى", en: "Our Lord, indeed we are afraid that he will be hastening against us or that he will transgress", ref: "طه 45" },
+                { ar: "رَبِّ إِنِّي أَعُوذُ بِكَ أَنْ أَسْأَلَكَ مَا لَيْسَ لِي بِهِ عِلْمٌ", en: "My Lord, I seek refuge in You from asking that of which I have no knowledge", ref: "هود 47" },
+                { ar: "رَبَّنَا لاَ تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا", en: "Our Lord, let not our hearts deviate after You have guided us", ref: "آل عمران 8" },
+                { ar: "رَبَّنَا إِنَّكَ جَامِعُ النَّاسِ لِيَوْمٍ لاَّ رَيْبَ فِيهِ", en: "Our Lord, surely You will gather the people for a Day about which there is no doubt", ref: "آل عمران 9" },
+                { ar: "رَبَّنَا إِنَّنَا آمَنَّا فَاغْفِرْ لَنَا ذُنُوبَنَا وَقِنَا عَذَابَ النَّارِ", en: "Our Lord, indeed we have believed, so forgive us our sins and protect us from the punishment of the Fire", ref: "آل عمران 16" },
+                { ar: "رَبَّنَا آمَنَّا فَاكْتُبْنَا مَعَ الشَّاهِدِينَ", en: "Our Lord, we have believed, so register us among the witnesses", ref: "المائدة 83" },
+                { ar: "رَبَّنَا أَخْرِجْنَا مِنْ هَذِهِ الْقَرْيَةِ الظَّالِمِ أَهْلُهَا", en: "Our Lord, take us out of this city of oppressive people", ref: "النساء 75" },
+                { ar: "رَبَّنَا وَسِعْتَ كُلَّ شَيْءٍ رَّحْمَةً وَعِلْماً", en: "Our Lord, You have encompassed all things in mercy and knowledge", ref: "غافر 7" },
+                { ar: "رَبَّنَا اغْفِرْ لَنَا وَلِإِخْوَانِنَا الَّذِينَ سَبَقُونَا بِالْإِيمَانِ", en: "Our Lord, forgive us and our brothers who preceded us in faith", ref: "الحشر 10" },
+                { ar: "رَبَّنَا لاَ تَجْعَلْنَا فِتْنَةً لِّلْقَوْمِ الظَّالِمِينَ", en: "Our Lord, make us not [objects of] torment for the wrongdoing people", ref: "يونس 85" },
+                { ar: "رَبَّنَا افْتَحْ بَيْنَنَا وَبَيْنَ قَوْمِنَا بِالْحَقِّ", en: "Our Lord, decide between us and our people in truth", ref: "الأعراف 89" },
+                { ar: "رَبَّنَا أَفْرِغْ عَلَيْنَا صَبْراً وَتَوَفَّنَا مُسْلِمِينَ", en: "Our Lord, pour upon us patience and let us die as Muslims", ref: "الأعراف 126" },
+                { ar: "رَبَّنَا لاَ تُؤَاخِذْنَا إِن نَّسِينَا أَوْ أَخْطَأْنَا", en: "Our Lord, do not impose blame upon us if we forget or make a mistake", ref: "البقرة 286" },
+                { ar: "رَبَّنَا وَلاَ تَحْمِلْ عَلَيْنَا إِصْراً كَمَا حَمَلْتَهُ عَلَى الَّذِينَ مِن قَبْلِنَا", en: "Our Lord, and lay not upon us a burden like that which You laid upon those before us", ref: "البقرة 286" },
+                { ar: "اللَّهُمَّ اغْفِرْ لِي خَطِيئَتِي وَجَهْلِي وَإِسْرَافِي فِي أَمْرِي", en: "O Allah, forgive my mistakes, my ignorance, and my excess in my affairs", ref: "البخاري" },
+{ ar: "اللَّهُمَّ طَهِّرْ قَلْبِي مِنَ النِّفَاقِ وَعَمَلِي مِنَ الرِّيَاءِ", en: "O Allah, purify my heart from hypocrisy and my deeds from showing off", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ رِضَاكَ وَالْجَنَّةَ", en: "O Allah, I ask You for Your pleasure and Paradise", ref: "الترمذي" },
+{ ar: "اللَّهُمَّ قِنِي شَرَّ نَفْسِي", en: "O Allah, protect me from the evil of my soul", ref: "الترمذي" },
+{ ar: "اللَّهُمَّ اهْدِنِي وَسَدِّدْنِي", en: "O Allah, guide me and make me steadfast", ref: "مسلم" },
+{ ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الثَّبَاتَ فِي الْأَمْرِ", en: "O Allah, I ask You for steadfastness in all matters", ref: "الترمذي" },
+{ ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ قَلْبًا سَلِيمًا", en: "O Allah, I ask You for a sound heart", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا عَمِلْتُ", en: "O Allah, I seek refuge in You from the evil of what I have done", ref: "مسلم" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ التَّوَّابِينَ وَاجْعَلْنِي مِنَ الْمُتَطَهِّرِينَ", en: "O Allah, make me among those who repent and purify themselves", ref: "الترمذي" },
+{ ar: "اللَّهُمَّ بَارِكْ لِي فِي وَقْتِي", en: "O Allah, bless my time", ref: "دعاء مأثور" },
+
+{ ar: "اللَّهُمَّ بَارِكْ لِي فِي رِزْقِي", en: "O Allah, bless my provision", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا", en: "O Allah, I ask You for beneficial knowledge", ref: "ابن ماجه" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي فِقْهًا فِي الدِّينِ", en: "O Allah, grant me understanding in religion", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ حُسْنَ الْخَاتِمَةِ", en: "O Allah, I ask You for a good ending", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الصَّابِرِينَ", en: "O Allah, make me among the patient", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الشَّاكِرِينَ", en: "O Allah, make me among the grateful", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اغْفِرْ لِي وَلِوَالِدَيَّ", en: "O Allah, forgive me and my parents", ref: "إبراهيم 41" },
+{ ar: "اللَّهُمَّ ارْحَمْنِي وَارْزُقْنِي", en: "O Allah, have mercy on me and provide for me", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ السَّكِينَةَ", en: "O Allah, I ask You for tranquility", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْ قُرْآنَ رَبِيعَ قَلْبِي", en: "O Allah, make the Quran the spring of my heart", ref: "أحمد" },
+
+{ ar: "اللَّهُمَّ نَوِّرْ قَلْبِي", en: "O Allah, illuminate my heart", ref: "مسلم" },
+{ ar: "اللَّهُمَّ اغْفِرْ لِي ذَنْبِي كُلَّهُ", en: "O Allah, forgive all my sins", ref: "مسلم" },
+{ ar: "اللَّهُمَّ أَصْلِحْ لِي دِينِي وَدُنْيَايَ", en: "O Allah, rectify my religion and my worldly life", ref: "مسلم" },
+{ ar: "اللَّهُمَّ أَصْلِحْ لِي شَأْنِي كُلَّهُ", en: "O Allah, set right all my affairs", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اكْفِنِي بِحَلَالِكَ عَنْ حَرَامِكَ", en: "O Allah, suffice me with what You have made lawful instead of what You have forbidden", ref: "الترمذي" },
+{ ar: "اللَّهُمَّ أَغْنِنِي بِفَضْلِكَ عَمَّنْ سِوَاكَ", en: "O Allah, enrich me by Your grace from needing others", ref: "الترمذي" },
+{ ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْإِخْلَاصَ فِي الْقَوْلِ وَالْعَمَلِ", en: "O Allah, I ask You for sincerity in speech and action", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ احْفَظْنِي مِنْ بَيْنِ يَدَيَّ وَمِنْ خَلْفِي", en: "O Allah, protect me from in front of me and behind me", ref: "أبو داود" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي هَادِيًا مَهْدِيًّا", en: "O Allah, make me guided and a guide for others", ref: "الترمذي" },
+{ ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الضَّلَالِ", en: "O Allah, I seek refuge in You from misguidance", ref: "أبو داود" },
+
+{ ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْفَقْرِ", en: "O Allah, I seek refuge in You from poverty", ref: "أبو داود" },
+{ ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْكُفْرِ", en: "O Allah, I seek refuge in You from disbelief", ref: "أبو داود" },
+{ ar: "اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ", en: "O Allah, I seek refuge in You from the punishment of the grave", ref: "البخاري" },
+{ ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْيُسْرَ وَالْبَرَكَةَ", en: "O Allah, I ask You for ease and blessings", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِفْتَاحًا لِلْخَيْرِ", en: "O Allah, make me a key to goodness", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ بَاعِدْ بَيْنِي وَبَيْنَ خَطَايَايَ", en: "O Allah, distance me from my sins", ref: "البخاري" },
+{ ar: "اللَّهُمَّ طَهِّرْنِي مِنَ الذُّنُوبِ", en: "O Allah, purify me from sins", ref: "البخاري" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الْمُتَّقِينَ", en: "O Allah, make me among the righteous", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ السِّتْرَ", en: "O Allah, I ask You for concealment and protection", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْ لِي نُورًا فِي قَلْبِي", en: "O Allah, place light in my heart", ref: "مسلم" },
+{ ar: "اللَّهُمَّ زَوِّجْنِي زَوْجَةً صَالِحَةً تَكُونُ عَوْنًا لِي عَلَى طَاعَتِكَ", en: "O Allah, bless me with a righteous spouse who helps me obey You", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي الزَّوْجَةَ الصَّالِحَةَ وَاجْعَلْ بَيْنَنَا مَوَدَّةً وَرَحْمَةً", en: "O Allah, grant me a righteous wife and place love and mercy between us", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي زَوْجًا صَالِحًا تَقَرُّ بِهِ عَيْنِي", en: "O Allah, grant me a righteous spouse who will be the comfort of my eyes", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ بَارِكْ لِي فِي زَوْجِي وَبَارِكْ لِي فِي أَهْلِي", en: "O Allah, bless my spouse and my family", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْ زَوَاجِي سَكَنًا وَمَوَدَّةً وَرَحْمَةً", en: "O Allah, make my marriage full of tranquility, love and mercy", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي الذُّرِّيَّةَ الصَّالِحَةَ", en: "O Allah, grant me righteous offspring", ref: "آل عمران 38" },
+{ ar: "رَبِّ هَبْ لِي مِن لَّدُنكَ ذُرِّيَّةً طَيِّبَةً", en: "My Lord, grant me from Yourself a good offspring", ref: "آل عمران 38" },
+{ ar: "اللَّهُمَّ اجْمَعْ بَيْنِي وَبَيْنَ زَوْجِي عَلَى خَيْرٍ", en: "O Allah, unite me and my spouse upon goodness", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ أَلِّفْ بَيْنَ قُلُوبِنَا", en: "O Allah, unite our hearts", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي زَوَاجًا مُبَارَكًا", en: "O Allah, grant me a blessed marriage", ref: "دعاء مشروع" },
+
+{ ar: "اللَّهُمَّ ارْزُقْنِي رِزْقًا حَلَالًا طَيِّبًا وَاسِعًا", en: "O Allah, grant me lawful, good and abundant provision", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اكْفِنِي بِحَلَالِكَ عَنْ حَرَامِكَ وَأَغْنِنِي بِفَضْلِكَ", en: "O Allah, suffice me with what is lawful and enrich me by Your grace", ref: "الترمذي" },
+{ ar: "اللَّهُمَّ بَارِكْ لِي فِي رِزْقِي وَوَسِّعْ عَلَيَّ", en: "O Allah, bless my provision and expand it for me", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي مِنْ حَيْثُ لَا أَحْتَسِبُ", en: "O Allah, provide for me from where I do not expect", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ فَتِّحْ لِي أَبْوَابَ الرِّزْقِ", en: "O Allah, open for me the doors of provision", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اغْنِنِي بِفَضْلِكَ عَنِ النَّاسِ", en: "O Allah, enrich me by Your grace from needing people", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ يَسِّرْ لِي أَمْرَ رِزْقِي", en: "O Allah, make my provision easy for me", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْ رِزْقِي طَيِّبًا مُبَارَكًا", en: "O Allah, make my provision good and blessed", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ لَا تَجْعَلْ الدُّنْيَا أَكْبَرَ هَمِّي", en: "O Allah, do not make this world my greatest concern", ref: "الترمذي" },
+{ ar: "اللَّهُمَّ اقْسِمْ لِي مِنْ خَشْيَتِكَ مَا تَحُولُ بِهِ بَيْنِي وَبَيْنَ مَعَاصِيكَ", en: "O Allah, grant me fear of You that keeps me away from sins", ref: "الترمذي" },
+
+{ ar: "اللَّهُمَّ أَصْلِحْ حَالِي كُلَّهُ", en: "O Allah, rectify all my affairs", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ يَسِّرْ لِي أُمُورِي كُلَّهَا", en: "O Allah, make all my matters easy", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ فَرِّجْ هَمِّي وَنَفِّسْ كَرْبِي", en: "O Allah, relieve my worries and ease my distress", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اشْفِ صَدْرِي وَيَسِّرْ أَمْرِي", en: "O Allah, heal my heart and ease my affairs", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الْمُوَفَّقِينَ", en: "O Allah, make me among the successful", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي التَّوْفِيقَ فِي حَيَاتِي", en: "O Allah, grant me success in my life", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اهْدِنِي لِأَحْسَنِ الْأَخْلَاقِ", en: "O Allah, guide me to the best of manners", ref: "مسلم" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِمَّنْ تُحِبُّهُمْ", en: "O Allah, make me among those whom You love", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ ثَبِّتْ قَلْبِي عَلَى دِينِكَ", en: "O Allah, keep my heart firm upon Your religion", ref: "الترمذي" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الصَّالِحِينَ", en: "O Allah, make me among the righteous", ref: "دعاء مأثور" },
+
+{ ar: "اللَّهُمَّ احْفَظْنِي بِحِفْظِكَ", en: "O Allah, protect me with Your protection", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اكْتُبْ لِي الْخَيْرَ حَيْثُ كَانَ", en: "O Allah, decree goodness for me wherever it is", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْ خَيْرَ أَيَّامِي يَوْمَ أَلْقَاكَ", en: "O Allah, make the best of my days the day I meet You", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ بَارِكْ لِي فِي عُمْرِي وَعَمَلِي", en: "O Allah, bless my life and my deeds", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِمَّنْ يَسْتَمِعُونَ الْقَوْلَ فَيَتَّبِعُونَ أَحْسَنَهُ", en: "O Allah, make me among those who listen and follow the best of speech", ref: "الزمر 18" },
+{ ar: "اللَّهُمَّ اغْفِرْ لِي وَاهْدِنِي وَارْزُقْنِي", en: "O Allah, forgive me, guide me and provide for me", ref: "مسلم" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِفْتَاحًا لِلْخَيْرِ مِغْلَاقًا لِلشَّرِّ", en: "O Allah, make me a key to goodness and a lock against evil", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي حُسْنَ الظَّنِّ بِكَ", en: "O Allah, grant me good expectations of You", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ نَوِّرْ دَرْبِي وَيَسِّرْ طَرِيقِي", en: "O Allah, illuminate my path and make my way easy", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ السَّعَادَةِ", en: "O Allah, make me among the people of happiness", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي زَوْجَةً صَالِحَةً تَكُونُ قُرَّةَ عَيْنٍ لِي", en: "O Allah, grant me a righteous wife who will be the comfort of my eyes", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ زَوِّجْنِي زَوَاجًا صَالِحًا مُبَارَكًا", en: "O Allah, bless me with a righteous and blessed marriage", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي الزَّوْجَةَ الصَّالِحَةَ الَّتِي تُعِينُنِي عَلَى دِينِي", en: "O Allah, grant me a righteous spouse who helps me in my faith", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْ زَوَاجِي سَكَنًا وَمَوَدَّةً وَرَحْمَةً", en: "O Allah, make my marriage full of tranquility, love and mercy", ref: "الروم 21 (معنى)" },
+{ ar: "اللَّهُمَّ اخْتَرْ لِي وَلَا تُخَيِّرْنِي فِي زَوَاجِي", en: "O Allah, choose what is best for me in my marriage", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ يَسِّرْ لِي الزَّوَاجَ وَبَارِكْ لِي فِيهِ", en: "O Allah, make marriage easy for me and bless it", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي زَوْجًا صَالِحًا يَخَافُكَ", en: "O Allah, grant me a righteous spouse who fears You", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْمَعْ بَيْنِي وَبَيْنَ زَوْجِي عَلَى طَاعَتِكَ", en: "O Allah, unite me and my spouse upon Your obedience", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ أَلِّفْ بَيْنَ قُلُوبِنَا وَاجْعَلْ بَيْتَنَا مُبَارَكًا", en: "O Allah, unite our hearts and bless our home", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ بَارِكْ لِي فِي شَرِيكِ حَيَاتِي الْمُسْتَقْبَلِي", en: "O Allah, bless my future life partner", ref: "دعاء مشروع" },
+
+{ ar: "اللَّهُمَّ ارْزُقْنِي رِزْقًا حَلَالًا وَاسِعًا طَيِّبًا", en: "O Allah, grant me lawful, abundant and good provision", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ فَتِّحْ لِي أَبْوَابَ الرِّزْقِ وَالْبَرَكَةِ", en: "O Allah, open for me the doors of provision and blessings", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ بَارِكْ لِي فِي مَالِي وَرِزْقِي", en: "O Allah, bless my wealth and provision", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي مِنْ فَضْلِكَ رِزْقًا لَا يَنْقَطِعُ", en: "O Allah, grant me provision from Your فضل that never ends", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اغْنِنِي بِحَلَالِكَ عَنْ حَرَامِكَ", en: "O Allah, suffice me with what is lawful instead of what is forbidden", ref: "الترمذي" },
+{ ar: "اللَّهُمَّ يَسِّرْ لِي أَمْرَ رِزْقِي وَبَارِكْ فِيهِ", en: "O Allah, make my provision easy and bless it", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي مِنْ حَيْثُ لَا أَحْتَسِبُ", en: "O Allah, provide for me from where I do not expect", ref: "الطلاق 3 (معنى)" },
+{ ar: "اللَّهُمَّ اجْعَلْ رِزْقِي طَيِّبًا مُبَارَكًا فِيهِ", en: "O Allah, make my provision good and blessed", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ لَا تَحْرِمْنِي سَعَةَ رِزْقِكَ", en: "O Allah, do not deprive me of the abundance of Your provision", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ أَغْنِنِي بِفَضْلِكَ عَمَّنْ سِوَاكَ", en: "O Allah, enrich me by Your grace from needing others", ref: "الترمذي" },
+
+{ ar: "اللَّهُمَّ وَفِّقْنِي فِي دِرَاسَتِي وَعَمَلِي", en: "O Allah, grant me success in my studies and work", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي التَّوْفِيقَ فِي كُلِّ أُمُورِي", en: "O Allah, grant me success in all my affairs", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ يَسِّرْ لِي طَرِيقَ النَّجَاحِ", en: "O Allah, make the path of success easy for me", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْ التَّوْفِيقَ حَلِيفِي دَائِمًا", en: "O Allah, make success my constant companion", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ بَارِكْ لِي فِي جُهْدِي وَعَمَلِي", en: "O Allah, bless my efforts and work", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ سَدِّدْ خُطَايَ وَوَفِّقْنِي لِلْخَيْرِ", en: "O Allah, guide my steps and grant me success in الخير", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الْمُوَفَّقِينَ فِي الدُّنْيَا وَالْآخِرَةِ", en: "O Allah, make me among the successful in this life and the Hereafter", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ أَصْلِحْ لِي شَأْنِي كُلَّهُ وَلَا تَكِلْنِي إِلَى نَفْسِي", en: "O Allah, set right all my affairs and do not leave me to myself", ref: "النسائي" },
+{ ar: "اللَّهُمَّ نَوِّرْ طَرِيقِي وَوَفِّقْنِي لِلصَّوَابِ", en: "O Allah, illuminate my path and guide me to what is right", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِفْتَاحًا لِلتَّوْفِيقِ وَالنَّجَاحِ", en: "O Allah, make me a key to success and achievement", ref: "دعاء مشروع" },
+
+{ ar: "اللَّهُمَّ يَسِّرْ لِي الزَّوَاجَ الصَّالِحَ فِي الْوَقْتِ الْمُنَاسِبِ", en: "O Allah, grant me righteous marriage at the right time", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي شَرِيكَ حَيَاةٍ صَالِحًا مُحِبًّا", en: "O Allah, grant me a loving and righteous life partner", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْ زَوَاجِي بَدَايَةَ سَعَادَتِي", en: "O Allah, make my marriage the beginning of my happiness", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ بَارِكْ لِي فِي حَيَاتِي الزَّوْجِيَّةِ", en: "O Allah, bless my married life", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْ بَيْتِي مَلِيئًا بِالْمَحَبَّةِ وَالسَّكِينَةِ", en: "O Allah, fill my home with love and tranquility", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي زَوَاجًا يَرْضِيكَ عَنِّي", en: "O Allah, grant me a marriage that pleases You", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْ زَوْجِي/زَوْجَتِي مِنَ الصَّالِحِينَ", en: "O Allah, make my spouse among the righteous", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْنَا زَوْجَيْنِ صَالِحَيْنِ مُتَحَابَّيْنِ فِيكَ", en: "O Allah, make us righteous spouses who love each other for Your sake", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ أَسْعِدْ قَلْبِي بِزَوَاجٍ مُبَارَكٍ", en: "O Allah, make my heart happy with a blessed marriage", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي السَّكِينَةَ فِي زَوَاجِي", en: "O Allah, grant me tranquility in my marriage", ref: "دعاء مشروع" },
+
+{ ar: "اللَّهُمَّ ارْزُقْنِي الزَّوَاجَ الصَّالِحَ الَّذِي يُقَرِّبُنِي إِلَيْكَ", en: "O Allah, grant me a righteous marriage that brings me closer to You", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اخْتَرْ لِي الزَّوْجَةَ الصَّالِحَةَ خَيْرَ اخْتِيَارٍ", en: "O Allah, choose for me the best righteous spouse", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْ زَوَاجِي مِلْئَهُ الْبَرَكَةُ وَالسَّعَادَةُ", en: "O Allah, make my marriage full of blessings and happiness", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي زَوَاجًا يُسْعِدُ قَلْبِي وَيُرْضِيكَ", en: "O Allah, grant me a marriage that pleases You and brings happiness to my heart", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ يَسِّرْ لِي شَرِيكَ حَيَاةٍ صَالِحًا", en: "O Allah, grant me a righteous life partner with ease", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ بَارِكْ لِي فِي خِيَارَاتِي فِي الزَّوَاجِ", en: "O Allah, bless my choices in marriage", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْ زَوَاجِي عَوْنًا لِي عَلَى طَاعَتِكَ", en: "O Allah, make my marriage a help in obeying You", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ أَلْهِمْنِي الِاخْتِيَارَ الصَّالِحَ فِي الزَّوَاجِ", en: "O Allah, inspire me to make the right choice in marriage", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي زَوْجًا/زَوْجَةً صَالِحَةً مُحِبَّةً", en: "O Allah, grant me a loving and righteous spouse", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْ بَيْتِي بَيْتًا صَالِحًا مُبَارَكًا", en: "O Allah, make my home righteous and blessed", ref: "دعاء مشروع" },
+
+{ ar: "اللَّهُمَّ ارْزُقْنِي رِزْقًا وَاسِعًا مُبَارَكًا فِيهِ", en: "O Allah, grant me wide and blessed provision", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ يَا رَزَّاقُ ارْزُقْنِي مِنْ فَضْلِكَ", en: "O Provider, grant me from Your فضل", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ بَارِكْ لِي فِي دَخْلِي وَمَالِي", en: "O Allah, bless my income and wealth", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْ رِزْقِي سَهْلًا مُيَسَّرًا", en: "O Allah, make my provision easy and accessible", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ لَا تَجْعَلْ فِي رِزْقِي ضِيقًا", en: "O Allah, do not place hardship in my provision", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي الْبَرَكَةَ فِي كُلِّ مَا أَمْلِكُ", en: "O Allah, bless everything I possess", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ وَسِّعْ عَلَيَّ أَبْوَابَ الْخَيْرِ وَالرِّزْقِ", en: "O Allah, expand the doors of goodness and provision for me", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْ رِزْقِي نَقِيًّا طَيِّبًا", en: "O Allah, make my provision pure and good", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اكْتُبْ لِي رِزْقًا حَلَالًا مُبَارَكًا", en: "O Allah, decree for me lawful and blessed provision", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ أَغْنِنِي بِرِزْقِكَ عَنْ كُلِّ خَلْقِكَ", en: "O Allah, enrich me with Your provision over all creation", ref: "دعاء مأثور" },
+
+{ ar: "اللَّهُمَّ وَفِّقْنِي فِي قَرَارَاتِي", en: "O Allah, grant me success in my decisions", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلِ التَّوْفِيقَ حَلِيفِي فِي كُلِّ خُطُوَةٍ", en: "O Allah, make success my companion in every step", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ يَسِّرْ لِي طَرِيقَ التَّفَوُّقِ", en: "O Allah, make the path of excellence easy for me", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ بَارِكْ لِي فِي جُهُودِي وَوَقْتِي", en: "O Allah, bless my efforts and time", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ النَّاجِحِينَ فِي الدُّنْيَا وَالْآخِرَةِ", en: "O Allah, make me among the successful in this life and the Hereafter", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ سَدِّدْ رَأْيِي وَأَفْكَارِي", en: "O Allah, guide my thoughts and opinions", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي حُسْنَ التَّخْطِيطِ وَالنَّجَاحِ", en: "O Allah, grant me good planning and success", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ وَفِّقْنِي لِكُلِّ خَيْرٍ تُحِبُّهُ", en: "O Allah, grant me success in every good You love", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْ خُطَايَ مَبْنِيَّةً عَلَى التَّوْفِيقِ", en: "O Allah, make my steps guided by success", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ لَا تُصَعِّبْ عَلَيَّ طَرِيقَ النَّجَاحِ", en: "O Allah, do not make the path of success difficult for me", ref: "دعاء مشروع" },
+
+{ ar: "اللَّهُمَّ ارْزُقْنِي الزَّوَاجَ الَّذِي فِيهِ سَكِينَةٌ وَرَاحَةٌ", en: "O Allah, grant me a marriage full of tranquility and comfort", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْ زَوَاجِي قَائِمًا عَلَى التَّقْوَى", en: "O Allah, make my marriage based on piety", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ بَارِكْ لِي فِي نِيَّةِ الزَّوَاجِ", en: "O Allah, bless my intention for marriage", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي أَهْلًا لِلزَّوَاجِ الصَّالِحِ", en: "O Allah, make me worthy of a righteous marriage", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ يَسِّرْ لِي أَسْبَابَ الزَّوَاجِ", en: "O Allah, facilitate the means of marriage for me", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اخْتِمْ لِي بِزَوَاجٍ مُبَارَكٍ", en: "O Allah, bless me with a blessed marriage ending", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْ حَيَاتِي الزَّوْجِيَّةَ مَلِيئَةً بِالرِّضَا", en: "O Allah, make my married life full of contentment", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي زَوْجًا/زَوْجَةً صَالِحًا", en: "O Allah, make me a righteous spouse", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي التَّفَاهُمَ فِي الزَّوَاجِ", en: "O Allah, grant me understanding in marriage", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ بَارِكْ فِي مَشْرُوعِ زَوَاجِي", en: "O Allah, bless my marriage journey", ref: "دعاء مشروع" },
+
+{ ar: "اللَّهُمَّ اجْعَلْ رِزْقِي فِيهِ بَرَكَةٌ دَائِمَةٌ", en: "O Allah, make my provision filled with lasting blessings", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ أَكْثِرْ لِي مِنَ الرِّزْقِ الطَّيِّبِ", en: "O Allah, increase my good provision", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ لَا تَحْرِمْنِي فَضْلَكَ وَكَرَمَكَ", en: "O Allah, do not deprive me of Your grace and generosity", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْ رِزْقِي مَقْرُونًا بِالْبَرَكَةِ", en: "O Allah, make my provision accompanied by blessings", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ وَسِّعْ لِي فِي أَرْزَاقِي", en: "O Allah, expand my provisions", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي أَفْضَلَ الرِّزْقِ", en: "O Allah, grant me the best provision", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْ رِزْقِي سَبَبًا لِلسَّعَادَةِ", en: "O Allah, make my provision a cause of happiness", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ بَارِكْ لِي فِي كُلِّ رِزْقٍ تُعْطِينِي", en: "O Allah, bless every provision You give me", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي الرِّزْقَ الَّذِي يُقَرِّبُنِي مِنْكَ", en: "O Allah, grant me provision that brings me closer to You", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْ رِزْقِي نُورًا وَخَيْرًا", en: "O Allah, make my provision light and goodness", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ وَمَا قَرَّبَ إِلَيْهَا مِنْ قَوْلٍ وَعَمَلٍ", en: "O Allah, I ask You for Paradise and whatever brings me closer to it in words and deeds", ref: "ابن ماجه" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْجَنَّةِ", en: "O Allah, make me among the people of Paradise", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي الْفِرْدَوْسَ الْأَعْلَى", en: "O Allah, grant me Al-Firdaus Al-A‘la", ref: "البخاري (معنى)" },
+{ ar: "اللَّهُمَّ اجْعَلْ آخِرَ كَلَامِي مِنَ الدُّنْيَا لَا إِلَهَ إِلَّا اللَّهُ", en: "O Allah, make my last words in الدنيا: La ilaha illa Allah", ref: "أبو داود" },
+{ ar: "اللَّهُمَّ اخْتِمْ لِي بِالصَّالِحَاتِ", en: "O Allah, let my end be upon righteous deeds", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْ قَبْرِي رَوْضَةً مِنْ رِيَاضِ الْجَنَّةِ", en: "O Allah, make my grave a garden from the gardens of Paradise", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ أَجِرْنِي مِنَ النَّارِ وَأَدْخِلْنِي الْجَنَّةَ", en: "O Allah, save me from the Fire and admit me into Paradise", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ السَّابِقِينَ إِلَى الْجَنَّةِ", en: "O Allah, make me among those who hasten to Paradise", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ حَرِّمْ وَجْهِي عَلَى النَّارِ", en: "O Allah, forbid my face from the Fire", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ نَقِّنِي مِنَ الذُّنُوبِ كَمَا يُنَقَّى الثَّوْبُ الْأَبْيَضُ", en: "O Allah, cleanse me of sins as a white garment is cleansed", ref: "البخاري" },
+
+{ ar: "اللَّهُمَّ وَفِّقْنِي لِمَا تُحِبُّ وَتَرْضَى", en: "O Allah, grant me success in what You love and are pleased with", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ يَسِّرْ لِي كُلَّ أَمْرٍ عَسِيرٍ", en: "O Allah, make every difficult matter easy for me", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ سَدِّدْ خُطَايَ وَوَفِّقْنِي لِلصَّوَابِ", en: "O Allah, guide my steps and grant me correctness", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلِ التَّوْفِيقَ حَلِيفِي فِي حَيَاتِي", en: "O Allah, make success my companion in life", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ بَارِكْ لِي فِي وَقْتِي وَجُهْدِي", en: "O Allah, bless my time and efforts", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي النَّجَاحَ وَالتَّفَوُّقَ", en: "O Allah, grant me success and excellence", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْ أَعْمَالِي كُلَّهَا صَالِحَةً", en: "O Allah, make all my deeds righteous", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اهْدِنِي وَوَفِّقْنِي فِي قَرَارَاتِي", en: "O Allah, guide and grant me success in my decisions", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ لَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ", en: "O Allah, do not leave me to myself even for a blink of an eye", ref: "النسائي" },
+{ ar: "اللَّهُمَّ اجْعَلْ طَرِيقِي مَلِيئًا بِالتَّوْفِيقِ", en: "O Allah, make my path full of success", ref: "دعاء مشروع" },
+
+{ ar: "اللَّهُمَّ اغْفِرْ لِي وَارْحَمْنِي وَاهْدِنِي", en: "O Allah, forgive me, have mercy on me and guide me", ref: "مسلم" },
+{ ar: "اللَّهُمَّ تَقَبَّلْ مِنِّي صَالِحَ أَعْمَالِي", en: "O Allah, accept my righteous deeds", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ التَّوَّابِينَ", en: "O Allah, make me among those who repent often", ref: "الترمذي" },
+{ ar: "اللَّهُمَّ طَهِّرْ قَلْبِي وَزَكِّ نَفْسِي", en: "O Allah, purify my heart and soul", ref: "مسلم" },
+{ ar: "اللَّهُمَّ زِدْنِي إِيمَانًا وَيَقِينًا", en: "O Allah, increase me in faith and certainty", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الصَّالِحِينَ وَالْمُتَّقِينَ", en: "O Allah, make me among the righteous and pious", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ أَحْيِنِي عَلَى طَاعَتِكَ", en: "O Allah, keep me alive upon Your obedience", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ تَوَفَّنِي وَأَنْتَ رَاضٍ عَنِّي", en: "O Allah, take my soul while You are pleased with me", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الذِّكْرِ وَالطَّاعَةِ", en: "O Allah, make me among the people of remembrance and obedience", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الْمُخْلِصِينَ", en: "O Allah, make me among the sincere", ref: "دعاء مأثور" },
+
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْفِرْدَوْسِ الْأَعْلَى بِغَيْرِ حِسَابٍ", en: "O Allah, make me among the people of Al-Firdaus without حساب", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ أَدْخِلْنِي الْجَنَّةَ مِنْ أَيِّ أَبْوَابِهَا شِئْتَ", en: "O Allah, admit me to Paradise through whichever gate You will", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الَّذِينَ لَا خَوْفٌ عَلَيْهِمْ وَلَا هُمْ يَحْزَنُونَ", en: "O Allah, make me among those who will have no fear nor grief", ref: "البقرة 62 (معنى)" },
+{ ar: "اللَّهُمَّ اجْعَلْ حِسَابِي يَسِيرًا", en: "O Allah, make my reckoning easy", ref: "أحمد" },
+{ ar: "اللَّهُمَّ ثَقِّلْ مَوَازِينِي بِالْحَسَنَاتِ", en: "O Allah, make my scale heavy with good deeds", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الَّذِينَ يَدْخُلُونَ الْجَنَّةَ بِغَيْرِ حِسَابٍ", en: "O Allah, make me among those who enter Paradise without account", ref: "البخاري (معنى)" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِمَّنْ تَغْفِرُ لَهُمْ ذُنُوبَهُمْ", en: "O Allah, make me among those whose sins are forgiven", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اسْتُرْ عُيُوبِي وَاغْفِرْ ذُنُوبِي", en: "O Allah, conceal my faults and forgive my sins", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْ خَيْرَ أَعْمَالِي خَوَاتِيمَهَا", en: "O Allah, make the best of my deeds the last of them", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْ خَيْرَ أَيَّامِي يَوْمَ أَلْقَاكَ", en: "O Allah, make the best of my days the day I meet You", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنْ وَرَثَةِ جَنَّةِ النَّعِيمِ", en: "O Allah, make me among the inheritors of the Gardens of Bliss", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي لَذَّةَ النَّظَرِ إِلَى وَجْهِكَ", en: "O Allah, grant me the joy of looking at Your Face", ref: "النسائي" },
+{ ar: "اللَّهُمَّ اجْعَلْ الْجَنَّةَ دَارِي وَمَأْوَايَ", en: "O Allah, make Paradise my home and abode", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ بَاعِدْ بَيْنِي وَبَيْنَ النَّارِ كَمَا بَاعَدْتَ بَيْنَ الْمَشْرِقِ وَالْمَغْرِبِ", en: "O Allah, distance me from the Fire as You have distanced the East from the West", ref: "البخاري" },
+{ ar: "اللَّهُمَّ اجْعَلْ أَعْمَالِي سَبَبًا لِدُخُولِ الْجَنَّةِ", en: "O Allah, make my deeds a cause for entering Paradise", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الْمُقَرَّبِينَ فِي الْجَنَّةِ", en: "O Allah, make me among the close ones in Paradise", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ يَسِّرْ لِي طَرِيقَ الْجَنَّةِ", en: "O Allah, make the path to Paradise easy for me", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْ خَيْرَ مَصِيرِي إِلَى الْجَنَّةِ", en: "O Allah, make my best destination Paradise", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي جَنَّاتِ الْفِرْدَوْسِ", en: "O Allah, grant me the Gardens of Al-Firdaus", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِمَّنْ تَضْحَكُ إِلَيْهِمْ فِي الْجَنَّةِ", en: "O Allah, make me among those whom You smile upon in Paradise", ref: "دعاء مشروع" },
+
+{ ar: "اللَّهُمَّ وَفِّقْنِي فِي كُلِّ خُطْوَةٍ أَخْطُوهَا", en: "O Allah, grant me success in every step I take", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلِ التَّوْفِيقَ رَفِيقِي دَائِمًا", en: "O Allah, make success my constant companion", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ سَهِّلْ لِي طَرِيقَ النَّجَاحِ وَالتَّفَوُّقِ", en: "O Allah, make the path of success and excellence easy for me", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ بَارِكْ لِي فِي عِلْمِي وَعَمَلِي", en: "O Allah, bless my knowledge and my work", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي التَّمَيُّزَ وَالإِتْقَانَ", en: "O Allah, grant me excellence and mastery", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الْمُوَفَّقِينَ دَائِمًا", en: "O Allah, make me always among the successful", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ يَسِّرْ لِي كُلَّ صَعْبٍ", en: "O Allah, make every difficulty easy for me", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْ عَمَلِي مُبَارَكًا وَنَاجِحًا", en: "O Allah, make my work blessed and successful", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ سَدِّدْ أَقْوَالِي وَأَفْعَالِي", en: "O Allah, make my words and actions correct", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِفْتَاحًا لِلنَّجَاحِ", en: "O Allah, make me a key to success", ref: "دعاء مشروع" },
+
+{ ar: "اللَّهُمَّ اهْدِنِي صِرَاطَكَ الْمُسْتَقِيمَ", en: "O Allah, guide me to Your straight path", ref: "الفاتحة 6" },
+{ ar: "اللَّهُمَّ ثَبِّتْنِي عَلَى دِينِكَ", en: "O Allah, keep me firm upon Your religion", ref: "الترمذي" },
+{ ar: "اللَّهُمَّ زَيِّنْ قَلْبِي بِالإِيمَانِ", en: "O Allah, adorn my heart with faith", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الْمُهْتَدِينَ", en: "O Allah, make me among the guided", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ أَلْهِمْنِي الرُّشْدَ وَالصَّوَابَ", en: "O Allah, inspire me with right guidance and correctness", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْ قَلْبِي مُنِيبًا إِلَيْكَ", en: "O Allah, make my heart devoted to You", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ زِدْنِي هُدًى وَتُقًى", en: "O Allah, increase me in guidance and piety", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الصَّابِرِينَ الشَّاكِرِينَ", en: "O Allah, make me among the patient and grateful", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ طَهِّرْ قَلْبِي مِنْ كُلِّ سُوءٍ", en: "O Allah, purify my heart from all evil", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْ نِيَّتِي خَالِصَةً لَكَ", en: "O Allah, make my intention sincere for You", ref: "دعاء مأثور" },
+
+{ ar: "اللَّهُمَّ فَرِّجْ هَمِّي وَيَسِّرْ أَمْرِي", en: "O Allah, relieve my distress and ease my affairs", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ أَنْزِلْ عَلَيَّ السَّكِينَةَ وَالطُّمَأْنِينَةَ", en: "O Allah, send down tranquility and peace upon me", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْ قَلْبِي مُطْمَئِنًّا بِذِكْرِكَ", en: "O Allah, make my heart tranquil with Your remembrance", ref: "الرعد 28 (معنى)" },
+{ ar: "اللَّهُمَّ اصْرِفْ عَنِّي الْحُزْنَ وَالضِّيقَ", en: "O Allah, remove sorrow and distress from me", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْ فِي قَلْبِي نُورًا وَفِي صَدْرِي نُورًا", en: "O Allah, place light in my heart and chest", ref: "مسلم" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي الطُّمَأْنِينَةَ وَالرِّضَا", en: "O Allah, grant me tranquility and contentment", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْ حَيَاتِي مَلِيئَةً بِالسَّكِينَةِ", en: "O Allah, make my life full of tranquility", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ طَمْئِنْ قَلْبِي وَأَصْلِحْ حَالِي", en: "O Allah, reassure my heart and fix my condition", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الْمُتَوَكِّلِينَ عَلَيْكَ", en: "O Allah, make me among those who rely upon You", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اكْفِنِي مَا أَهَمَّنِي", en: "O Allah, suffice me in what concerns me", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ النَّعِيمِ فِي الْجَنَّةِ", en: "O Allah, make me among the people of bliss in Paradise", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِمَّنْ تَسْتَقْبِلُهُمُ الْمَلَائِكَةُ بِالسَّلَامِ", en: "O Allah, make me among those greeted by angels with peace", ref: "النحل 32 (معنى)" },
+{ ar: "اللَّهُمَّ اجْعَلْ مَسْكَنِي فِي أَعَالِي الْجَنَّةِ", en: "O Allah, make my dwelling in the highest levels of Paradise", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ بَلِّغْنِي مَنَازِلَ الصِّدِّيقِينَ فِي الْجَنَّةِ", en: "O Allah, grant me the ranks of the truthful in Paradise", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ أَكْرِمْنِي بِلِقَائِكَ فِي الْجَنَّةِ", en: "O Allah, honor me with meeting You in Paradise", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الظِّلِّ يَوْمَ الْقِيَامَةِ", en: "O Allah, make me among those shaded on the Day of Judgment", ref: "البخاري (معنى)" },
+{ ar: "اللَّهُمَّ أَعْطِنِي كِتَابِي بِيَمِينِي", en: "O Allah, give me my record in my right hand", ref: "الحاقة 19 (معنى)" },
+{ ar: "اللَّهُمَّ اجْعَلْ حِسَابِي يَسِيرًا وَهَيِّنًا", en: "O Allah, make my reckoning easy and gentle", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الْفَائِزِينَ بِرِضْوَانِكَ", en: "O Allah, make me among those who attain Your pleasure", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْخُلُودِ فِي الْجَنَّةِ", en: "O Allah, make me among those who dwell eternally in Paradise", ref: "دعاء مشروع" },
+
+{ ar: "اللَّهُمَّ وَفِّقْنِي لِكُلِّ خَيْرٍ فِي حَيَاتِي", en: "O Allah, grant me success in every good in my life", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْ أَيَّامِي مَلِيئَةً بِالتَّوْفِيقِ", en: "O Allah, make my days full of success", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ يَسِّرْ لِي طَرِيقَ الْخَيْرِ وَالنَّجَاحِ", en: "O Allah, make the path of goodness and success easy for me", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ بَارِكْ لِي فِي خُطَطِي وَأَهْدَافِي", en: "O Allah, bless my plans and goals", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلِ التَّوْفِيقَ نَصِيبِي فِي كُلِّ أَمْرٍ", en: "O Allah, make success my share in every matter", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ سَهِّلْ لِي مَا أَسْعَى إِلَيْهِ", en: "O Allah, make easy what I strive for", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الْمُجْتَهِدِينَ الْمُوَفَّقِينَ", en: "O Allah, make me among the diligent and successful", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي حُسْنَ التَّدْبِيرِ وَالتَّوْفِيقِ", en: "O Allah, grant me good planning and success", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ وَفِّقْنِي فِي عِلْمِي وَدِرَاسَتِي", en: "O Allah, grant me success in my knowledge and studies", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْ سَعْيِي مُبَارَكًا وَمُوَفَّقًا", en: "O Allah, make my efforts blessed and successful", ref: "دعاء مشروع" },
+
+{ ar: "اللَّهُمَّ ثَبِّتْ قَلْبِي عَلَى طَاعَتِكَ وَدِينِكَ", en: "O Allah, keep my heart firm upon Your obedience and religion", ref: "الترمذي (معنى)" },
+{ ar: "اللَّهُمَّ زِدْنِي إِخْلَاصًا وَثَبَاتًا", en: "O Allah, increase me in sincerity and steadfastness", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الصَّادِقِينَ فِي أَقْوَالِي وَأَفْعَالِي", en: "O Allah, make me among the truthful in my words and deeds", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اهْدِنِي لِأَحْسَنِ الأَعْمَالِ", en: "O Allah, guide me to the best of deeds", ref: "مسلم (معنى)" },
+{ ar: "اللَّهُمَّ زَيِّنْ قَلْبِي بِالتَّقْوَى", en: "O Allah, adorn my heart with piety", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الْمُتَّقِينَ الصَّالِحِينَ", en: "O Allah, make me among the righteous and pious", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ طَهِّرْ قَلْبِي مِنَ النِّفَاقِ", en: "O Allah, purify my heart from hypocrisy", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الْمُقْبِلِينَ عَلَيْكَ", en: "O Allah, make me among those who turn to You", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ زِدْنِي قُرْبًا مِنْكَ", en: "O Allah, increase me in closeness to You", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْ حُبَّكَ أَحَبَّ إِلَيَّ مِنْ كُلِّ شَيْءٍ", en: "O Allah, make Your love more beloved to me than everything", ref: "الترمذي (معنى)" },
+
+{ ar: "اللَّهُمَّ أَنْزِلْ عَلَيَّ السَّكِينَةَ وَالرَّاحَةَ", en: "O Allah, send down tranquility and comfort upon me", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْ قَلْبِي مُطْمَئِنًّا بِذِكْرِكَ دَائِمًا", en: "O Allah, make my heart constantly tranquil with Your remembrance", ref: "الرعد 28 (معنى)" },
+{ ar: "اللَّهُمَّ أَبْعِدْ عَنِّي الْقَلَقَ وَالْحُزْنَ", en: "O Allah, keep anxiety and sadness away from me", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ فَرِّجْ كُرُوبِي وَيَسِّرْ أُمُورِي", en: "O Allah, relieve my distress and ease my affairs", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْ حَيَاتِي مَلِيئَةً بِالرِّضَا وَالسَّعَادَةِ", en: "O Allah, make my life full of contentment and happiness", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ طَمْئِنْ قَلْبِي وَأَصْلِحْ حَالِي كُلَّهُ", en: "O Allah, reassure my heart and fix all my affairs", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الرَّاضِينَ بِقَضَائِكَ", en: "O Allah, make me among those content with Your decree", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ أَصْلِحْ لِي نَفْسِي وَدُنْيَايَ وَآخِرَتِي", en: "O Allah, rectify my soul, my worldly life, and my Hereafter", ref: "مسلم (معنى)" },
+{ ar: "اللَّهُمَّ اجْعَلْ أَمْرِي كُلَّهُ يُسْرًا", en: "O Allah, make all my affairs easy", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اكْفِنِي مَا أَهَمَّنِي مِنْ أُمُورِ الدُّنْيَا وَالآخِرَةِ", en: "O Allah, suffice me in what concerns me in this life and the Hereafter", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الْجَنَّةِ بِغَيْرِ حِسَابٍ", en: "O Allah, make me among the people of Paradise without account", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي رِضْوَانَكَ وَالْجَنَّةَ", en: "O Allah, grant me Your pleasure and Paradise", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْ خَيْرَ مَآلِي إِلَى الْجَنَّةِ", en: "O Allah, make my final destination Paradise", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ أَكْرِمْنِي بِدُخُولِ جَنَّاتِ النَّعِيمِ", en: "O Allah, honor me with entering the Gardens of Bliss", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ السَّلَامِ فِي الْجَنَّةِ", en: "O Allah, make me among the people of peace in Paradise", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ أَعِنِّي عَلَى مَا يُقَرِّبُنِي إِلَى الْجَنَّةِ", en: "O Allah, help me do what brings me closer to Paradise", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْ قَبْرِي نُورًا وَرَحْمَةً", en: "O Allah, make my grave light and mercy", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِمَّنْ يُنَادَوْنَ مِنْ أَبْوَابِ الْجَنَّةِ", en: "O Allah, make me among those called from the gates of Paradise", ref: "البخاري (معنى)" },
+{ ar: "اللَّهُمَّ أَدْخِلْنِي الْجَنَّةَ بِرَحْمَتِكَ", en: "O Allah, admit me into Paradise by Your mercy", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْ لِي دَرَجَاتٍ عَالِيَةً فِي الْجَنَّةِ", en: "O Allah, grant me high درجات in Paradise", ref: "دعاء مشروع" },
+
+{ ar: "اللَّهُمَّ وَفِّقْنِي لِكُلِّ مَا تُحِبُّهُ وَتَرْضَاهُ", en: "O Allah, grant me success in all that You love and are pleased with", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ يَسِّرْ لِي أُمُورِي وَافْتَحْ لِي أَبْوَابَ التَّوْفِيقِ", en: "O Allah, ease my affairs and open the doors of success for me", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ بَارِكْ لِي فِي سَعْيِي وَاجْهَدِي", en: "O Allah, bless my efforts and striving", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الْمُوَفَّقِينَ فِي كُلِّ خَيْرٍ", en: "O Allah, make me among the successful in every good", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ سَهِّلْ لِي طَرِيقَ التَّفَوُّقِ وَالنَّجَاحِ", en: "O Allah, make the path of excellence and success easy for me", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ ارْزُقْنِي التَّوْفِيقَ فِي قَرَارَاتِي", en: "O Allah, grant me success in my decisions", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ اجْعَلْ أَعْمَالِي مُوَفَّقَةً وَمُبَارَكَةً", en: "O Allah, make my deeds successful and blessed", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلِ النَّجَاحَ نَصِيبِي الدَّائِمَ", en: "O Allah, make success my constant share", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ أَلْهِمْنِي الصَّوَابَ فِي كُلِّ أَمْرٍ", en: "O Allah, inspire me with correctness in every matter", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِمَّنْ يَتَوَكَّلُونَ عَلَيْكَ حَقَّ التَّوَكُّلِ", en: "O Allah, make me among those who truly rely upon You", ref: "دعاء مأثور" },
+
+{ ar: "اللَّهُمَّ ثَبِّتْنِي عَلَى الْهُدَى وَالِاسْتِقَامَةِ", en: "O Allah, keep me firm upon guidance and steadfastness", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ زِدْنِي إِيمَانًا وَهُدًى", en: "O Allah, increase me in faith and guidance", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اهْدِنِي لِأَحْسَنِ الْأَخْلَاقِ وَالأَعْمَالِ", en: "O Allah, guide me to the best manners and deeds", ref: "مسلم (معنى)" },
+{ ar: "اللَّهُمَّ طَهِّرْ قَلْبِي وَنَقِّ نَفْسِي", en: "O Allah, purify my heart and cleanse my soul", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الْمُخْلِصِينَ لَكَ", en: "O Allah, make me among the sincere for You", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ التَّوَّابِينَ الْمُسْتَغْفِرِينَ", en: "O Allah, make me among those who repent and seek forgiveness often", ref: "الترمذي (معنى)" },
+{ ar: "اللَّهُمَّ أَحْيِ قَلْبِي بِذِكْرِكَ", en: "O Allah, revive my heart with Your remembrance", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنْ أَهْلِ الطَّاعَةِ وَالذِّكْرِ", en: "O Allah, make me among the people of obedience and remembrance", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ قَرِّبْنِي إِلَيْكَ قُرْبًا جَمِيلًا", en: "O Allah, bring me closer to You in a beautiful way", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ زَيِّنْ قَلْبِي بِالطَّاعَةِ", en: "O Allah, adorn my heart with obedience", ref: "دعاء مشروع" },
+
+{ ar: "اللَّهُمَّ أَنْزِلْ عَلَيَّ السَّكِينَةَ وَالطُّمَأْنِينَةَ", en: "O Allah, send down tranquility and peace upon me", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْ قَلْبِي مُطْمَئِنًّا بِقَضَائِكَ", en: "O Allah, make my heart content with Your decree", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اصْرِفْ عَنِّي الضِّيقَ وَالْحُزْنَ", en: "O Allah, remove distress and sadness from me", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ فَرِّجْ كُرُوبِي وَنَفِّسْ هُمُومِي", en: "O Allah, relieve my distress and worries", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْ حَيَاتِي مَلِيئَةً بِالسَّعَادَةِ وَالرِّضَا", en: "O Allah, make my life full of happiness and contentment", ref: "دعاء مشروع" },
+{ ar: "اللَّهُمَّ طَمْئِنْ نَفْسِي وَارْزُقْنِي السُّكُونَ", en: "O Allah, reassure my soul and grant me calmness", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْ فِي قَلْبِي نُورًا وَفِي صَدْرِي نُورًا", en: "O Allah, place light in my heart and chest", ref: "مسلم" },
+{ ar: "اللَّهُمَّ اكْفِنِي شَرَّ مَا أَهَمَّنِي", en: "O Allah, suffice me against the evil of what concerns me", ref: "دعاء مأثور" },
+{ ar: "اللَّهُمَّ اجْعَلْنِي مِنَ الرَّاضِينَ بِقَضَائِكَ وَقَدَرِكَ", en: "O Allah, make me among those content with Your decree", ref: "دعاء مأثور" },
+{ ar: "عن الموقع", en: "About the Website" },
+{ ar: "اللَّهُمَّ أَصْلِحْ لِي دِينِي وَدُنْيَايَ وَآخِرَتِي", en: "O Allah, rectify my religion, my worldly life, and my Hereafter", ref: "مسلم (معنى)" }
+
+
+
+
+            ];
+
+            // تكرار الأدعية للوصول إلى 500 (يمكن إضافة المزيد)
+            while (duasDatabase.length < 500) {
+                duasDatabase.push(...duasDatabase.slice(0, 50));
+            }
+            // اقتطاع إلى 500 بالضبط
+            const allDuas = duasDatabase.slice(0, 500);
+
+            // --- إعدادات التواريخ ---
+            const START_DATE = new Date(2026, 1, 18, 0, 0, 0, 0);
+const END_DATE = new Date(2026, 2, 20, 23, 59, 59, 999);
+
+
+            // إنشاء مصفوفة بجميع الأيام
+            const allDays = [];
+            let curr = new Date(START_DATE);
+            while (curr <= END_DATE) {
+                allDays.push(new Date(curr));
+                curr.setDate(curr.getDate() + 1);
+            }
+
+            // --- تخزين أدعية كل يوم (عشوائية) ---
+            let dailyDuas = JSON.parse(localStorage.getItem('dailyDuas')) || {};
+            
+            // إذا لم يكن هناك أدعية مخزنة، قم بإنشائها
+            if (Object.keys(dailyDuas).length === 0) {
+                allDays.forEach(day => {
+                    const dateKey = formatDateKey(day);
+                    // اختيار 30 دعاء عشوائي من أصل 500
+                    const shuffled = [...allDuas].sort(() => 0.5 - Math.random());
+                    dailyDuas[dateKey] = shuffled.slice(0, 30);
+                });
+                localStorage.setItem('dailyDuas', JSON.stringify(dailyDuas));
+            }
+
+            // --- الحالة الحالية ---
+// قراءة اللغة من نفس المفتاح المستخدم في باقي صفحات الموقع
+let currentLang = localStorage.getItem('language') || 'ar';
+            let currentDate = new Date();
+            currentDate.setHours(0, 0, 0, 0);
+            
+            // التأكد أن التاريخ ضمن النطاق
+            if (currentDate < START_DATE) currentDate = new Date(START_DATE);
+            if (currentDate > END_DATE) currentDate = new Date(END_DATE);
+            
+            let selectedDate = new Date(currentDate);
+            let duaProgress = JSON.parse(localStorage.getItem('duaProgress_v2')) || {};
+
+            // --- دوال الثيم واللغة ---
+            function setupTheme() {
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme === 'dark') {
+                    document.body.classList.add('dark-mode');
+                }
+            }
+
+            function toggleTheme() {
+                if (document.body.classList.contains('transition-active')) return;
+                
+                const root = document.documentElement;
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                const rect = themeSwitcher.getBoundingClientRect();
+                const x = rect.left + rect.width / 2;
+                const y = rect.top + rect.height / 2;
+                
+                root.style.setProperty('--clip-x', `${x}px`);
+                root.style.setProperty('--clip-y', `${y}px`);
+                root.style.setProperty('--transition-bg', isDarkMode ? 'var(--background-color-light)' : 'var(--background-color-dark)');
+                
+                document.body.classList.add('transition-active');
+                
+                setTimeout(() => {
+                    document.body.classList.toggle('dark-mode');
+                    localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+                }, 300);
+                
+                setTimeout(() => document.body.classList.remove('transition-active'), 600);
+            }
+
+            function toggleLanguage() {
+                currentLang = currentLang === 'ar' ? 'en' : 'ar';
+                localStorage.setItem('lang', currentLang);
+                document.documentElement.lang = currentLang;
+                document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+                
+                document.getElementById('lang-toggle').textContent = currentLang === 'ar' ? 'EN' : 'عربي';
+                
+                document.querySelectorAll('[data-key]').forEach(el => {
+                    const key = el.getAttribute('data-key');
+                    if (translations[currentLang][key]) {
+                        el.textContent = translations[currentLang][key];
+                    }
+                });
+                
+                renderSelectedDay();
+                renderCalendar();
+                updateStats();
+            }
+
+            function showNotification(message) {
+                notification.innerHTML = `<i class="fas fa-check-circle"></i> <div>${message}</div>`;
+                notification.classList.add('show');
+                setTimeout(() => notification.classList.remove('show'), 3000);
+            }
+
+            // --- دوال الأدعية ---
+            function renderSelectedDay() {
+                const dateKey = formatDateKey(selectedDate);
+                const dayDuas = dailyDuas[dateKey] || [];
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                
+                // التحقق مما إذا كان اليوم مسموحاً به
+                const isAllowed = selectedDate <= today && selectedDate >= START_DATE;
+                
+                // عنوان اليوم
+                duasTitle.textContent = `${translations[currentLang].duasForDay} ${formatDate(selectedDate)}`;
+                dayTitle.textContent = `${translations[currentLang].day} ${formatDate(selectedDate)}`;
+                
+                // أزرار التنقل
+                const currentIndex = allDays.findIndex(d => formatDateKey(d) === dateKey);
+                prevDayBtn.disabled = currentIndex === 0;
+                nextDayBtn.disabled = currentIndex === allDays.length - 1 || allDays[currentIndex + 1] > today;
+                
+                if (!isAllowed) {
+                    duasGrid.innerHTML = `
+                        <div class="no-items-msg">
+                            <i class="fas fa-lock"></i>
+                            <p>${translations[currentLang].notificationLocked}</p>
+                        </div>
+                    `;
+                    duaCounter.textContent = `0/30`;
+                    dayProgressBar.style.width = '0%';
+                    dayProgressText.textContent = '0%';
+                    return;
+                }
+                
+                const todayProgress = duaProgress[dateKey] || [];
+                
+                let html = '';
+                let completedCount = 0;
+                
+                dayDuas.forEach((dua, index) => {
+                    const isCompleted = todayProgress.includes(index);
+                    if (isCompleted) completedCount++;
+                    
+                    html += `
+                        <div class="dua-card ${isCompleted ? 'completed' : ''}" data-dua-index="${index}" onclick="window.toggleDua(${index})">
+                            <div class="dua-status">
+                                <i class="fas ${isCompleted ? 'fa-check-circle' : 'fa-circle'}"></i>
+                            </div>
+                            <div class="dua-text">${dua[currentLang]}</div>
+                            <div class="dua-reference">
+                                <i class="fas fa-book"></i> ${dua.ref}
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                duasGrid.innerHTML = html;
+                duaCounter.textContent = `${completedCount}/30`;
+                
+                const percentage = Math.round((completedCount / 30) * 100);
+                dayProgressBar.style.width = `${percentage}%`;
+                dayProgressText.textContent = `${percentage}%`;
+            }
+
+            window.toggleDua = function(index) {
+                const dateKey = formatDateKey(selectedDate);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                
+                // التحقق من أن اليوم مسموح به
+                if (selectedDate > today || selectedDate < START_DATE) {
+                    showNotification(translations[currentLang].notificationLocked);
+                    return;
+                }
+                
+                if (!duaProgress[dateKey]) {
+                    duaProgress[dateKey] = [];
+                }
+                
+                const idx = duaProgress[dateKey].indexOf(index);
+                
+                if (idx === -1) {
+                    duaProgress[dateKey].push(index);
+                    showNotification(translations[currentLang].notificationAdded);
+                } else {
+                    duaProgress[dateKey].splice(idx, 1);
+                    showNotification(translations[currentLang].notificationRemoved);
+                }
+                
+                localStorage.setItem('duaProgress_v2', JSON.stringify(duaProgress));
+                renderSelectedDay();
+                renderCalendar();
+                updateStats();
+            };
+
+            // --- التقويم ---
+            function renderCalendar() {
+                calendarGrid.innerHTML = '';
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                
+                allDays.forEach(day => {
+                    const dateKey = formatDateKey(day);
+                    const dayProgress = duaProgress[dateKey] || [];
+                    const completedCount = dayProgress.length;
+                    const isComplete = completedCount === 30;
+                    const isToday = isSameDay(day, today);
+                    const isPast = day < today;
+                    const isFuture = day > today;
+                    const isSelected = isSameDay(day, selectedDate);
+                    
+                    const dayName = dayNames[currentLang][day.getDay()];
+                    const dayDate = formatDate(day);
+                    
+                    const card = document.createElement('div');
+                    card.className = `calendar-day ${isComplete ? 'completed' : ''} ${isToday ? 'today' : ''} ${isFuture ? 'future' : ''} ${isSelected ? 'active' : ''}`;
+                    card.onclick = () => selectDay(day);
+                    
+                    card.innerHTML = `
+                        <div class="calendar-day-header">
+                            <span class="calendar-day-name">${dayName}</span>
+                            <span class="calendar-day-date">${dayDate}</span>
+                        </div>
+                        <div class="calendar-day-status">
+                            <i class="fas ${isComplete ? 'fa-check-circle' : completedCount > 0 ? 'fa-adjust' : 'fa-circle'}"></i>
+                        </div>
+                        <div class="calendar-day-stats">
+                            ${completedCount}/30
+                        </div>
+                    `;
+                    
+                    calendarGrid.appendChild(card);
+                });
+            }
+
+            function selectDay(day) {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                
+                if (day > today) {
+                    showNotification(translations[currentLang].notificationLocked);
+                    return;
+                }
+                
+                selectedDate = new Date(day);
+                renderSelectedDay();
+                renderCalendar();
+            }
+
+            // --- الإحصائيات ---
+            function updateStats() {
+                let completedDays = 0;
+                let totalDuas = 0;
+                let bestDayCount = 0;
+                let bestDayStr = '';
+                let currentStreak = 0;
+                let longestStreak = 0;
+                
+                // ترتيب الأيام
+                const sortedDays = [...allDays].sort((a, b) => a - b);
+                
+                sortedDays.forEach((day, index) => {
+                    const dateKey = formatDateKey(day);
+                    const dayProgress = duaProgress[dateKey] || [];
+                    const count = dayProgress.length;
+                    
+                    if (count > 0) {
+                        totalDuas += count;
+                        
+                        if (count === 30) {
+                            completedDays++;
+                        }
+                        
+                        if (count > bestDayCount) {
+                            bestDayCount = count;
+                            bestDayStr = formatDate(day);
+                        }
+                        
+                        // حساب السلسلة
+                        currentStreak++;
+                        if (currentStreak > longestStreak) {
+                            longestStreak = currentStreak;
+                        }
+                    } else {
+                        currentStreak = 0;
+                    }
+                });
+                
+                const remainingDays = allDays.filter(day => {
+                    const dateKey = formatDateKey(day);
+                    return !duaProgress[dateKey];
+                }).length;
+                
+                const avgDuas = completedDays > 0 ? Math.round(totalDuas / completedDays) : 0;
+                
+                completedDaysEl.textContent = completedDays;
+                totalDuasEl.textContent = totalDuas;
+                avgDuasEl.textContent = avgDuas;
+                bestDayEl.textContent = bestDayStr || '-';
+                remainingDaysEl.textContent = remainingDays;
+                streakEl.textContent = longestStreak;
+            }
+
+            // --- التنقل بين الأيام ---
+            function changeDay(delta) {
+                const currentIndex = allDays.findIndex(d => formatDateKey(d) === formatDateKey(selectedDate));
+                const newIndex = currentIndex + delta;
+                
+                if (newIndex >= 0 && newIndex < allDays.length) {
+                    const newDate = allDays[newIndex];
+                    const today = new Date();
+                    today.setHours(0, 0, 0, 0);
+                    
+                    if (newDate <= today) {
+                        selectedDate = new Date(newDate);
+                        renderSelectedDay();
+                        renderCalendar();
+                    } else {
+                        showNotification(translations[currentLang].notificationLocked);
+                    }
+                }
+            }
+
+            function goToToday() {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                
+                if (today >= START_DATE && today <= END_DATE) {
+                    selectedDate = new Date(today);
+                } else {
+                    selectedDate = new Date(START_DATE);
+                }
+                
+                renderSelectedDay();
+                renderCalendar();
+            }
+
+            // --- دوال مساعدة ---
+            function formatDate(date) {
+                const d = date.getDate();
+                const m = months[currentLang][date.getMonth()];
+                return `${d} ${m}`;
+            }
+            
+           function formatDateKey(date) {
+    const local = new Date(date);
+    const year = local.getFullYear();
+    const month = String(local.getMonth() + 1).padStart(2, '0');
+    const day = String(local.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`; // يعتمد على توقيت الجهاز 100%
+}
+
+
+            
+            function isSameDay(d1, d2) {
+                return d1.toDateString() === d2.toDateString();
+            }
+
+            // --- التمرير ---
+            function handleScroll() {
+                backToTopBtn.classList.toggle('show', window.scrollY > 300);
+            }
+            
+            function scrollToTop() { 
+                window.scrollTo({ top: 0, behavior: 'smooth' }); 
+            }
+
+            // --- التهيئة ---
+            function init() {
+                setupTheme();
+                
+                themeSwitcher.addEventListener('click', toggleTheme);
+                langSwitcher.addEventListener('click', toggleLanguage);
+                window.addEventListener('scroll', handleScroll);
+                backToTopBtn.addEventListener('click', scrollToTop);
+                
+                prevDayBtn.addEventListener('click', () => changeDay(-1));
+                nextDayBtn.addEventListener('click', () => changeDay(1));
+                todayBtn.addEventListener('click', goToToday);
+
+                // تعيين اللغة الأولية
+                document.documentElement.lang = currentLang;
+                document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+                document.getElementById('lang-toggle').textContent = currentLang === 'ar' ? 'EN' : 'عربي';
+                
+                // ترجمة أولية
+                document.querySelectorAll('[data-key]').forEach(el => {
+                    const key = el.getAttribute('data-key');
+                    if (translations[currentLang][key]) {
+                        el.textContent = translations[currentLang][key];
+                    }
+                });
+                
+                // عرض البيانات
+                renderSelectedDay();
+                renderCalendar();
+                updateStats();
+            }
+
+            init();
+        })();
+    </script>
+</body>
+</html>

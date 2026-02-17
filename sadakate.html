@@ -1,0 +1,1379 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صلاتي - صدقاتي</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🕌</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ========== الأنماط الأساسية ========== */
+        :root {
+            --primary-color: #2a9d8f;
+            --primary-dark: #264653;
+            --secondary-color: #e76f51;
+            --accent-color: #f4a261;
+            --background-color-light: #F8FAFC;
+            --card-color-light: #FFFFFF;
+            --text-color-light: #0F172A;
+            --light-text-light: #64748B;
+            --border-color-light: #E2E8F0;
+            --background-color-dark: #0F172A;
+            --card-color-dark: #1E293B;
+            --text-color-dark: #F8FAFC;
+            --light-text-dark: #94A3B8;
+            --border-color-dark: #334155;
+
+            --background-color: var(--background-color-light);
+            --card-color: var(--card-color-light);
+            --text-color: var(--text-color-light);
+            --light-text: var(--light-text-light);
+            --border-color: var(--border-color-light);
+            
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --radius: 16px;
+            --transition: all 0.3s ease;
+            --gradient: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+        }
+
+        body.dark-mode {
+            --background-color: var(--background-color-dark);
+            --card-color: var(--card-color-dark);
+            --text-color: var(--text-color-dark);
+            --light-text: var(--light-text-dark);
+            --border-color: var(--border-color-dark);
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
+
+        body { 
+            background-color: var(--background-color); 
+            color: var(--text-color); 
+            line-height: 1.6; 
+            padding: 20px; 
+            min-height: 100vh; 
+            transition: background-color 0.3s, color 0.2s;
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        /* ===== الهيدر ===== */
+        header { 
+            text-align: center; 
+            margin-bottom: 40px; 
+            padding: 30px; 
+            background: var(--gradient); 
+            border-radius: var(--radius); 
+            box-shadow: var(--shadow); 
+            position: relative; 
+            overflow: hidden; 
+            color: white; 
+        }
+        header::before { 
+            content: ""; 
+            position: absolute; 
+            top: -50%; 
+            left: -50%; 
+            width: 200%; 
+            height: 200%; 
+            background: rgba(255, 255, 255, 0.1); 
+            transform: rotate(25deg); 
+        }
+        .header-top { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: relative; 
+            z-index: 2; 
+            margin-bottom: 20px; 
+        }
+        .header-controls { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+        }
+
+        .theme-switcher, .lang-switcher { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-around; 
+            background-color: rgba(0, 0, 0, 0.25); 
+            padding: 5px 15px; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            position: relative; 
+            height: 40px; 
+            color: white;
+            gap: 8px;
+        }
+        .theme-switcher { width: 70px; }
+        .lang-switcher { 
+            width: 60px; 
+            justify-content: center; 
+            font-weight: bold; 
+            font-size: 1rem; 
+        }
+        
+        .theme-switcher-handle { 
+            position: absolute; 
+            width: 30px; 
+            height: 30px; 
+            background-color: var(--secondary-color); 
+            border-radius: 50%; 
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
+            top: 5px; 
+        }
+        html[dir="rtl"] .theme-switcher-handle { right: 5px; }
+        html[dir="ltr"] .theme-switcher-handle { left: 5px; }
+        
+        html[dir="rtl"] body.dark-mode .theme-switcher-handle { transform: translateX(-30px); }
+        html[dir="ltr"] body.dark-mode .theme-switcher-handle { transform: translateX(30px); }
+        
+        .theme-switcher i { 
+            width: 30px; 
+            height: 30px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: white; 
+            z-index: 1; 
+            transition: transform 0.3s ease, color 0.3s ease; 
+        }
+        
+        h1 { 
+            margin-bottom: 10px; 
+            font-size: 2.5rem; 
+            position: relative; 
+            font-weight: 800; 
+        }
+        .subtitle { 
+            font-size: 1.2rem; 
+            opacity: 0.9; 
+            font-weight: 300; 
+        }
+
+        /* ===== شريط التنقل ===== */
+        .main-nav { 
+            display: flex; 
+            justify-content: center; 
+            background-color: rgba(0,0,0,0.2); 
+            border-radius: 50px; 
+            padding: 5px; 
+            margin-top: 20px; 
+            position: relative; 
+            z-index: 2; 
+            flex-wrap: wrap; 
+            gap: 5px;
+        }
+        .nav-tab { 
+            background-color: transparent; 
+            border: none; 
+            color: white; 
+            padding: 10px 25px; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            transition: var(--transition); 
+            font-weight: bold; 
+            font-size: 1rem; 
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+        .nav-tab.active { 
+            background-color: var(--secondary-color); 
+        }
+
+        /* ===== محدد الفترة ===== */
+        .period-selector {
+            background-color: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .period-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .period-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+        
+        .progress-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .progress-bar {
+            flex-grow: 1;
+            height: 20px;
+            background: var(--border-color);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: var(--primary-color);
+            transition: width 0.5s ease;
+        }
+
+        /* ===== الهدف الشهري (اختياري) ===== */
+        .goal-section {
+            background-color: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .goal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .goal-header h2 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .goal-input {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .goal-input input {
+            padding: 12px 20px;
+            border-radius: 50px;
+            border: 1px solid var(--border-color);
+            background: var(--background-color);
+            color: var(--text-color);
+            font-size: 1rem;
+            width: 180px;
+        }
+        
+        .goal-input button {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            background: var(--gradient);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .goal-input button:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+
+        .goal-input button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .goal-input button.edit-btn {
+            background: var(--accent-color);
+        }
+        
+        .goal-input button.edit-btn:hover:not(:disabled) {
+            background: #e9b35f;
+        }
+
+        .goal-input button.cancel-btn {
+            background: var(--secondary-color);
+        }
+
+        .goal-card {
+            background: var(--background-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 20px;
+            position: relative;
+            transition: var(--transition);
+            margin-top: 20px;
+        }
+        
+        .goal-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        .goal-card.achieved {
+            border-color: var(--primary-color);
+            border-width: 2px;
+            background: linear-gradient(145deg, var(--background-color), rgba(42, 157, 143, 0.05));
+        }
+        
+        .goal-card h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        .goal-stats {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            margin: 10px 0;
+            color: var(--light-text);
+            font-size: 0.95rem;
+        }
+
+        .goal-row {
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .goal-progress-bg {
+            height: 10px;
+            background: var(--border-color);
+            border-radius: 5px;
+            margin: 15px 0 5px 0;
+            overflow: hidden;
+        }
+        
+        .goal-progress-fill {
+            height: 100%;
+            background: var(--primary-color);
+            transition: width 0.5s ease;
+        }
+
+        .goal-progress-fill.achieved {
+            background: var(--accent-color);
+        }
+        
+        .goal-achieved {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            z-index: 5;
+        }
+
+        .goal-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 15px;
+        }
+
+        .goal-action-btn {
+            padding: 8px 15px;
+            border: none;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .edit-goal-btn {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .edit-goal-btn:hover {
+            background: #e9b35f;
+            transform: translateY(-2px);
+        }
+
+        .delete-goal-btn {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .delete-goal-btn:hover {
+            background: #d64f2a;
+            transform: translateY(-2px);
+        }
+
+        /* ===== شبكة الأيام ===== */
+        .days-section {
+            background-color: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .days-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .day-card {
+            background-color: var(--background-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 20px;
+            transition: var(--transition);
+            text-align: center;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 220px;
+        }
+        
+        .day-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow);
+        }
+        
+        .day-card.today {
+            border: 2px solid var(--primary-color);
+        }
+        
+        .day-card.completed {
+            border-color: var(--primary-color);
+            background-color: rgba(42, 157, 143, 0.05);
+        }
+        
+        .day-card.locked {
+            opacity: 0.6;
+            background-color: var(--border-color-light);
+            filter: grayscale(50%);
+            pointer-events: none;
+        }
+        body.dark-mode .day-card.locked {
+            background-color: var(--border-color-dark);
+        }
+
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .day-name {
+            font-size: 1.1rem;
+        }
+        
+        .day-date {
+            color: var(--light-text);
+            font-size: 0.9rem;
+            font-weight: normal;
+        }
+        
+        .status-icon {
+            font-size: 2.5rem;
+            color: var(--light-text);
+            margin: 5px 0;
+            transition: var(--transition);
+        }
+        
+        .day-card.completed .status-icon {
+            color: var(--primary-color);
+        }
+        
+        .amount-input {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .amount-input input {
+            flex-grow: 1;
+            padding: 10px 15px;
+            border-radius: 50px;
+            border: 1px solid var(--border-color);
+            background: var(--card-color);
+            color: var(--text-color);
+            font-size: 0.95rem;
+        }
+        
+        .amount-input button {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .amount-input button:hover:not(:disabled) {
+            transform: scale(1.1);
+            background: var(--primary-dark);
+        }
+        
+        .day-amount {
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-top: 5px;
+            font-size: 1.5rem;
+        }
+        
+        .remove-btn {
+            background: var(--secondary-color);
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 0.85rem;
+            margin-top: 15px;
+            padding: 8px 15px;
+            border-radius: 50px;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            align-self: center;
+            width: fit-content;
+        }
+        
+        .remove-btn:hover {
+            transform: translateY(-2px);
+            background: #d64f2a;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        /* ===== الإحصائيات ===== */
+        .stats-section {
+            background-color: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .stats-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 25px;
+            background: var(--background-color);
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .stat-label {
+            color: var(--light-text);
+            font-size: 1rem;
+        }
+
+        /* ===== عناصر مساعدة ===== */
+        .notification { 
+            position: fixed; 
+            top: 30px; 
+            right: 30px; 
+            background: var(--gradient); 
+            color: white; 
+            padding: 15px 25px; 
+            border-radius: var(--radius); 
+            box-shadow: var(--shadow); 
+            transform: translateX(150%); 
+            transition: transform 0.4s ease; 
+            z-index: 3000; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            max-width: 400px; 
+        }
+        .notification.show { 
+            transform: translateX(0); 
+        }
+
+        #back-to-top-btn { 
+            position: fixed; 
+            bottom: 30px; 
+            right: 30px; 
+            width: 50px; 
+            height: 50px; 
+            background: var(--primary-color); 
+            color: white; 
+            border: none; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 1.2rem; 
+            cursor: pointer; 
+            box-shadow: var(--shadow); 
+            opacity: 0; 
+            visibility: hidden; 
+            transform: translateY(20px); 
+            transition: all 0.3s ease; 
+            z-index: 1500; 
+        }
+        #back-to-top-btn.show { 
+            opacity: 1; 
+            visibility: visible; 
+            transform: translateY(0); 
+        }
+
+        .no-items-msg {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--light-text);
+            grid-column: 1 / -1;
+        }
+
+        .no-items-msg i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--border-color);
+        }
+
+        @media (max-width: 768px) { 
+            .header-top { flex-wrap: wrap; gap: 20px; justify-content: center; }
+            h1 { font-size: 1.8rem; }
+            .goal-header { flex-direction: column; align-items: stretch; }
+            .goal-input { justify-content: center; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <div class="header-controls">
+                    <div class="theme-switcher" id="theme-switcher" title="تبديل المظهر">
+                        <div class="theme-switcher-handle"></div>
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <div class="lang-switcher" id="lang-switcher" title="تغيير اللغة">
+                        <span id="lang-toggle">EN</span>
+                    </div>
+                </div>
+                <div style="flex-grow: 1;"></div>
+                <h1>
+                    <i class="fas fa-mosque"></i>
+                    <span data-key="appTitle">صلاتي</span>
+                    <span class="title-separator"> | </span>
+                    <span data-key="pageTitle">صدقاتي</span>
+                </h1>
+                <div style="flex-grow: 1;"></div>
+                <div class="header-controls" style="visibility: hidden;">
+                    <div class="theme-switcher"></div>
+                    <div class="lang-switcher"></div>
+                </div>
+            </div>
+            
+            <p class="subtitle" data-key="subtitle">تتبع صدقاتك اليومية</p>
+
+            <div class="main-nav">
+                <a href="index.html" class="nav-tab" data-key="navHome">الرئيسية</a>
+                <a href="Taktem.html" class="nav-tab" data-key="navQuranKhatm">ختم القرآن</a>
+                <a href="azkar_ramadan.html" class="nav-tab" data-key="navRamadanDuas">أدعية رمضان</a>
+                <a href="traweh.html" class="nav-tab" data-key="navTaraweeh">التراويح</a>
+                <a href="sadakate.html" class="nav-tab active" data-key="navSadaqati">صدقاتي</a>
+                <a href="lessons.html" class="nav-tab" data-key="navVideos">الدروس الدينية</a>
+                <a href="about.html" class="nav-tab" data-key="aboutSite">عن الموقع</a>
+            </div>
+        </header>
+
+        <main>
+            <div class="period-selector">
+                <div class="period-header">
+                    <div class="period-title" id="period-title">الفترة: 18 فبراير - 20 مارس 2026</div>
+                </div>
+                <div class="progress-wrapper">
+                    <div class="progress-bar">
+                        <div class="progress" id="period-progress-bar" style="width: 0%"></div>
+                    </div>
+                    <span id="period-progress-text">0%</span>
+                </div>
+            </div>
+
+            <div class="goal-section">
+                <div class="goal-header">
+                    <h2><i class="fas fa-bullseye"></i> <span data-key="goalsTitle">هدف  (شهري)</span></h2>
+                    <div class="goal-input" id="goal-input-container">
+                        <input type="number" id="goal-amount" placeholder="المبلغ المستهدف" min="1" value="">
+                        <button id="add-goal-btn"><i class="fas fa-plus"></i> <span data-key="addBtn">إضافة</span></button>
+                        <button id="edit-goal-btn" class="edit-btn" style="display: none;"><i class="fas fa-save"></i> <span>حفظ</span></button>
+                        <button id="cancel-edit-btn" class="cancel-btn" style="display: none;"><i class="fas fa-times"></i> <span>إلغاء</span></button>
+                    </div>
+                </div>
+                <div id="goal-container"></div>
+            </div>
+
+            <div class="days-section">
+                <h2><i class="fas fa-calendar-alt"></i> <span id="days-section-title" data-key="daysTitle">الأيام المتاحة</span></h2>
+                <div class="days-grid" id="days-grid"></div>
+            </div>
+
+            <div class="stats-section">
+                <h2><i class="fas fa-chart-pie"></i> <span data-key="statsTitle">إحصائيات شاملة</span></h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" id="total-amount">0</div>
+                        <div class="stat-label" data-key="totalAmount">إجمالي المبلغ</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="donated-days">0</div>
+                        <div class="stat-label" data-key="donatedDays">أيام الصدقة</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="remaining-days">0</div>
+                        <div class="stat-label" data-key="remainingDays">الأيام المتبقية</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="avg-amount">0</div>
+                        <div class="stat-label" data-key="avgAmount">متوسط التبرع</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="best-day">-</div>
+                        <div class="stat-label" data-key="bestDay">أفضل يوم</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="goal-status">-</div>
+                        <div class="stat-label" data-key="goalStatus">حالة الهدف</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <button id="back-to-top-btn" title="العودة للأعلى"><i class="fas fa-arrow-up"></i></button>
+    <div class="notification" id="notification"></div>
+
+    <script>
+        (function() {
+            // --- عناصر DOM ---
+            const themeSwitcher = document.getElementById('theme-switcher');
+            const langSwitcher = document.getElementById('lang-switcher');
+            const notification = document.getElementById('notification');
+            const backToTopBtn = document.getElementById('back-to-top-btn');
+            const daysGrid = document.getElementById('days-grid');
+            const goalContainer = document.getElementById('goal-container');
+            
+            const periodProgressBar = document.getElementById('period-progress-bar');
+            const periodProgressText = document.getElementById('period-progress-text');
+            const periodTitle = document.getElementById('period-title');
+            
+            const totalAmountEl = document.getElementById('total-amount');
+            const donatedDaysEl = document.getElementById('donated-days');
+            const remainingDaysEl = document.getElementById('remaining-days');
+            const avgAmountEl = document.getElementById('avg-amount');
+            const bestDayEl = document.getElementById('best-day');
+            const goalStatusEl = document.getElementById('goal-status');
+
+            const goalAmountInput = document.getElementById('goal-amount');
+            const addGoalBtn = document.getElementById('add-goal-btn');
+            const editGoalBtn = document.getElementById('edit-goal-btn');
+            const cancelEditBtn = document.getElementById('cancel-edit-btn');
+
+            // --- الترجمات ---
+            const translations = {
+                ar: {
+                    pageTitle: "صدقاتي",
+                    subtitle: "تتبع صدقاتك اليومية",
+                    navHome: "الرئيسية",
+                    navQuranKhatm: "ختم القرآن",
+                    navRamadanDuas: "أدعية رمضان",
+                    navTaraweeh: "التراويح",
+                    appTitle: "صلاتي",
+                    aboutSite:  "عن الموقع",
+                    navSadaqati: "صدقاتي",
+                    navVideos: "الدروس",
+                    goalsTitle: "هدف  (شهري)",
+                    addBtn: "إضافة",
+                    editBtn: "تعديل",
+                    saveBtn: "حفظ",
+                    cancelBtn: "إلغاء",
+                    daysTitle: "الأيام المتاحة",
+                    statsTitle: "إحصائيات شاملة",
+                    totalAmount: "إجمالي المبلغ",
+                    donatedDays: "أيام الصدقة",
+                    remainingDays: "الأيام المتبقية",
+                    avgAmount: "متوسط التبرع",
+                    bestDay: "أفضل يوم",
+                    goalStatus: "حالة الهدف",
+                    placeholderAmount: "المبلغ المستهدف",
+                    notificationSaved: "تم حفظ التبرع",
+                    notificationRemoved: "تم حذف التبرع",
+                    notificationGoalAdded: "تم إضافة هدف شهري",
+                    notificationGoalUpdated: "تم تحديث الهدف",
+                    notificationGoalDeleted: "تم حذف الهدف",
+                    notificationGoalAchieved: "🎉 تهانينا! تم تحقيق الهدف",
+                    notificationGoalExists: "⚠️ لا يمكن إضافة هدف جديد - يوجد هدف حالي",
+                    period: "الفترة",
+                    to: "إلى",
+                    currency: "ج.م",
+                    goalAchieved: "✅ تم تحقيق الهدف!",
+                    goalTarget: "المستهدف",
+                    goalDonated: "تم التبرع",
+                    goalLeft: "المتبقي",
+                    goalExtra: "الزائد",
+                    monthly: "الهدف الشهري",
+                    dayLocked: "غير متاح بعد",
+                    noGoal: "لا يوجد هدف (اختياري)",
+                    achieved: "مكتمل",
+                    active: "نشط"
+                },
+                en: {
+                    pageTitle: "My Charity",
+                    subtitle: "Track daily donations",
+                    navHome: "Home",
+                    navQuranKhatm: "Quran Khatm",
+                    navRamadanDuas: "Ramadan Duas",
+                    navTaraweeh: "Taraweeh",
+                    appTitle: "My Salah",
+                    aboutSite: "About",
+                    navSadaqati: "My Charity",
+                    navVideos: "Lessons",
+                    goalsTitle: " Goal (Monthly)",
+                    addBtn: "Add",
+                    editBtn: "Edit",
+                    saveBtn: "Save",
+                    cancelBtn: "Cancel",
+                    daysTitle: "Available Days",
+                    statsTitle: "Statistics",
+                    totalAmount: "Total Amount",
+                    donatedDays: "Donated Days",
+                    remainingDays: "Remaining Days",
+                    avgAmount: "Average",
+                    bestDay: "Best Day",
+                    goalStatus: "Goal Status",
+                    placeholderAmount: "Target amount",
+                    notificationSaved: "Donation saved",
+                    notificationRemoved: "Donation removed",
+                    notificationGoalAdded: "Monthly goal added",
+                    notificationGoalUpdated: "Goal updated",
+                    notificationGoalDeleted: "Goal deleted",
+                    notificationGoalAchieved: "🎉 Congratulations! Goal achieved",
+                    notificationGoalExists: "⚠️ Cannot add new goal - A goal already exists",
+                    period: "Period",
+                    to: "to",
+                    currency: "EGP",
+                    goalAchieved: "✅ Goal achieved!",
+                    goalTarget: "Target",
+                    goalDonated: "Donated",
+                    goalLeft: "Remaining",
+                    goalExtra: "Extra",
+                    monthly: "Monthly Goal",
+                    dayLocked: "Locked",
+                    noGoal: "No goal (optional)",
+                    achieved: "Achieved",
+                    active: "Active"
+                }
+            };
+
+            const dayNames = {
+                ar: ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'],
+                en: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+            };
+
+            const monthNames = {
+                ar: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
+                en: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+            };
+
+            // --- إعدادات التواريخ (18 فبراير - 20 مارس 2026) ---
+            const START_DATE = new Date(2026, 1, 18); // 18 فبراير
+            const END_DATE = new Date(2026, 2, 20);   // 20 مارس
+
+            const allDays = [];
+            let curr = new Date(START_DATE);
+            while (curr <= END_DATE) {
+                allDays.push(new Date(curr));
+                curr.setDate(curr.getDate() + 1);
+            }
+
+            // --- الحالة الحالية ---
+let currentLang = localStorage.getItem('language') || 'ar';            let donations = JSON.parse(localStorage.getItem('donations_v4')) || {};
+            let monthlyGoal = JSON.parse(localStorage.getItem('monthly_goal_v2')) || null;
+            let isEditing = false;
+
+            // تحديث عنوان الفترة
+            function updatePeriodTitle() {
+                const startMonth = monthNames[currentLang][START_DATE.getMonth()];
+                const endMonth = monthNames[currentLang][END_DATE.getMonth()];
+                periodTitle.textContent = `${translations[currentLang].period}: ${START_DATE.getDate()} ${startMonth} ${translations[currentLang].to} ${END_DATE.getDate()} ${endMonth} 2026`;
+            }
+
+            // --- دوال الثيم واللغة ---
+            function setupTheme() {
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme === 'dark') {
+                    document.body.classList.add('dark-mode');
+                }
+            }
+
+            function toggleTheme() {
+                if (document.body.classList.contains('transition-active')) return;
+                const root = document.documentElement;
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                const rect = themeSwitcher.getBoundingClientRect();
+                const x = rect.left + rect.width / 2;
+                const y = rect.top + rect.height / 2;
+                root.style.setProperty('--clip-x', `${x}px`);
+                root.style.setProperty('--clip-y', `${y}px`);
+                root.style.setProperty('--transition-bg', isDarkMode ? 'var(--background-color-light)' : 'var(--background-color-dark)');
+                document.body.classList.add('transition-active');
+                setTimeout(() => {
+                    document.body.classList.toggle('dark-mode');
+                    localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+                }, 300);
+                setTimeout(() => document.body.classList.remove('transition-active'), 600);
+            }
+
+           function toggleLanguage() {
+    currentLang = currentLang === 'ar' ? 'en' : 'ar';
+    localStorage.setItem('language', currentLang); // استخدام 'language' بدلاً من 'lang'
+    document.documentElement.lang = currentLang;
+    document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+    document.getElementById('lang-toggle').textContent = currentLang === 'ar' ? 'EN' : 'عربي';
+    
+    // ترجمة جميع العناصر التي تحمل data-key
+   document.querySelectorAll('[data-key]').forEach(el => {
+    const key = el.getAttribute('data-key');
+    if (translations[currentLang][key]) {
+        el.textContent = translations[currentLang][key];
+    }
+});
+    
+    // تحديث النصوص الخاصة
+    goalAmountInput.placeholder = translations[currentLang].placeholderAmount;
+    updatePeriodTitle();
+    renderDays();
+    renderGoal();
+    updateStats();
+}
+            function showNotification(message) {
+                notification.innerHTML = `<i class="fas fa-check-circle"></i> <div>${message}</div>`;
+                notification.classList.add('show');
+                setTimeout(() => notification.classList.remove('show'), 3000);
+            }
+
+            // --- دوال الهدف (اختياري) ---
+            function calculateGoalProgress() {
+                if (!monthlyGoal) return null;
+
+                // إجمالي التبرعات في كل الأيام المتاحة في التطبيق
+                let totalDonatedSoFar = 0;
+                
+                // نمر على كل التبرعات المسجلة في donations ونجمعها
+                Object.values(donations).forEach(amount => {
+                    totalDonatedSoFar += amount;
+                });
+
+                const isAchieved = totalDonatedSoFar >= monthlyGoal.amount;
+                
+                let percentage = 0;
+                if (monthlyGoal.amount > 0) {
+                    percentage = Math.min(100, Math.round((totalDonatedSoFar / monthlyGoal.amount) * 100));
+                }
+
+                const left = Math.max(0, monthlyGoal.amount - totalDonatedSoFar);
+                const extra = Math.max(0, totalDonatedSoFar - monthlyGoal.amount);
+                
+                return { 
+                    current: totalDonatedSoFar, 
+                    percentage, 
+                    isAchieved, 
+                    left, 
+                    extra 
+                };
+            }
+
+            function checkGoalAchievement() {
+                if (!monthlyGoal) return false;
+                
+                const progress = calculateGoalProgress();
+                if (progress && progress.isAchieved && monthlyGoal.status !== 'achieved') {
+                    monthlyGoal.status = 'achieved';
+                    localStorage.setItem('monthly_goal_v2', JSON.stringify(monthlyGoal));
+                    showNotification(translations[currentLang].notificationGoalAchieved);
+                    return true;
+                }
+                return false;
+            }
+
+            function renderGoal() {
+                goalContainer.innerHTML = '';
+                
+                if (!monthlyGoal) {
+                    goalContainer.innerHTML = `<div class="no-items-msg"><i class="fas fa-bullseye"></i><p>${translations[currentLang].noGoal}</p></div>`;
+                    return;
+                }
+
+                const progress = calculateGoalProgress();
+                if (!progress) return;
+
+                const isAchieved = monthlyGoal.status === 'achieved' || progress.isAchieved;
+                
+                const card = document.createElement('div');
+                card.className = `goal-card ${isAchieved ? 'achieved' : ''}`;
+                
+                card.innerHTML = `
+                    ${isAchieved ? `<div class="goal-achieved"><i class="fas fa-trophy"></i> ${translations[currentLang].goalAchieved}</div>` : ''}
+                    <h3>
+                        <i class="fas fa-calendar-alt"></i>
+                        ${translations[currentLang].monthly}: ${monthlyGoal.amount} ${translations[currentLang].currency}
+                    </h3>
+                    <div class="goal-stats">
+                        <div class="goal-row">
+                            <span>${translations[currentLang].goalTarget}:</span> 
+                            <b>${monthlyGoal.amount} ${translations[currentLang].currency}</b>
+                        </div>
+                        <div class="goal-row">
+                            <span>${translations[currentLang].goalDonated}:</span> 
+                            <b>${Math.round(progress.current)} ${translations[currentLang].currency}</b>
+                        </div>
+                        ${!isAchieved ? 
+                            `<div class="goal-row" style="color:var(--secondary-color)">
+                                <span>${translations[currentLang].goalLeft}:</span> 
+                                <b>${Math.max(0, Math.round(progress.left))} ${translations[currentLang].currency}</b>
+                            </div>` : 
+                            (progress.extra > 0 ? 
+                                `<div class="goal-row" style="color:var(--primary-color)">
+                                    <span>${translations[currentLang].goalExtra}:</span> 
+                                    <b>${Math.round(progress.extra)} ${translations[currentLang].currency}</b>
+                                </div>` : '')
+                        }
+                    </div>
+                    <div class="goal-progress-bg">
+                        <div class="goal-progress-fill ${isAchieved ? 'achieved' : ''}" 
+                             style="width: ${isAchieved ? 100 : progress.percentage}%"></div>
+                    </div>
+                    <div style="text-align:center; font-weight:bold; color:${isAchieved ? 'var(--accent-color)' : 'var(--primary-color)'}">
+                        ${isAchieved ? '100%' : progress.percentage + '%'}
+                    </div>
+                    <div class="goal-actions">
+                        <button class="goal-action-btn edit-goal-btn" onclick="window.editGoal()">
+                            <i class="fas fa-edit"></i> ${translations[currentLang].editBtn}
+                        </button>
+                        <button class="goal-action-btn delete-goal-btn" onclick="window.deleteGoal()">
+                            <i class="fas fa-times"></i> ${translations[currentLang].cancelBtn}
+                        </button>
+                    </div>
+                `;
+                goalContainer.appendChild(card);
+            }
+
+            window.editGoal = function() {
+                if (monthlyGoal) {
+                    goalAmountInput.value = monthlyGoal.amount;
+                    addGoalBtn.style.display = 'none';
+                    editGoalBtn.style.display = 'inline-block';
+                    cancelEditBtn.style.display = 'inline-block';
+                    isEditing = true;
+                }
+            };
+
+            window.deleteGoal = function() {
+                if (confirm(currentLang === 'ar' ? 'هل أنت متأكد من حذف الهدف؟' : 'Are you sure you want to delete the goal?')) {
+                    monthlyGoal = null;
+                    localStorage.removeItem('monthly_goal_v2');
+                    
+                    renderGoal();
+                    updateStats();
+                    showNotification(translations[currentLang].notificationGoalDeleted);
+                    
+                    addGoalBtn.style.display = 'inline-block';
+                    editGoalBtn.style.display = 'none';
+                    cancelEditBtn.style.display = 'none';
+                    goalAmountInput.value = '';
+                    isEditing = false;
+                }
+            };
+
+            function addOrUpdateGoal() {
+                const amount = parseFloat(goalAmountInput.value);
+                if (isNaN(amount) || amount <= 0) return;
+
+                if (isEditing) {
+                    // تحديث الهدف الحالي
+                    monthlyGoal.amount = amount;
+                    monthlyGoal.updatedAt = new Date().toISOString();
+                    if (monthlyGoal.status === 'achieved') {
+                        monthlyGoal.status = 'active';
+                    }
+                    localStorage.setItem('monthly_goal_v2', JSON.stringify(monthlyGoal));
+                    showNotification(translations[currentLang].notificationGoalUpdated);
+                    
+                    addGoalBtn.style.display = 'inline-block';
+                    editGoalBtn.style.display = 'none';
+                    cancelEditBtn.style.display = 'none';
+                    isEditing = false;
+                } else {
+                    // التحقق من وجود هدف بالفعل
+                    if (monthlyGoal) {
+                        showNotification(translations[currentLang].notificationGoalExists);
+                        return;
+                    }
+                    
+                    // إضافة هدف جديد
+                    monthlyGoal = {
+                        amount: amount,
+                        createdAt: new Date().toISOString(),
+                        status: 'active'
+                    };
+                    localStorage.setItem('monthly_goal_v2', JSON.stringify(monthlyGoal));
+                    showNotification(translations[currentLang].notificationGoalAdded);
+                }
+
+                goalAmountInput.value = '';
+                renderGoal();
+                updateStats();
+                checkGoalAchievement();
+            }
+
+            function cancelEdit() {
+                goalAmountInput.value = '';
+                addGoalBtn.style.display = 'inline-block';
+                editGoalBtn.style.display = 'none';
+                cancelEditBtn.style.display = 'none';
+                isEditing = false;
+            }
+
+            // --- دوال عرض الأيام (متاحة دائماً) ---
+            function renderDays() {
+                daysGrid.innerHTML = '';
+                
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+
+                let donatedCount = 0;
+                
+                allDays.forEach(date => {
+const dateKey = `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
+
+                    const amount = donations[dateKey] || 0;
+                    const isDonated = amount > 0;
+                    if (isDonated) donatedCount++;
+                    
+                    const dayName = dayNames[currentLang][date.getDay()];
+                    const dayDate = `${date.getDate()} ${monthNames[currentLang][date.getMonth()]}`;
+                    const isToday = date.toDateString() === today.toDateString();
+                    
+                    const isLocked = date > today;
+
+                    const card = document.createElement('div');
+                    card.className = `day-card ${isDonated ? 'completed' : ''} ${isToday ? 'today' : ''} ${isLocked ? 'locked' : ''}`;
+                    
+                    if (isLocked) {
+                        card.innerHTML = `
+                            <div class="day-header">
+                                <span class="day-name">${dayName}</span>
+                                <span class="day-date">${dayDate}</span>
+                            </div>
+                            <div class="status-icon"><i class="fas fa-lock"></i></div>
+                            <div style="color:var(--light-text); margin-top:10px;">🔒 ${translations[currentLang].dayLocked}</div>
+                        `;
+                    } else if (isDonated) {
+                        card.innerHTML = `
+                            <div class="day-header">
+                                <span class="day-name">${dayName}</span>
+                                <span class="day-date">${dayDate}</span>
+                            </div>
+                            <div class="status-icon"><i class="fas fa-check-circle"></i></div>
+                            <div class="day-amount">${amount} ${translations[currentLang].currency}</div>
+                            <button class="remove-btn" onclick="window.removeDonation('${dateKey}')">
+                                <i class="fas fa-trash-alt"></i> ${currentLang === 'ar' ? 'حذف' : 'Delete'}
+                            </button>
+                        `;
+                    } else {
+                        card.innerHTML = `
+                            <div class="day-header">
+                                <span class="day-name">${dayName}</span>
+                                <span class="day-date">${dayDate}</span>
+                            </div>
+                            <div class="status-icon"><i class="fas fa-circle"></i></div>
+                            <div class="amount-input">
+                                <input type="number" id="inp-${dateKey}" placeholder="${translations[currentLang].placeholderAmount}" min="1">
+                                <button onclick="window.saveDonation('${dateKey}')"><i class="fas fa-plus"></i></button>
+                            </div>
+                        `;
+                    }
+                    daysGrid.appendChild(card);
+                });
+
+                const periodPercentage = Math.round((donatedCount / allDays.length) * 100);
+                periodProgressBar.style.width = `${periodPercentage}%`;
+                periodProgressText.textContent = `${periodPercentage}%`;
+            }
+
+            window.saveDonation = function(dateKey) {
+                const input = document.getElementById(`inp-${dateKey}`);
+                const amount = parseFloat(input.value);
+                if (!isNaN(amount) && amount > 0) {
+                    donations[dateKey] = amount;
+                    localStorage.setItem('donations_v4', JSON.stringify(donations));
+                    
+                    // التحقق من تحقيق الهدف إذا كان موجوداً
+                    if (monthlyGoal) {
+                        checkGoalAchievement();
+                    }
+                    
+                    renderDays();
+                    renderGoal();
+                    updateStats();
+                    
+                    showNotification(translations[currentLang].notificationSaved);
+                }
+            };
+
+            window.removeDonation = function(dateKey) {
+                delete donations[dateKey];
+                localStorage.setItem('donations_v4', JSON.stringify(donations));
+                
+                renderDays();
+                renderGoal();
+                updateStats();
+                showNotification(translations[currentLang].notificationRemoved);
+            };
+
+           function updateStats() {
+    let total = 0, donatedCount = 0, bestAmount = 0, bestDate = '';
+    
+    Object.entries(donations).forEach(([date, amount]) => {
+        total += amount;
+        donatedCount++;
+        if (amount > bestAmount) {
+            bestAmount = amount;
+            // تقسيم التاريخ إلى مكوناته لتجنب مشكلة المنطقة الزمنية
+            const [year, month, day] = date.split('-').map(Number);
+            const correctedDate = new Date(year, month - 1, day); // month - 1 لأن الشهور تبدأ من 0
+            bestDate = formatDate(correctedDate);
+        }
+    });
+    
+    const remainingCount = Math.max(0, allDays.length - donatedCount);
+    const avgAmount = donatedCount > 0 ? Math.round(total / donatedCount) : 0;
+    
+    let goalStatus = translations[currentLang].noGoal;
+    if (monthlyGoal) {
+        const progress = calculateGoalProgress();
+        goalStatus = progress && progress.isAchieved ? 
+            `✅ ${translations[currentLang].achieved}` : 
+            `🎯 ${translations[currentLang].active} (${Math.round(progress?.percentage || 0)}%)`;
+    }
+    
+    totalAmountEl.textContent = `${total} ${translations[currentLang].currency}`;
+    donatedDaysEl.textContent = donatedCount;
+    remainingDaysEl.textContent = remainingCount;
+    avgAmountEl.textContent = `${avgAmount} ${translations[currentLang].currency}`;
+    bestDayEl.textContent = bestDate || '-';
+    goalStatusEl.textContent = goalStatus;
+}
+            function formatDate(date) {
+                return `${date.getDate()} ${monthNames[currentLang][date.getMonth()]}`;
+            }
+
+          function init() {
+    setupTheme();
+    themeSwitcher.addEventListener('click', toggleTheme);
+    langSwitcher.addEventListener('click', toggleLanguage);
+    
+    window.addEventListener('scroll', () => backToTopBtn.classList.toggle('show', window.scrollY > 300));
+    backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    
+    addGoalBtn.addEventListener('click', addOrUpdateGoal);
+    editGoalBtn.addEventListener('click', addOrUpdateGoal);
+    cancelEditBtn.addEventListener('click', cancelEdit);
+    
+    // قراءة اللغة من localStorage باستخدام المفتاح الصحيح
+    currentLang = localStorage.getItem('language') || 'ar'; // تأكد من قراءتها مرة أخرى
+    
+    document.documentElement.lang = currentLang;
+    document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+    document.getElementById('lang-toggle').textContent = currentLang === 'ar' ? 'EN' : 'عربي';
+    
+    // ترجمة العناصر
+    document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (translations[currentLang][key]) {
+            el.textContent = translations[currentLang][key];
+        }
+    });
+    
+    goalAmountInput.placeholder = translations[currentLang].placeholderAmount;
+    updatePeriodTitle();
+    renderDays();
+    renderGoal();
+    updateStats();
+}
+            
+            init();
+        })();
+    </script>
+</body>
+</html>
