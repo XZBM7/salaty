@@ -1,0 +1,4009 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صلاتي - الأسئلة الرمضانية</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🕌</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* ========== الأنماط الأساسية من تطبيق صلاتي ========== */
+        :root {
+            --primary-color: #2a9d8f;
+            --primary-dark: #264653;
+            --secondary-color: #e76f51;
+            --accent-color: #f4a261;
+            --background-color-light: #F8FAFC;
+            --card-color-light: #FFFFFF;
+            --text-color-light: #0F172A;
+            --light-text-light: #64748B;
+            --border-color-light: #E2E8F0;
+            --background-color-dark: #0F172A;
+            --card-color-dark: #1E293B;
+            --text-color-dark: #F8FAFC;
+            --light-text-dark: #94A3B8;
+            --border-color-dark: #334155;
+
+            --background-color: var(--background-color-light);
+            --card-color: var(--card-color-light);
+            --text-color: var(--text-color-light);
+            --light-text: var(--light-text-light);
+            --border-color: var(--border-color-light);
+            
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --radius: 16px;
+            --transition: all 0.3s ease;
+            --gradient: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+        }
+
+        body.dark-mode {
+            --background-color: var(--background-color-dark);
+            --card-color: var(--card-color-dark);
+            --text-color: var(--text-color-dark);
+            --light-text: var(--light-text-dark);
+            --border-color: var(--border-color-dark);
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
+
+        body { 
+            background-color: var(--background-color); 
+            color: var(--text-color); 
+            line-height: 1.6; 
+            padding: 20px; 
+            min-height: 100vh; 
+            transition: background-color 0.3s, color 0.2s;
+        }
+        
+        body::before { 
+            content: ''; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100vh; 
+            background-color: var(--transition-bg, transparent); 
+            z-index: 9999; 
+            clip-path: circle(0% at var(--clip-x, 50%) var(--clip-y, 50%)); 
+            transition: clip-path 0.6s cubic-bezier(0.65, 0, 0.35, 1); 
+            pointer-events: none; 
+        }
+        body.transition-active::before { 
+            clip-path: circle(150% at var(--clip-x, 50%) var(--clip-y, 50%)); 
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        /* ===== الهيدر بنفس تصميم صلاتي ===== */
+        header { 
+            text-align: center; 
+            margin-bottom: 40px; 
+            padding: 30px; 
+            background: var(--gradient); 
+            border-radius: var(--radius); 
+            box-shadow: var(--shadow); 
+            position: relative; 
+            overflow: hidden; 
+            color: white; 
+        }
+        header::before { 
+            content: ""; 
+            position: absolute; 
+            top: -50%; 
+            left: -50%; 
+            width: 200%; 
+            height: 200%; 
+            background: rgba(255, 255, 255, 0.1); 
+            transform: rotate(25deg); 
+        }
+        .header-top { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: relative; 
+            z-index: 2; 
+            margin-bottom: 20px; 
+        }
+        .header-controls { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+        }
+
+        .theme-switcher, .lang-switcher { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-around; 
+            background-color: rgba(0, 0, 0, 0.25); 
+            padding: 5px 15px; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            position: relative; 
+            height: 40px; 
+            color: white;
+            gap: 8px;
+        }
+        .theme-switcher { width: 70px; }
+        .lang-switcher { 
+            width: 60px; 
+            justify-content: center; 
+            font-weight: bold; 
+            font-size: 1rem; 
+        }
+        
+        .theme-switcher-handle { 
+            position: absolute; 
+            width: 30px; 
+            height: 30px; 
+            background-color: var(--secondary-color); 
+            border-radius: 50%; 
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
+            top: 5px; 
+        }
+        html[dir="rtl"] .theme-switcher-handle { right: 5px; }
+        html[dir="ltr"] .theme-switcher-handle { left: 5px; }
+        
+        html[dir="rtl"] body.dark-mode .theme-switcher-handle { transform: translateX(-30px); }
+        html[dir="ltr"] body.dark-mode .theme-switcher-handle { transform: translateX(30px); }
+        
+        .theme-switcher i { 
+            width: 30px; 
+            height: 30px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: white; 
+            z-index: 1; 
+            transition: transform 0.3s ease, color 0.3s ease; 
+        }
+        body:not(.dark-mode) .fa-sun { color: #fff; transform: scale(1.1) rotate(360deg); }
+        body.dark-mode .fa-moon { color: #fff; transform: scale(1.1) rotate(360deg); }
+        
+        h1 { 
+            margin-bottom: 10px; 
+            font-size: 2.5rem; 
+            position: relative; 
+            font-weight: 800; 
+        }
+        .subtitle { 
+            font-size: 1.2rem; 
+            opacity: 0.9; 
+            font-weight: 300; 
+        }
+
+        /* ===== شريط التنقل الرئيسي ===== */
+        .main-nav { 
+            display: flex; 
+            justify-content: center; 
+            background-color: rgba(0,0,0,0.2); 
+            border-radius: 50px; 
+            padding: 5px; 
+            margin-top: 20px; 
+            position: relative; 
+            z-index: 2; 
+            flex-wrap: wrap; 
+            gap: 5px;
+        }
+        .nav-tab { 
+            background-color: transparent; 
+            border: none; 
+            color: white; 
+            padding: 10px 20px; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            transition: var(--transition); 
+            font-weight: bold; 
+            font-size: 0.95rem; 
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+        .nav-tab.active { 
+            background-color: var(--secondary-color); 
+        }
+        .nav-tab i { font-size: 1rem; }
+
+        /* ===== محدد اليوم ===== */
+        .day-selector {
+            background-color: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .day-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .day-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .day-btn {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            border: none;
+            background: var(--gradient);
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        
+        .day-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+        
+        .day-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: var(--border-color);
+        }
+        
+        .day-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        /* ===== بطاقة اليوم ===== */
+        .day-card-section {
+            background-color: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .day-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .day-card-header h2 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .day-stats {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .stat-badge {
+            background: var(--background-color);
+            padding: 8px 15px;
+            border-radius: 50px;
+            color: var(--primary-color);
+            font-weight: bold;
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .reset-btn {
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .reset-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+
+        /* ===== قسم السؤال (سؤال واحد فقط) ===== */
+        .question-section {
+            background-color: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .question-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .nav-question-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            background: var(--gradient);
+            color: white;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        
+        .nav-question-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+        }
+        
+        .nav-question-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: var(--border-color);
+        }
+        
+        .question-counter {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            background: var(--background-color);
+            padding: 10px 20px;
+            border-radius: 50px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .question-card {
+            background: var(--background-color);
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 30px;
+            transition: var(--transition);
+        }
+        
+        .question-card.answered {
+            border-color: var(--primary-color);
+        }
+        
+        .question-number {
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .question-number i {
+            color: var(--primary-color);
+        }
+        
+        .question-text {
+            font-size: 1.4rem;
+            line-height: 2;
+            color: var(--text-color);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .option-btn {
+            padding: 18px 20px;
+            border: 2px solid var(--border-color);
+            border-radius: var(--radius);
+            background: var(--background-color);
+            color: var(--text-color);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+        }
+        
+        .option-btn:hover:not(:disabled) {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+            border-color: var(--primary-color);
+        }
+        
+        .option-btn.correct {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        .option-btn.wrong {
+            background: var(--secondary-color);
+            color: white;
+            border-color: var(--secondary-color);
+        }
+        
+        .option-btn.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .option-btn.correct-answer {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+            animation: pulse 1s;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .question-feedback {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: var(--radius);
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1rem;
+        }
+        
+        .feedback-correct {
+            color: var(--primary-color);
+            background: rgba(42, 157, 143, 0.1);
+        }
+        
+        .feedback-wrong {
+            color: var(--secondary-color);
+            background: rgba(231, 111, 81, 0.1);
+        }
+
+        /* ===== التقويم ===== */
+        .calendar-section {
+            background-color: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .calendar-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .calendar-day {
+            background-color: var(--background-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 15px;
+            transition: var(--transition);
+            text-align: center;
+            cursor: pointer;
+        }
+        
+        .calendar-day:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .calendar-day.today {
+            border: 2px solid var(--primary-color);
+        }
+        
+        .calendar-day.completed {
+            border-color: var(--primary-color);
+            background-color: rgba(42, 157, 143, 0.1);
+        }
+        
+        .calendar-day.active {
+            border: 3px solid var(--secondary-color);
+            transform: scale(1.02);
+        }
+        
+        .calendar-day.future {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background-color: var(--border-color);
+            position: relative;
+        }
+        
+        .calendar-day.future::after {
+            content: '🔒';
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            font-size: 1rem;
+        }
+
+        .calendar-day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .calendar-day-name {
+            font-size: 1rem;
+        }
+        
+        .calendar-day-date {
+            color: var(--light-text);
+            font-size: 0.8rem;
+        }
+        
+        .calendar-day-status {
+            font-size: 1.5rem;
+            margin: 10px 0;
+            color: var(--light-text);
+        }
+        
+        .calendar-day.completed .calendar-day-status {
+            color: var(--primary-color);
+        }
+        
+        .calendar-day-stats {
+            font-size: 0.9rem;
+            color: var(--light-text);
+        }
+
+        /* ===== الإحصائيات ===== */
+        .stats-section {
+            background-color: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .stats-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 25px;
+            background: var(--background-color);
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .stat-label {
+            color: var(--light-text);
+            font-size: 1rem;
+        }
+
+        /* ===== عناصر مساعدة ===== */
+        .notification { 
+            position: fixed; 
+            top: 30px; 
+            right: 30px; 
+            background: var(--gradient); 
+            color: white; 
+            padding: 15px 25px; 
+            border-radius: var(--radius); 
+            box-shadow: var(--shadow); 
+            transform: translateX(150%); 
+            transition: transform 0.4s ease; 
+            z-index: 3000; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            max-width: 400px; 
+        }
+        .notification.show { 
+            transform: translateX(0); 
+        }
+
+        #back-to-top-btn { 
+            position: fixed; 
+            bottom: 30px; 
+            right: 30px; 
+            width: 50px; 
+            height: 50px; 
+            background: var(--primary-color); 
+            color: white; 
+            border: none; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 1.2rem; 
+            cursor: pointer; 
+            box-shadow: var(--shadow); 
+            opacity: 0; 
+            visibility: hidden; 
+            transform: translateY(20px); 
+            transition: all 0.3s ease; 
+            z-index: 1500; 
+        }
+        #back-to-top-btn.show { 
+            opacity: 1; 
+            visibility: visible; 
+            transform: translateY(0); 
+        }
+
+        .no-items-msg {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--light-text);
+        }
+        
+        .no-items-msg i {
+            font-size: 4rem;
+            margin-bottom: 20px;
+            color: var(--border-color);
+        }
+
+        @media (max-width: 768px) { 
+            .header-top { flex-wrap: wrap; gap: 20px; justify-content: center; }
+            h1 { font-size: 1.8rem; }
+            .main-nav { 
+                flex-wrap: wrap; 
+                justify-content: center;
+            }
+            .nav-tab { 
+                padding: 8px 12px; 
+                font-size: 0.8rem;
+            }
+            .question-navigation { flex-wrap: wrap; justify-content: center; gap: 10px; }
+            .options-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <div class="header-controls">
+                    <div class="theme-switcher" id="theme-switcher" title="تبديل المظهر">
+                        <div class="theme-switcher-handle"></div>
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <div class="lang-switcher" id="lang-switcher" title="تغيير اللغة">
+                        <span id="lang-toggle">EN</span>
+                    </div>
+                </div>
+                <div style="flex-grow: 1;"></div>
+                <h1>
+                    <i class="fas fa-mosque"></i>
+                    <span data-key="appTitle">صلاتي</span>
+                    <span class="title-separator"> | </span>
+                    <span data-key="pageTitle">الأسئلة الرمضانية</span>
+                </h1>
+                <div style="flex-grow: 1;"></div>
+                <div class="header-controls" style="visibility: hidden;">
+                    <div class="theme-switcher"></div>
+                    <div class="lang-switcher"></div>
+                </div>
+            </div>
+            
+            <p class="subtitle" data-key="subtitle">30 سؤالاً دينياً كل يوم - اختبر معلوماتك الإسلامية</p>
+
+            <!-- شريط التنقل الرئيسي -->
+            <div class="main-nav">
+                <a href="index.html" class="nav-tab" data-key="navHome"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="Taktem.html" class="nav-tab" data-key="navQuran"><i class="fas fa-quran"></i> ختم القرآن</a>
+                                                <a href="quran.html" class="nav-tab " data-key="navMushaf"><i class="fas fa-book-open"></i> المصحف التفاعلي</a>
+
+                <a href="azkar_ramadan.html" class="nav-tab" data-key="navDuas"><i class="fas fa-praying-hands"></i> أدعية رمضان</a>
+                <a href="traweh.html" class="nav-tab" data-key="navTaraweeh"><i class="fas fa-mosque"></i> التراويح</a>
+                <a href="sadakate.html" class="nav-tab" data-key="navSadaqati"><i class="fas fa-hand-holding-heart"></i> صدقاتي</a>
+                <a href="mosabaka.html" class="nav-tab active" data-key="navQuestions"><i class="fas fa-question-circle"></i> الأسئلة الرمضانية</a>
+                <a href="ahades.html" class="nav-tab" data-key="navHadith"><i class="fas fa-book-open"></i> مكتبة الأحاديث</a>
+                <a href="lessons.html" class="nav-tab" data-key="navVideos"><i class="fas fa-video"></i>   الدروس الدينية</a>
+                <a href="about.html" class="nav-tab" data-key="navAbout"><i class="fas fa-info-circle"></i> عن الموقع</a>
+            </div>
+        </header>
+
+        <main>
+            <!-- محدد اليوم -->
+            <div class="day-selector">
+                <div class="day-nav">
+                    <div class="day-buttons">
+                        <button class="day-btn" id="prev-day" title="اليوم السابق"><i class="fas fa-chevron-right"></i></button>
+                        <button class="day-btn" id="next-day" title="اليوم التالي"><i class="fas fa-chevron-left"></i></button>
+                    </div>
+                    <div class="day-title" id="day-title"></div>
+                    <button class="day-btn" id="today-btn" title="اليوم الحالي"><i class="fas fa-calendar-day"></i></button>
+                </div>
+            </div>
+
+            <!-- بطاقة اليوم -->
+            <div class="day-card-section">
+                <div class="day-card-header">
+                    <h2><i class="fas fa-calendar-day"></i> <span id="day-card-title"></span></h2>
+                    <div class="day-stats">
+                        <div class="stat-badge" id="score-display">
+                            <i class="fas fa-star"></i>
+                            <span>0/30</span>
+                        </div>
+                        <button class="reset-btn" id="reset-day-btn" onclick="resetCurrentDay()">
+                            <i class="fas fa-redo"></i> <span data-key="resetDay">إعادة الاختبار</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- قسم السؤال (سؤال واحد فقط) -->
+            <div class="question-section">
+                <div class="question-navigation">
+                    <button class="nav-question-btn" id="prev-question" onclick="navigateQuestion(-1)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                    <div class="question-counter" id="question-counter">1 / 30</div>
+                    <button class="nav-question-btn" id="next-question" onclick="navigateQuestion(1)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                </div>
+                <div id="single-question-container">
+                    <!-- سيتم عرض السؤال هنا -->
+                </div>
+            </div>
+
+            <!-- التقويم -->
+            <div class="calendar-section">
+                <h2><i class="fas fa-calendar-alt"></i> <span data-key="calendarTitle">أيام التحدي</span></h2>
+                <div class="calendar-grid" id="calendar-grid"></div>
+            </div>
+
+            <!-- الإحصائيات -->
+            <div class="stats-section">
+                <h2><i class="fas fa-chart-pie"></i> <span data-key="statsTitle">إحصائياتك</span></h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" id="total-answered">0</div>
+                        <div class="stat-label" data-key="totalAnswered">إجمالي الأسئلة المجابة</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="total-correct">0</div>
+                        <div class="stat-label" data-key="totalCorrect">الإجابات الصحيحة</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="accuracy">0%</div>
+                        <div class="stat-label" data-key="accuracy">نسبة الدقة</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="completed-days">0</div>
+                        <div class="stat-label" data-key="completedDays">أيام مكتملة</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <button id="back-to-top-btn" title="العودة للأعلى"><i class="fas fa-arrow-up"></i></button>
+    <div class="notification" id="notification"></div>
+
+    <script>
+        (function() {
+            // --- عناصر DOM ---
+            const themeSwitcher = document.getElementById('theme-switcher');
+            const langSwitcher = document.getElementById('lang-switcher');
+            const notification = document.getElementById('notification');
+            const backToTopBtn = document.getElementById('back-to-top-btn');
+            const calendarGrid = document.getElementById('calendar-grid');
+            
+            const prevDayBtn = document.getElementById('prev-day');
+            const nextDayBtn = document.getElementById('next-day');
+            const todayBtn = document.getElementById('today-btn');
+            const dayTitle = document.getElementById('day-title');
+            const dayCardTitle = document.getElementById('day-card-title');
+            const scoreDisplay = document.getElementById('score-display');
+            
+            const singleQuestionContainer = document.getElementById('single-question-container');
+            const questionCounter = document.getElementById('question-counter');
+            const prevQuestionBtn = document.getElementById('prev-question');
+            const nextQuestionBtn = document.getElementById('next-question');
+            
+            const totalAnsweredEl = document.getElementById('total-answered');
+            const totalCorrectEl = document.getElementById('total-correct');
+            const accuracyEl = document.getElementById('accuracy');
+            const completedDaysEl = document.getElementById('completed-days');
+
+            // --- متغيرات الحالة ---
+            let currentQuestionIndex = 0;
+
+            // --- الترجمات ---
+            const translations = {
+                ar: {
+                    appTitle: "صلاتي",
+                    pageTitle: "الأسئلة الرمضانية",
+                    subtitle: "30 سؤالاً دينياً كل يوم - اختبر معلوماتك الإسلامية",
+                    navHome: "الرئيسية",
+                    navQuran: "ختم القرآن",
+                    navDuas: "أدعية رمضان",
+                    navTaraweeh: "التراويح",
+                    navSadaqati: "صدقاتي",
+                    navQuestions: "الأسئلة الرمضانية",
+                    navHadith: "مكتبة الأحاديث",
+                    navVideos: "الدروس الدينية",
+                    navAbout: "عن الموقع",
+                    calendarTitle: "أيام التحدي",
+                    statsTitle: "إحصائياتك",
+                    totalAnswered: "إجمالي الأسئلة المجابة",
+                    totalCorrect: "الإجابات الصحيحة",
+                    accuracy: "نسبة الدقة",
+                    completedDays: "أيام مكتملة",
+                    resetDay: "إعادة الاختبار",
+                    question: "سؤال",
+                    correct: "إجابة صحيحة!",
+                    wrong: "إجابة خاطئة - الإجابة الصحيحة هي:",
+                    notificationCorrect: "✅ إجابة صحيحة",
+                    notificationWrong: "❌ إجابة خاطئة",
+                    dayUnlocked: "اليوم مفتوح",
+                    dayLocked: "اليوم مقفول",
+                    futureDay: "يوم قادم",
+                    previousDay: "اليوم السابق",
+                    nextDay: "اليوم التالي",
+                                                                   navMushaf: "المصحف التفاعلي",
+
+                    currentDay: "اليوم الحالي"
+                },
+                en: {
+                    appTitle: "My Salah",
+                    pageTitle: "Ramadan Questions",
+                                                navMushaf: "Interactive Mushaf",
+
+                    subtitle: "30 religious questions daily - Test your Islamic knowledge",
+                    navHome: "Home",
+                    navQuran: "Quran Khatm",
+                    navDuas: "Ramadan Duas",
+                    navTaraweeh: "Taraweeh",
+                    navSadaqati: "My Charity",
+                    navQuestions: "Ramadan Questions",
+                    navHadith: "Hadith Library",
+                    navVideos: "Islamic Lessons",
+                    navAbout: "About",
+                    calendarTitle: "Challenge Days",
+                    statsTitle: "Your Statistics",
+                    totalAnswered: "Total Answered",
+                    totalCorrect: "Correct Answers",
+                    accuracy: "Accuracy",
+                    completedDays: "Completed Days",
+                    resetDay: "Reset Test",
+                    question: "Question",
+                    correct: "Correct answer!",
+                    wrong: "Wrong answer - The correct answer is:",
+                    notificationCorrect: "✅ Correct answer",
+                    notificationWrong: "❌ Wrong answer",
+                    dayUnlocked: "Day unlocked",
+                    dayLocked: "Day locked",
+                    futureDay: "Future Day",
+                    previousDay: "Previous Day",
+                    nextDay: "Next Day",
+                    currentDay: "Current Day"
+                }
+            };
+
+            const dayNames = {
+                ar: ['الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'],
+                en: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+            };
+
+            const months = {
+                ar: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
+                en: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+            };
+
+            // --- إعدادات التواريخ ---
+            const START_DATE = new Date(2026, 1, 18); // 18 فبراير 2026
+            const END_DATE = new Date(2026, 2, 20);   // 20 مارس 2026
+
+            const allDays = [];
+            let curr = new Date(START_DATE);
+            while (curr <= END_DATE) {
+                allDays.push(new Date(curr));
+                curr.setDate(curr.getDate() + 1);
+            }
+
+            // --- 1000 سؤال مخزن ---
+          const questionsDatabase = [
+{
+id: 1,
+question: "كم عدد سور القرآن الكريم؟",
+options: ["113", "114", "115", "116"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 2,
+question: "كم عدد آيات سورة الفاتحة؟",
+options: ["6", "7", "8", "9"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 3,
+question: "ما هي السورة التي تُسمى قلب القرآن؟",
+options: ["الرحمن", "يس", "البقرة", "الكهف"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 4,
+question: "من هو أول الخلفاء الراشدين؟",
+options: ["عمر بن الخطاب", "عثمان بن عفان", "أبو بكر الصديق", "علي بن أبي طالب"],
+correct: 2,
+topic: "التاريخ الإسلامي"
+},
+{
+id: 5,
+question: "كم عدد أركان الإسلام؟",
+options: ["4", "6", "7", "5"],
+correct: 3,
+topic: "العقيدة"
+},
+{
+id: 6,
+question: "من هو الصحابي الملقب بالفاروق؟",
+options: ["عمر بن الخطاب", "أبو بكر", "عثمان", "علي"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 7,
+question: "في أي شهر نزل القرآن الكريم؟",
+options: ["محرم", "رجب", "رمضان", "شعبان"],
+correct: 2,
+topic: "القرآن"
+},
+{
+id: 8,
+question: "ما هي أطول سورة في القرآن الكريم؟",
+options: ["النساء", "المائدة", "البقرة", "آل عمران"],
+correct: 2,
+topic: "القرآن"
+},
+{
+id: 9,
+question: "من هو النبي الذي ابتلعه الحوت؟",
+options: ["موسى عليه السلام", "يونس عليه السلام", "إبراهيم عليه السلام", "نوح عليه السلام"],
+correct: 1,
+topic: "الأنبياء"
+},
+{
+id: 10,
+question: "كم عدد أبواب الجنة؟",
+options: ["7", "8", "9", "6"],
+correct: 1,
+topic: "العقيدة"
+},
+{
+id: 11,
+question: "من هو أول مؤذن في الإسلام؟",
+options: ["أبو هريرة", "بلال بن رباح", "زيد بن ثابت", "عبد الله بن مسعود"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 12,
+question: "كم عدد أجزاء القرآن الكريم؟",
+options: ["29", "30", "28", "31"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 13,
+question: "ما هي أول قبلة للمسلمين؟",
+options: ["الكعبة", "المسجد الأقصى", "المسجد النبوي", "مسجد قباء"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 14,
+question: "من هو الصحابي الملقب بسيف الله المسلول؟",
+options: ["علي بن أبي طالب", "الزبير بن العوام", "خالد بن الوليد", "سعد بن أبي وقاص"],
+correct: 2,
+topic: "السيرة"
+},
+{
+id: 15,
+question: "كم عدد تكبيرات صلاة الجنازة؟",
+options: ["3", "4", "5", "6"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 15,
+question: "كم عدد ركعات صلاة الفجر؟",
+options: ["2", "3", "4", "1"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 16,
+question: "كم عدد ركعات صلاة الظهر؟",
+options: ["2", "3", "4", "5"],
+correct: 2,
+topic: "الفقه"
+},
+{
+id: 17,
+question: "كم عدد ركعات صلاة المغرب؟",
+options: ["2", "3", "4", "5"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 18,
+question: "ما حكم صيام رمضان؟",
+options: ["سنة", "مستحب", "فرض", "مباح"],
+correct: 2,
+topic: "الفقه"
+},
+{
+id: 19,
+question: "من هو أول الخلفاء الراشدين؟",
+options: ["عمر بن الخطاب", "أبو بكر الصديق", "عثمان بن عفان", "علي بن أبي طالب"],
+correct: 1,
+topic: "التاريخ الإسلامي"
+},
+{
+id: 20,
+question: "من هو الصحابي الملقب بالفاروق؟",
+options: ["أبو بكر", "عمر بن الخطاب", "علي", "عثمان"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 21,
+question: "من هو أول مؤذن في الإسلام؟",
+options: ["بلال بن رباح", "أبو هريرة", "ابن مسعود", "زيد بن ثابت"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 22,
+question: "في أي عام كانت الهجرة النبوية؟",
+options: ["610م", "622م", "630م", "615م"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 23,
+question: "ما اسم الغار الذي نزل فيه الوحي؟",
+options: ["غار ثور", "غار حراء", "غار أحد", "غار بدر"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 24,
+question: "من هو النبي الذي ابتلعه الحوت؟",
+options: ["يونس عليه السلام", "نوح عليه السلام", "موسى عليه السلام", "إبراهيم عليه السلام"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 25,
+question: "من هو أبو الأنبياء؟",
+options: ["إبراهيم عليه السلام", "نوح عليه السلام", "آدم عليه السلام", "موسى عليه السلام"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 26,
+question: "من النبي الذي كلمه الله مباشرة؟",
+options: ["عيسى", "موسى", "محمد", "إبراهيم"],
+correct: 1,
+topic: "الأنبياء"
+},
+{
+id: 27,
+question: "كم عدد أبواب الجنة؟",
+options: ["7", "8", "9", "6"],
+correct: 1,
+topic: "العقيدة"
+},
+{
+id: 28,
+question: "الحديث: (إنما الأعمال بـ...)?",
+options: ["النيات", "الأقوال", "القلوب", "الأفعال"],
+correct: 0,
+topic: "الحديث"
+},
+{
+id: 29,
+question: "في أي غزوة انتصر المسلمون أول انتصار؟",
+options: ["أحد", "بدر", "الخندق", "تبوك"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 30,
+question: "في أي سنة فتحت مكة؟",
+options: ["8 هـ", "7 هـ", "9 هـ", "10 هـ"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 31,
+question: "كم عدد تكبيرات صلاة الجنازة؟",
+options: ["3", "4", "5", "6"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 32,
+question: "ما أول قبلة للمسلمين؟",
+options: ["المسجد الأقصى", "الكعبة", "المسجد النبوي", "قباء"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 33,
+question: "ما السورة التي تسمى قلب القرآن؟",
+options: ["يس", "الرحمن", "البقرة", "الملك"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 34,
+question: "كم عدد سجود التلاوة في القرآن تقريبًا؟",
+options: ["15", "10", "20", "7"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 35,
+question: "من كاتب الوحي للنبي ﷺ؟",
+options: ["زيد بن ثابت", "خالد بن الوليد", "أبو هريرة", "سعد بن أبي وقاص"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 36,
+question: "ما آخر سورة في المصحف؟",
+options: ["الفلق", "الناس", "الإخلاص", "الكوثر"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 37,
+question: "كم عدد الأشهر الحرم؟",
+options: ["3", "4", "5", "6"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 38,
+question: "ما اسم أم النبي ﷺ؟",
+options: ["آمنة بنت وهب", "خديجة", "عائشة", "فاطمة"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 39,
+question: "ما اسم والد النبي ﷺ؟",
+options: ["عبد المطلب", "عبد الله", "أبو طالب", "العباس"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 40,
+question: "أين وُلد النبي ﷺ؟",
+options: ["المدينة", "مكة", "الطائف", "بيت لحم"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 41,
+question: "كم استمرت الدعوة في مكة؟",
+options: ["10 سنوات", "13 سنة", "15 سنة", "8 سنوات"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 42,
+question: "كم استمرت الدعوة في المدينة؟",
+options: ["8 سنوات", "10 سنوات", "12 سنة", "5 سنوات"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 43,
+question: "من هو الصحابي الملقب بسيف الله المسلول؟",
+options: ["علي", "خالد بن الوليد", "الزبير", "سعد"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 44,
+question: "ما أول مسجد بني في الإسلام؟",
+options: ["المسجد النبوي", "مسجد قباء", "المسجد الأقصى", "مسجد الحرام"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 45,
+question: "كم عدد أيام شهر رمضان؟",
+options: ["29 أو 30", "28", "31", "27"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 46,
+question: "ليلة القدر في أي شهر؟",
+options: ["شعبان", "رمضان", "رجب", "محرم"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 47,
+question: "كم عدد الخلفاء الراشدين؟",
+options: ["3", "4", "5", "6"],
+correct: 1,
+topic: "التاريخ الإسلامي"
+},
+{
+id: 48,
+question: "من هو آخر الخلفاء الراشدين؟",
+options: ["عمر", "علي", "عثمان", "أبو بكر"],
+correct: 1,
+topic: "التاريخ الإسلامي"
+},
+{
+id: 49,
+question: "من الصحابي الذي رافق النبي في الهجرة؟",
+options: ["عمر", "أبو بكر", "علي", "عثمان"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 50,
+question: "كم عدد الصلوات التي فُرضت ليلة الإسراء أولاً؟",
+options: ["5", "50", "10", "20"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 51,
+question: "ما اسم أول سورة في القرآن الكريم؟",
+options: ["البقرة", "الفاتحة", "الإخلاص", "العلق"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 52,
+question: "ما اسم آخر سورة في القرآن الكريم؟",
+options: ["الفلق", "الناس", "الإخلاص", "الكوثر"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 53,
+question: "كم عدد الأحزاب في القرآن الكريم؟",
+options: ["30", "40", "60", "20"],
+correct: 2,
+topic: "القرآن"
+},
+{
+id: 54,
+question: "ما السورة التي تسمى الزهراء مع سورة البقرة؟",
+options: ["النساء", "آل عمران", "المائدة", "الأنعام"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 55,
+question: "كم عدد السجدات في القرآن الكريم (المشهورة)؟",
+options: ["10", "12", "15", "17"],
+correct: 2,
+topic: "القرآن"
+},
+{
+id: 56,
+question: "ما اسم السورة التي نزلت كاملة دفعة واحدة؟",
+options: ["الأنعام", "يوسف", "الكهف", "النور"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 57,
+question: "ما اسم والد إبراهيم عليه السلام؟",
+options: ["آزر", "سام", "تارح", "يافث"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 58,
+question: "أي نبي لُقب بخليل الله؟",
+options: ["موسى", "إبراهيم", "نوح", "عيسى"],
+correct: 1,
+topic: "الأنبياء"
+},
+{
+id: 59,
+question: "كم لبث نوح عليه السلام يدعو قومه؟",
+options: ["950 سنة", "500 سنة", "300 سنة", "700 سنة"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 60,
+question: "من هو أول نبي في الإسلام؟",
+options: ["إبراهيم", "نوح", "آدم", "إدريس"],
+correct: 2,
+topic: "الأنبياء"
+},
+{
+id: 61,
+question: "من هو النبي الذي فُلق له البحر؟",
+options: ["عيسى", "موسى", "إبراهيم", "يوسف"],
+correct: 1,
+topic: "الأنبياء"
+},
+{
+id: 62,
+question: "من هو النبي الذي ألقي في النار؟",
+options: ["إبراهيم", "موسى", "إسماعيل", "داود"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 63,
+question: "كم عدد غزوات النبي ﷺ تقريبًا؟",
+options: ["10", "27", "40", "17"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 64,
+question: "في أي مدينة توفي النبي ﷺ؟",
+options: ["مكة", "الطائف", "المدينة", "القدس"],
+correct: 2,
+topic: "السيرة"
+},
+{
+id: 65,
+question: "كم كان عمر النبي ﷺ عند وفاته؟",
+options: ["60 سنة", "63 سنة", "65 سنة", "70 سنة"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 66,
+question: "من هي أول زوجة للنبي ﷺ؟",
+options: ["عائشة", "خديجة", "حفصة", "سودة"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 67,
+question: "ما اسم ابنة النبي ﷺ التي تُلقب بأم أبيها؟",
+options: ["فاطمة", "زينب", "رقية", "أم كلثوم"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 68,
+question: "في أي ليلة كانت رحلة الإسراء والمعراج؟",
+options: ["ليلة القدر", "ليلة الإسراء", "ليلة النصف من شعبان", "ليلة بدر"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 69,
+question: "من هو الصحابي الملقب بأمين الأمة؟",
+options: ["أبو عبيدة بن الجراح", "عمر بن الخطاب", "عثمان بن عفان", "سعد بن أبي وقاص"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 70,
+question: "من هو أكثر الصحابة رواية للحديث؟",
+options: ["عبد الله بن عمر", "أبو هريرة", "أنس بن مالك", "ابن عباس"],
+correct: 1,
+topic: "الحديث"
+},
+{
+id: 71,
+question: "ما الكتاب الذي يُعد أصح كتاب بعد القرآن؟",
+options: ["صحيح مسلم", "سنن الترمذي", "صحيح البخاري", "سنن النسائي"],
+correct: 2,
+topic: "الحديث"
+},
+{
+id: 72,
+question: "كم عدد الصلوات التي يصليها المسلم يوم الجمعة بدل الظهر؟",
+options: ["صلاة العصر", "صلاة الجمعة", "صلاة العيد", "صلاة الضحى"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 73,
+question: "كم عدد ركعات صلاة الجمعة؟",
+options: ["2", "4", "3", "5"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 74,
+question: "ما حكم الزكاة في الإسلام؟",
+options: ["سنة", "مستحب", "فرض", "مكروه"],
+correct: 2,
+topic: "الفقه"
+},
+{
+id: 75,
+question: "متى فرض صيام رمضان؟",
+options: ["السنة الثانية للهجرة", "السنة الأولى للهجرة", "السنة الخامسة", "السنة السابعة"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 76,
+question: "كم عدد أيام التشريق؟",
+options: ["2", "3", "4", "5"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 77,
+question: "ما أول مسجد بُني في المدينة؟",
+options: ["المسجد النبوي", "مسجد قباء", "المسجد الأقصى", "مسجد الفتح"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 78,
+question: "ما اسم ناقة النبي ﷺ؟",
+options: ["القصواء", "العضباء", "الجدعاء", "السرح"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 79,
+question: "من هو عم النبي ﷺ الذي نصره في الدعوة؟",
+options: ["العباس", "أبو طالب", "حمزة", "أبو لهب"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 80,
+question: "من هو الصحابي الذي نام في فراش النبي ليلة الهجرة؟",
+options: ["علي بن أبي طالب", "أبو بكر", "عمر", "عثمان"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 81,
+question: "كم عدد زوجات النبي ﷺ اللاتي تزوجهن بعد الهجرة؟",
+options: ["9", "11", "13", "7"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 82,
+question: "ما اسم العام الذي توفي فيه أبو طالب وخديجة؟",
+options: ["عام الحزن", "عام الفتح", "عام الهجرة", "عام بدر"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 83,
+question: "كم عدد تكبيرات صلاة العيد؟",
+options: ["7 في الأولى و5 في الثانية", "5 و5", "6 و6", "8 و6"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 84,
+question: "من أول من جمع القرآن في مصحف واحد؟",
+options: ["أبو بكر الصديق", "عمر بن الخطاب", "عثمان بن عفان", "علي بن أبي طالب"],
+correct: 0,
+topic: "التاريخ الإسلامي"
+},
+{
+id: 85,
+question: "في عهد أي خليفة تم جمع المصحف العثماني؟",
+options: ["أبو بكر", "عمر", "عثمان", "علي"],
+correct: 2,
+topic: "التاريخ الإسلامي"
+},
+{
+id: 86,
+question: "ما أول معركة في الإسلام؟",
+options: ["بدر", "أحد", "الخندق", "حنين"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 87,
+question: "ما اسم زوجة فرعون التي آمنت؟",
+options: ["آسية", "مريم", "هاجر", "سارة"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 88,
+question: "ما اسم ابن نوح الذي غرق؟",
+options: ["سام", "حام", "يام", "كنعان"],
+correct: 3,
+topic: "الأنبياء"
+},
+{
+id: 89,
+question: "ما اسم السورة التي تتحدث عن غزوة بدر؟",
+options: ["الأنفال", "التوبة", "محمد", "الفتح"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 90,
+question: "كم عدد أحاديث الأربعين النووية؟",
+options: ["40", "41", "42", "39"],
+correct: 1,
+topic: "الحديث"
+},
+{
+id: 91,
+question: "ما أول ما يُحاسب عليه العبد يوم القيامة؟",
+options: ["الصلاة", "الصيام", "الزكاة", "الحج"],
+correct: 0,
+topic: "العقيدة"
+},
+{
+id: 92,
+question: "كم عدد أبواب النار؟",
+options: ["6", "7", "8", "9"],
+correct: 1,
+topic: "العقيدة"
+},
+{
+id: 93,
+question: "من هو النبي الذي وُلد من غير أب؟",
+options: ["موسى", "عيسى", "إسماعيل", "يوسف"],
+correct: 1,
+topic: "الأنبياء"
+},
+{
+id: 94,
+question: "ما اسم والد النبي محمد ﷺ؟",
+options: ["عبد الله", "عبد المطلب", "أبو طالب", "العباس"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 95,
+question: "ما اسم أم النبي ﷺ؟",
+options: ["آمنة بنت وهب", "خديجة", "فاطمة", "حليمة"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 96,
+question: "من مرضعة النبي ﷺ؟",
+options: ["حليمة السعدية", "أم أيمن", "آسية", "صفية"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 97,
+question: "كم كان عمر النبي ﷺ عند نزول الوحي؟",
+options: ["35 سنة", "40 سنة", "45 سنة", "30 سنة"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 98,
+question: "ما اسم الغزوة التي حُفر فيها الخندق؟",
+options: ["الأحزاب", "بدر", "أحد", "حنين"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 99,
+question: "من هو الصحابي الذي اهتز لموته عرش الرحمن؟",
+options: ["سعد بن معاذ", "حمزة", "بلال", "خالد"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 100,
+question: "كم عدد التكبيرات في الأذان؟",
+options: ["4", "6", "8", "2"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 101,
+question: "كم عدد أسماء الله الحسنى المشهورة؟",
+options: ["99", "100", "101", "90"],
+correct: 0,
+topic: "العقيدة"
+},
+{
+id: 102,
+question: "ما أول مسجد وضع في الأرض؟",
+options: ["المسجد النبوي", "المسجد الأقصى", "المسجد الحرام", "مسجد قباء"],
+correct: 2,
+topic: "العقيدة"
+},
+{
+id: 103,
+question: "كم عدد الأنبياء المذكورين في القرآن؟",
+options: ["25", "30", "20", "18"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 104,
+question: "من هو النبي الذي صنع السفينة؟",
+options: ["إبراهيم", "موسى", "نوح", "داود"],
+correct: 2,
+topic: "الأنبياء"
+},
+{
+id: 105,
+question: "من هو النبي الذي كان يعمل نجارًا؟",
+options: ["نوح", "إدريس", "زكريا", "موسى"],
+correct: 2,
+topic: "الأنبياء"
+},
+{
+id: 106,
+question: "من هو النبي الذي أُعطي الزبور؟",
+options: ["سليمان", "داود", "موسى", "عيسى"],
+correct: 1,
+topic: "الأنبياء"
+},
+{
+id: 107,
+question: "ما اسم والد النبي إسماعيل عليه السلام؟",
+options: ["إبراهيم", "يعقوب", "يوسف", "نوح"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 108,
+question: "من هو النبي الذي فُتن بامرأة العزيز؟",
+options: ["يوسف", "موسى", "داود", "إبراهيم"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 109,
+question: "كم عدد الصلوات التي صلاها المسلمون نحو بيت المقدس تقريبًا؟",
+options: ["6 أشهر", "16 شهرًا", "3 أشهر", "سنة"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 110,
+question: "من الذي أشار بحفر الخندق في غزوة الأحزاب؟",
+options: ["أبو بكر", "سلمان الفارسي", "عمر بن الخطاب", "علي بن أبي طالب"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 111,
+question: "كم عدد زوجات النبي ﷺ اللاتي تزوجهن في حياته؟",
+options: ["9", "11", "13", "8"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 112,
+question: "من هو أصغر الصحابة سنًا في الإسلام؟",
+options: ["عبد الله بن عباس", "علي بن أبي طالب", "زيد بن ثابت", "أنس بن مالك"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 113,
+question: "في أي غزوة استشهد حمزة رضي الله عنه؟",
+options: ["بدر", "أحد", "الخندق", "حنين"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 114,
+question: "ما اسم سيف النبي ﷺ؟",
+options: ["ذو الفقار", "البتار", "العضب", "الصرم"],
+correct: 2,
+topic: "السيرة"
+},
+{
+id: 115,
+question: "كم عدد التكبيرات في صلاة الجنازة؟",
+options: ["3", "4", "5", "6"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 116,
+question: "ما الركن الرابع من أركان الإسلام؟",
+options: ["الصوم", "الزكاة", "الحج", "الصلاة"],
+correct: 0,
+topic: "العقيدة"
+},
+{
+id: 117,
+question: "متى فرضت الصلاة؟",
+options: ["ليلة الإسراء والمعراج", "الهجرة", "غزوة بدر", "فتح مكة"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 118,
+question: "كم عدد ركعات صلاة العصر؟",
+options: ["2", "3", "4", "5"],
+correct: 2,
+topic: "الفقه"
+},
+{
+id: 119,
+question: "كم عدد ركعات صلاة العشاء؟",
+options: ["2", "3", "4", "5"],
+correct: 2,
+topic: "الفقه"
+},
+{
+id: 120,
+question: "من هو الإمام الأول من الأئمة الأربعة؟",
+options: ["أحمد بن حنبل", "أبو حنيفة", "الشافعي", "مالك"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 121,
+question: "كم عدد كتب الصحاح الستة؟",
+options: ["4", "5", "6", "7"],
+correct: 2,
+topic: "الحديث"
+},
+{
+id: 122,
+question: "من مؤلف صحيح مسلم؟",
+options: ["الترمذي", "النسائي", "مسلم بن الحجاج", "ابن ماجه"],
+correct: 2,
+topic: "الحديث"
+},
+{
+id: 123,
+question: "من مؤلف سنن أبي داود؟",
+options: ["أبو داود", "البخاري", "الدارمي", "النسائي"],
+correct: 0,
+topic: "الحديث"
+},
+{
+id: 124,
+question: "ما أول سورة نزلت كاملة في المدينة؟",
+options: ["البقرة", "النساء", "المائدة", "الأنفال"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 125,
+question: "كم عدد السور المدنية تقريبًا؟",
+options: ["28", "20", "30", "15"],
+correct: 0,
+topic: "القرآن"
+},
+
+// ---------- قرآن إضافي ----------
+{
+id: 126,
+question: "ما السورة التي تبدأ بالحمد وتنتهي بالحمد؟",
+options: ["الأنعام", "الكهف", "سبأ", "فاطر"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 127,
+question: "ما السورة التي تحتوي على أطول آية في القرآن؟",
+options: ["البقرة", "آل عمران", "النساء", "المائدة"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 128,
+question: "آية الدين في أي سورة؟",
+options: ["النساء", "البقرة", "المائدة", "التوبة"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 129,
+question: "كم عدد حروف البسملة؟ (المشهور)",
+options: ["19", "18", "21", "17"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 130,
+question: "ما السورة التي سميت باسم نبي؟",
+options: ["يونس", "البقرة", "الرحمن", "الملك"],
+correct: 0,
+topic: "القرآن"
+},
+
+// ---------- سيرة ----------
+{
+id: 131,
+question: "من هو أول من أسلم من الرجال؟",
+options: ["أبو بكر الصديق", "عمر", "عثمان", "علي"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 132,
+question: "من أول من أسلم من الصبيان؟",
+options: ["زيد بن حارثة", "علي بن أبي طالب", "أنس بن مالك", "ابن عباس"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 133,
+question: "من أول من أسلم من النساء؟",
+options: ["عائشة", "خديجة", "فاطمة", "حفصة"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 134,
+question: "كم عدد بنات النبي ﷺ؟",
+options: ["3", "4", "5", "2"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 135,
+question: "ما اسم ابن النبي ﷺ؟",
+options: ["إبراهيم", "عبد الله", "القاسم", "كل ما سبق"],
+correct: 3,
+topic: "السيرة"
+},
+
+// ---------- فقه ----------
+{
+id: 136,
+question: "كم عدد شروط الصلاة؟ (المشهور)",
+options: ["9", "8", "7", "6"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 137,
+question: "كم عدد أركان الصلاة؟ (عند الجمهور تقريبًا)",
+options: ["14", "12", "10", "8"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 138,
+question: "متى يبدأ وقت صلاة الفجر؟",
+options: ["طلوع الشمس", "الفجر الصادق", "منتصف الليل", "بعد الشروق"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 139,
+question: "متى ينتهي وقت صلاة المغرب؟",
+options: ["غياب الشفق", "منتصف الليل", "أذان العشاء", "الشروق"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 140,
+question: "كم نصاب الزكاة في الذهب تقريبًا؟",
+options: ["85 جرام", "100 جرام", "50 جرام", "120 جرام"],
+correct: 0,
+topic: "الفقه"
+},
+
+// ---------- عقيدة ----------
+{
+id: 141,
+question: "الإيمان بالملائكة ركن من أركان؟",
+options: ["الإسلام", "الإيمان", "الإحسان", "الفقه"],
+correct: 1,
+topic: "العقيدة"
+},
+{
+id: 142,
+question: "من هم أولوا العزم من الرسل؟",
+options: ["5", "7", "3", "10"],
+correct: 0,
+topic: "العقيدة"
+},
+{
+id: 143,
+question: "ما أعظم آية في القرآن؟",
+options: ["آية الكرسي", "آخر البقرة", "الفاتحة", "الإخلاص"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 144,
+question: "ما أعظم سورة في القرآن؟",
+options: ["الفاتحة", "البقرة", "الإخلاص", "الرحمن"],
+correct: 0,
+topic: "القرآن"
+},
+
+// ---------- حديث ----------
+{
+id: 145,
+question: "الحديث: (لا يؤمن أحدكم حتى يحب لأخيه...) ماذا؟",
+options: ["ما يحب لنفسه", "الخير", "الجنة", "الإسلام"],
+correct: 0,
+topic: "الحديث"
+},
+{
+id: 146,
+question: "الحديث: (المسلم من سلم المسلمون من...)؟",
+options: ["يده ولسانه", "قلبه", "عينه", "فعله"],
+correct: 0,
+topic: "الحديث"
+},
+
+// ---------- تاريخ ----------
+{
+id: 147,
+question: "من ثاني الخلفاء الراشدين؟",
+options: ["عثمان", "عمر بن الخطاب", "علي", "أبو بكر"],
+correct: 1,
+topic: "التاريخ الإسلامي"
+},
+{
+id: 148,
+question: "من ثالث الخلفاء الراشدين؟",
+options: ["علي", "عمر", "عثمان", "أبو بكر"],
+correct: 2,
+topic: "التاريخ الإسلامي"
+},
+{
+id: 149,
+question: "من رابع الخلفاء الراشدين؟",
+options: ["علي بن أبي طالب", "عثمان", "عمر", "الحسن"],
+correct: 0,
+topic: "التاريخ الإسلامي"
+},
+{
+id: 150,
+question: "ما الدولة التي فتحت مصر في عهد الصحابة؟",
+options: ["الدولة العباسية", "الدولة الأموية", "الخلافة الراشدة", "الدولة الفاطمية"],
+correct: 2,
+topic: "التاريخ الإسلامي"
+},
+
+// تكملة حتى 200 بأسئلة دقيقة ومتنوعة
+{
+id: 151,
+question: "ما اسم السورة التي تُسمى عروس القرآن؟",
+options: ["الرحمن", "يس", "الملك", "الواقعة"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 152,
+question: "كم عدد منازل القمر في القرآن؟",
+options: ["28", "30", "27", "29"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 153,
+question: "ما اسم النبي الذي سخر الله له الريح؟",
+options: ["داود", "سليمان", "إبراهيم", "يوسف"],
+correct: 1,
+topic: "الأنبياء"
+},
+{
+id: 154,
+question: "من هو النبي الذي أُعطي ملكًا لا ينبغي لأحد من بعده؟",
+options: ["سليمان", "داود", "يوسف", "موسى"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 155,
+question: "ما اسم أم موسى عليه السلام؟",
+options: ["يوكابد", "مريم", "آسية", "هاجر"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 156,
+question: "كم عدد أركان الحج؟",
+options: ["4", "5", "3", "6"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 157,
+question: "في أي شهر يكون الحج؟",
+options: ["ذو الحجة", "رمضان", "شوال", "محرم"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 158,
+question: "ما الوقوف الأعظم في الحج؟",
+options: ["عرفة", "منى", "مزدلفة", "الطواف"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 159,
+question: "كم عدد أشواط الطواف حول الكعبة؟",
+options: ["7", "6", "8", "5"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 160,
+question: "كم عدد أشواط السعي بين الصفا والمروة؟",
+options: ["7", "5", "6", "8"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 201,
+question: "ما اسم أول غزوة خرج فيها النبي ﷺ؟",
+options: ["بدر", "ودان (الأبواء)", "أحد", "تبوك"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 202,
+question: "كم عدد مرات ذكر اسم محمد ﷺ في القرآن؟",
+options: ["3", "4", "5", "6"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 203,
+question: "ما اسم السورة التي نزلت في حادثة الإفك؟",
+options: ["النور", "الأحزاب", "النساء", "المجادلة"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 204,
+question: "من هو الصحابي الذي لقب بذي النورين؟",
+options: ["علي بن أبي طالب", "عثمان بن عفان", "عمر بن الخطاب", "طلحة بن عبيد الله"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 205,
+question: "كم عدد الأشهر الحرم في الإسلام؟",
+options: ["3", "4", "5", "6"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 206,
+question: "ما اسم أم المؤمنين التي روت أكبر عدد من الأحاديث؟",
+options: ["حفصة", "أم سلمة", "عائشة رضي الله عنها", "خديجة"],
+correct: 2,
+topic: "الحديث"
+},
+{
+id: 207,
+question: "في أي عام توفي النبي ﷺ؟",
+options: ["10 هـ", "11 هـ", "9 هـ", "12 هـ"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 208,
+question: "ما اسم والد مريم عليها السلام؟",
+options: ["عمران", "زكريا", "يوسف", "يعقوب"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 209,
+question: "من هو النبي الذي أُعطي معجزة إحياء الموتى بإذن الله؟",
+options: ["موسى", "عيسى", "إبراهيم", "نوح"],
+correct: 1,
+topic: "الأنبياء"
+},
+{
+id: 210,
+question: "كم عدد مرات الحج التي حجها النبي ﷺ؟",
+options: ["1", "2", "3", "4"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 211,
+question: "ما اسم حجة النبي ﷺ الأخيرة؟",
+options: ["حجة الوداع", "حجة الفتح", "حجة الإسلام", "الحجة الكبرى"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 212,
+question: "من هو النبي الذي بنى الكعبة مع ابنه؟",
+options: ["إبراهيم وإسماعيل", "نوح وسام", "آدم وشيث", "يعقوب ويوسف"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 213,
+question: "ما اسم السورة التي تسمى سنام القرآن؟",
+options: ["البقرة", "آل عمران", "النساء", "المائدة"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 214,
+question: "كم عدد السور المكية تقريباً؟",
+options: ["86", "50", "70", "40"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 215,
+question: "ما اسم أول مسجد بُني في الإسلام؟",
+options: ["المسجد النبوي", "مسجد قباء", "المسجد الحرام", "المسجد الأقصى"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 216,
+question: "من هو الصحابي الذي جمع القرآن في عهد أبي بكر؟",
+options: ["زيد بن ثابت", "علي بن أبي طالب", "عبد الله بن مسعود", "أبي بن كعب"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 217,
+question: "كم عدد ركعات صلاة التراويح المشهورة؟",
+options: ["8", "11", "20", "كل ما سبق صحيح"],
+correct: 3,
+topic: "الفقه"
+},
+{
+id: 218,
+question: "ما اسم الغزوة التي سميت بالأحزاب؟",
+options: ["الخندق", "بدر", "أحد", "حنين"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 219,
+question: "من هو الصحابي الذي اهتز عرش الرحمن لموته؟",
+options: ["سعد بن معاذ", "حمزة", "بلال", "مصعب بن عمير"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 220,
+question: "كم عدد تكبيرات الانتقال في الصلاة؟",
+options: ["4", "6", "7", "5"],
+correct: 2,
+topic: "الفقه"
+},
+
+// قرآن
+{
+id: 221,
+question: "ما السورة التي تبدأ بـ (تبارك)؟",
+options: ["الملك", "الرحمن", "الواقعة", "النبأ"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 222,
+question: "ما السورة التي تسمى الواقية من عذاب القبر؟",
+options: ["يس", "الملك", "الكهف", "الدخان"],
+correct: 1,
+topic: "الحديث"
+},
+{
+id: 223,
+question: "كم عدد آيات سورة الكوثر؟",
+options: ["3", "4", "5", "6"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 224,
+question: "كم عدد آيات سورة الإخلاص؟",
+options: ["4", "5", "3", "6"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 225,
+question: "ما السورة التي ذكرت فيها البسملة مرتين؟",
+options: ["النمل", "التوبة", "يوسف", "هود"],
+correct: 0,
+topic: "القرآن"
+},
+
+// فقه
+{
+id: 226,
+question: "كم نصاب الزكاة في الفضة تقريباً؟",
+options: ["595 جرام", "500 جرام", "700 جرام", "400 جرام"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 227,
+question: "ما حكم صلاة الجماعة عند جمهور العلماء؟",
+options: ["فرض عين", "سنة مؤكدة", "مباح", "واجب كفاية"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 228,
+question: "كم عدد أركان الحج عند الجمهور؟",
+options: ["3", "4", "5", "6"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 229,
+question: "ما هو الركن الأعظم في الحج؟",
+options: ["الطواف", "السعي", "الوقوف بعرفة", "رمي الجمرات"],
+correct: 2,
+topic: "الفقه"
+},
+{
+id: 230,
+question: "كم عدد صلوات السنن الرواتب؟",
+options: ["10", "12", "8", "6"],
+correct: 1,
+topic: "الفقه"
+},
+
+// عقيدة
+{
+id: 231,
+question: "الإحسان هو أن تعبد الله كأنك؟",
+options: ["تراه", "تسمعه", "تعرفه", "تخافه"],
+correct: 0,
+topic: "العقيدة"
+},
+{
+id: 232,
+question: "ما الركن السادس من أركان الإيمان؟",
+options: ["الإيمان بالملائكة", "الإيمان بالقدر", "الإيمان بالكتب", "الإيمان بالرسل"],
+correct: 1,
+topic: "العقيدة"
+},
+
+// أنبياء
+{
+id: 233,
+question: "من هو النبي الذي سُمي كليم الله؟",
+options: ["موسى", "عيسى", "محمد", "إبراهيم"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 234,
+question: "من هو النبي الذي أُعطي الحكمة وفصل الخطاب؟",
+options: ["سليمان", "داود", "يوسف", "نوح"],
+correct: 1,
+topic: "الأنبياء"
+},
+{
+id: 235,
+question: "من هو النبي الذي عاش أطول عمر؟",
+options: ["نوح عليه السلام", "موسى", "إبراهيم", "آدم"],
+correct: 0,
+topic: "الأنبياء"
+},
+
+// تاريخ
+{
+id: 236,
+question: "في عهد من فُتحت القدس أول مرة؟",
+options: ["أبو بكر", "عمر بن الخطاب", "عثمان", "علي"],
+correct: 1,
+topic: "التاريخ الإسلامي"
+},
+{
+id: 237,
+question: "من هو قائد فتح مصر الإسلامي؟",
+options: ["خالد بن الوليد", "عمرو بن العاص", "سعد بن أبي وقاص", "طارق بن زياد"],
+correct: 1,
+topic: "التاريخ الإسلامي"
+},
+{
+id: 238,
+question: "من فتح الأندلس؟",
+options: ["طارق بن زياد", "صلاح الدين", "عمرو بن العاص", "خالد بن الوليد"],
+correct: 0,
+topic: "التاريخ الإسلامي"
+},
+{
+id: 239,
+question: "من حرر القدس من الصليبيين؟",
+options: ["صلاح الدين الأيوبي", "نور الدين زنكي", "سيف الدين", "قطز"],
+correct: 0,
+topic: "التاريخ الإسلامي"
+},
+{
+id: 240,
+question: "في أي معركة انتصر المسلمون على التتار؟",
+options: ["عين جالوت", "اليرموك", "القادسية", "الزلاقة"],
+correct: 0,
+topic: "التاريخ الإسلامي"
+},
+
+// استكمال متنوعة حتى 300
+{
+id: 241,
+question: "كم عدد السور التي تبدأ بالحروف المقطعة؟",
+options: ["29", "20", "15", "10"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 242,
+question: "ما أول سورة نزلت كاملة؟",
+options: ["المدثر", "الفاتحة", "العلق", "الأنعام"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 243,
+question: "ما السورة التي تسمى المانعة؟",
+options: ["الملك", "الواقعة", "يس", "الرحمن"],
+correct: 0,
+topic: "الحديث"
+},
+{
+id: 244,
+question: "كم عدد أبواب الجنة؟",
+options: ["7", "8", "9", "10"],
+correct: 1,
+topic: "العقيدة"
+},
+{
+id: 245,
+question: "كم عدد أبواب النار؟",
+options: ["6", "7", "8", "5"],
+correct: 1,
+topic: "العقيدة"
+},
+{
+id: 246,
+question: "من هو الصحابي كاتب الوحي؟",
+options: ["زيد بن ثابت", "أبو هريرة", "أنس بن مالك", "ابن عمر"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 247,
+question: "كم كان عمر النبي ﷺ عند الهجرة؟",
+options: ["40", "50", "53", "60"],
+correct: 2,
+topic: "السيرة"
+},
+{
+id: 248,
+question: "ما اسم ناقة النبي ﷺ؟",
+options: ["القصواء", "العضباء", "الجدعاء", "كل ما سبق من أسمائها"],
+correct: 3,
+topic: "السيرة"
+},
+{
+id: 249,
+question: "في أي شهر فرض صيام رمضان؟",
+options: ["شعبان", "رمضان", "رجب", "محرم"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 250,
+question: "كم عدد أيام السنة الهجرية؟",
+options: ["354", "365", "360", "350"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 251,
+question: "ما أول ركن من أركان الإسلام؟",
+options: ["الصلاة", "الشهادتان", "الزكاة", "الصوم"],
+correct: 1,
+topic: "العقيدة"
+},
+{
+id: 252,
+question: "كم عدد السور في القرآن الكريم؟",
+options: ["113", "114", "115", "116"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 253,
+question: "ما السورة التي لا تبدأ بالبسملة؟",
+options: ["التوبة", "الأنفال", "يونس", "هود"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 254,
+question: "كم عدد أركان الإيمان؟",
+options: ["5", "6", "7", "4"],
+correct: 1,
+topic: "العقيدة"
+},
+{
+id: 255,
+question: "من هو خاتم الأنبياء؟",
+options: ["عيسى عليه السلام", "محمد ﷺ", "موسى", "إبراهيم"],
+correct: 1,
+topic: "العقيدة"
+},
+{
+id: 256,
+question: "في أي سورة وردت آية الكرسي؟",
+options: ["آل عمران", "البقرة", "النساء", "المائدة"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 257,
+question: "كم عدد ركعات صلاة الفجر؟",
+options: ["2", "3", "4", "1"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 258,
+question: "كم عدد ركعات صلاة المغرب؟",
+options: ["2", "3", "4", "5"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 259,
+question: "من هو النبي الذي ابتلعه الحوت؟",
+options: ["يونس عليه السلام", "موسى", "نوح", "إبراهيم"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 260,
+question: "ما اسم أول مسجد بُني في الإسلام؟",
+options: ["المسجد الحرام", "مسجد قباء", "المسجد النبوي", "المسجد الأقصى"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 261,
+question: "من هو الصحابي الملقب بالفاروق؟",
+options: ["علي بن أبي طالب", "عمر بن الخطاب", "أبو بكر", "عثمان"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 262,
+question: "كم عدد أجزاء القرآن الكريم؟",
+options: ["29", "30", "31", "28"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 263,
+question: "ما اسم والدة النبي ﷺ؟",
+options: ["آمنة بنت وهب", "خديجة", "حليمة", "فاطمة"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 264,
+question: "في أي شهر نزل القرآن الكريم؟",
+options: ["رجب", "رمضان", "شعبان", "محرم"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 265,
+question: "كم عدد أشواط الطواف حول الكعبة؟",
+options: ["6", "7", "8", "5"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 266,
+question: "من هو أول الخلفاء الراشدين؟",
+options: ["عمر", "عثمان", "أبو بكر الصديق", "علي"],
+correct: 2,
+topic: "التاريخ الإسلامي"
+},
+{
+id: 267,
+question: "ما اسم الغار الذي اختبأ فيه النبي أثناء الهجرة؟",
+options: ["حراء", "ثور", "أحد", "بدر"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 268,
+question: "كم عدد أبواب الجنة؟",
+options: ["7", "8", "9", "10"],
+correct: 1,
+topic: "العقيدة"
+},
+{
+id: 269,
+question: "ما أعظم سورة في القرآن؟",
+options: ["البقرة", "الفاتحة", "يس", "الملك"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 270,
+question: "من هو النبي الذي كلمه الله مباشرة؟",
+options: ["إبراهيم", "موسى", "عيسى", "نوح"],
+correct: 1,
+topic: "الأنبياء"
+},
+{
+id: 271,
+question: "كم عدد الصلوات المفروضة في اليوم؟",
+options: ["4", "5", "6", "3"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 272,
+question: "ما اسم السورة التي تُسمى قلب القرآن؟",
+options: ["يس", "الرحمن", "الواقعة", "الملك"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 273,
+question: "من هو الصحابي كاتب الوحي؟",
+options: ["زيد بن ثابت", "أبو هريرة", "أنس", "ابن عمر"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 274,
+question: "كم عدد أشهر الحج؟",
+options: ["2", "3", "4", "1"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 275,
+question: "ما اسم زوجة فرعون المؤمنة؟",
+options: ["آسية", "مريم", "هاجر", "سارة"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 276,
+question: "كم عدد ركعات صلاة العشاء؟",
+options: ["2", "3", "4", "5"],
+correct: 2,
+topic: "الفقه"
+},
+{
+id: 277,
+question: "في أي سنة كانت الهجرة النبوية؟",
+options: ["610م", "622م", "630م", "615م"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 278,
+question: "ما اسم أول سورة نزلت من القرآن؟",
+options: ["الفاتحة", "العلق", "المدثر", "القلم"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 279,
+question: "من هو النبي الذي أُعطي الزبور؟",
+options: ["سليمان", "داود", "موسى", "عيسى"],
+correct: 1,
+topic: "الأنبياء"
+},
+{
+id: 280,
+question: "كم عدد تكبيرات صلاة الجنازة؟",
+options: ["3", "4", "5", "6"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 281,
+question: "ما اسم السورة التي تبدأ بـ (تبارك الذي بيده الملك)؟",
+options: ["الملك", "النبأ", "القلم", "الواقعة"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 282,
+question: "من هو النبي الذي بُعث في قوم عاد؟",
+options: ["هود", "صالح", "لوط", "شعيب"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 283,
+question: "كم عدد ركعات صلاة الظهر؟",
+options: ["2", "3", "4", "5"],
+correct: 2,
+topic: "الفقه"
+},
+{
+id: 284,
+question: "ما اسم والد النبي إبراهيم عليه السلام؟",
+options: ["آزر", "سام", "نوح", "يعقوب"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 285,
+question: "ما أول قبلة للمسلمين؟",
+options: ["الكعبة", "المسجد الأقصى", "المسجد النبوي", "قباء"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 286,
+question: "كم عدد آيات سورة الفاتحة؟",
+options: ["6", "7", "8", "5"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 287,
+question: "من هو ثالث الخلفاء الراشدين؟",
+options: ["علي", "عثمان بن عفان", "عمر", "أبو بكر"],
+correct: 1,
+topic: "التاريخ الإسلامي"
+},
+{
+id: 288,
+question: "ما اسم ناقة النبي ﷺ؟",
+options: ["القصواء", "العضباء", "الجدعاء", "كل ما سبق من أسمائها"],
+correct: 3,
+topic: "السيرة"
+},
+{
+id: 289,
+question: "كم عدد أبواب النار؟",
+options: ["6", "7", "8", "9"],
+correct: 1,
+topic: "العقيدة"
+},
+{
+id: 290,
+question: "من هو النبي الذي رفعه الله إلى السماء؟",
+options: ["عيسى", "يوسف", "إدريس", "موسى"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 291,
+question: "كم عدد أشواط السعي بين الصفا والمروة؟",
+options: ["6", "7", "8", "5"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 292,
+question: "ما اسم سورة التوحيد؟",
+options: ["الإخلاص", "الفلق", "الناس", "الكافرون"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 293,
+question: "من هو أول مؤذن في الإسلام؟",
+options: ["بلال بن رباح", "أبو هريرة", "أنس", "ابن مسعود"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 294,
+question: "كم عدد السجدات في الصلاة الرباعية؟",
+options: ["6", "8", "10", "12"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 295,
+question: "ما اسم أم المؤمنين زوجة النبي ﷺ الأولى؟",
+options: ["خديجة", "عائشة", "حفصة", "سودة"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 296,
+question: "في أي غزوة استشهد حمزة رضي الله عنه؟",
+options: ["بدر", "أحد", "الخندق", "حنين"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 297,
+question: "كم عدد الحروف المقطعة في أوائل السور تقريبًا؟",
+options: ["14", "10", "12", "16"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 298,
+question: "من هو النبي الذي سُخر له الجن والريح؟",
+options: ["سليمان", "داود", "موسى", "إبراهيم"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 299,
+question: "ما اسم سورة بني إسرائيل؟",
+options: ["الإسراء", "الكهف", "طه", "مريم"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 300,
+question: "كم عدد أركان الإسلام؟",
+options: ["4", "5", "6", "3"],
+correct: 1,
+topic: "العقيدة"
+},
+
+{
+id: 301,
+question: "ما أول ركن من أركان الإسلام؟",
+options: ["الصلاة", "الشهادتان", "الزكاة", "الصوم"],
+correct: 1,
+topic: "العقيدة"
+},
+{
+id: 302,
+question: "كم عدد الصلوات المفروضة يوميًا؟",
+options: ["4", "5", "6", "3"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 303,
+question: "في أي سورة ذُكرت آية الكرسي؟",
+options: ["آل عمران", "البقرة", "النساء", "المائدة"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 304,
+question: "من هو أول نبي أرسله الله إلى البشر؟",
+options: ["نوح عليه السلام", "آدم عليه السلام", "إدريس", "إبراهيم"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 305,
+question: "كم عدد تكبيرات صلاة العيد في الركعة الأولى (المشهور)؟",
+options: ["5", "6", "7", "8"],
+correct: 2,
+topic: "الفقه"
+},
+{
+id: 306,
+question: "ما اسم السورة التي نزلت في أبي لهب؟",
+options: ["المسد", "الهمزة", "الفيل", "الكوثر"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 307,
+question: "من هو النبي الذي أُلقي في الجب؟",
+options: ["يوسف عليه السلام", "موسى", "إبراهيم", "إسماعيل"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 308,
+question: "كم عدد ركعات صلاة المغرب؟",
+options: ["2", "3", "4", "5"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 309,
+question: "ما اسم الكتاب الذي أُنزل على موسى عليه السلام؟",
+options: ["الإنجيل", "الزبور", "التوراة", "الصحف"],
+correct: 2,
+topic: "العقيدة"
+},
+{
+id: 310,
+question: "ما اسم الكتاب الذي أُنزل على عيسى عليه السلام؟",
+options: ["الإنجيل", "التوراة", "الزبور", "القرآن"],
+correct: 0,
+topic: "العقيدة"
+},
+{
+id: 311,
+question: "كم عدد أركان الحج؟",
+options: ["3", "4", "5", "6"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 312,
+question: "من هو الصحابي الملقب بالصديق؟",
+options: ["عمر", "عثمان", "أبو بكر", "علي"],
+correct: 2,
+topic: "السيرة"
+},
+{
+id: 313,
+question: "أين دُفن النبي ﷺ؟",
+options: ["مكة", "المدينة", "الطائف", "القدس"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 314,
+question: "كم عدد أيام صيام شهر رمضان؟",
+options: ["29 أو 30", "28", "31", "27"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 315,
+question: "ما السورة التي تُقرأ في كل ركعة من الصلاة؟",
+options: ["البقرة", "الفاتحة", "الإخلاص", "الناس"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 316,
+question: "من هو النبي الذي ابتلاه الله بالمرض سنين طويلة؟",
+options: ["أيوب عليه السلام", "يونس", "نوح", "لوط"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 317,
+question: "كم عدد أبواب الجنة؟",
+options: ["7", "8", "9", "10"],
+correct: 1,
+topic: "العقيدة"
+},
+{
+id: 318,
+question: "من هو أول من آمن من النساء؟",
+options: ["عائشة", "خديجة", "فاطمة", "حفصة"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 319,
+question: "ما اسم غار النبي ﷺ في الهجرة؟",
+options: ["حراء", "ثور", "أحد", "بدر"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 320,
+question: "كم عدد أشواط الطواف حول الكعبة؟",
+options: ["6", "7", "8", "5"],
+correct: 1,
+topic: "الفقه"
+},
+
+{
+id: 321,
+question: "في أي شهر يقع الحج؟",
+options: ["ذو الحجة", "رمضان", "شوال", "محرم"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 322,
+question: "ما اسم والد النبي محمد ﷺ؟",
+options: ["عبد الله", "عبد المطلب", "أبو طالب", "العباس"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 323,
+question: "كم عدد بنات النبي ﷺ؟",
+options: ["3", "4", "5", "2"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 324,
+question: "ما أول معركة في الإسلام؟",
+options: ["بدر", "أحد", "الخندق", "حنين"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 325,
+question: "كم عدد السجدات في الصلاة الرباعية؟",
+options: ["6", "8", "10", "4"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 326,
+question: "من هو النبي الذي فلق الله له البحر؟",
+options: ["موسى", "إبراهيم", "نوح", "يوسف"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 327,
+question: "ما اسم أم موسى عليه السلام في كتب التفسير؟",
+options: ["يوكابد", "آسية", "مريم", "سارة"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 328,
+question: "كم عدد ركعات صلاة العشاء؟",
+options: ["2", "3", "4", "5"],
+correct: 2,
+topic: "الفقه"
+},
+{
+id: 329,
+question: "ما السورة التي تبدأ بـ (الحمد لله رب العالمين)؟",
+options: ["البقرة", "الفاتحة", "الأنعام", "الكهف"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 330,
+question: "من هو خاتم الرسل؟",
+options: ["عيسى", "محمد ﷺ", "موسى", "إبراهيم"],
+correct: 1,
+topic: "العقيدة"
+},
+{
+id: 331,
+question: "ما السورة التي سميت بسورة التوحيد؟",
+options: ["الإخلاص", "الفلق", "الناس", "الكافرون"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 332,
+question: "كم عدد ركعات صلاة الظهر؟",
+options: ["2", "3", "4", "5"],
+correct: 2,
+topic: "الفقه"
+},
+{
+id: 333,
+question: "من هو النبي الذي سُمي إسرائيل؟",
+options: ["إسحاق", "يعقوب", "يوسف", "إبراهيم"],
+correct: 1,
+topic: "الأنبياء"
+},
+{
+id: 334,
+question: "ما اسم والد النبي إبراهيم عليه السلام؟",
+options: ["آزر", "تارح", "سام", "نوح"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 335,
+question: "في أي سورة ذُكرت قصة أصحاب الكهف؟",
+options: ["مريم", "الكهف", "يس", "الإسراء"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 336,
+question: "كم عدد أركان الإيمان؟",
+options: ["5", "6", "7", "4"],
+correct: 1,
+topic: "العقيدة"
+},
+{
+id: 337,
+question: "من هو الصحابي الذي كان يُلقب بحبر الأمة؟",
+options: ["ابن عباس", "أبو هريرة", "أنس بن مالك", "ابن عمر"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 338,
+question: "ما اسم أم المؤمنين بنت أبي بكر؟",
+options: ["حفصة", "عائشة", "أم سلمة", "سودة"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 339,
+question: "كم عدد التكبيرات في الركعة الثانية من صلاة العيد (المشهور)؟",
+options: ["5", "6", "7", "4"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 340,
+question: "ما السورة التي تُسمى قلب القرآن؟",
+options: ["يس", "الرحمن", "الملك", "الواقعة"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 341,
+question: "من هو النبي الذي أُعطي الحكمة وهو صبي؟",
+options: ["عيسى", "يحيى", "يوسف", "إسماعيل"],
+correct: 1,
+topic: "الأنبياء"
+},
+{
+id: 342,
+question: "كم عدد أبواب النار المذكورة في القرآن؟",
+options: ["6", "7", "8", "9"],
+correct: 1,
+topic: "العقيدة"
+},
+{
+id: 343,
+question: "ما أول ما يُحاسب عليه العبد يوم القيامة؟",
+options: ["الصلاة", "الصيام", "الزكاة", "الحج"],
+correct: 0,
+topic: "العقيدة"
+},
+{
+id: 344,
+question: "في أي مدينة وُلد النبي ﷺ؟",
+options: ["المدينة", "مكة", "الطائف", "بيت لحم"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 345,
+question: "كم استمرت الدعوة في مكة؟",
+options: ["10 سنوات", "13 سنة", "15 سنة", "8 سنوات"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 346,
+question: "من هو الصحابي الذي كان رفيق النبي في الهجرة؟",
+options: ["عمر بن الخطاب", "أبو بكر الصديق", "علي بن أبي طالب", "عثمان"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 347,
+question: "ما اسم الغزوة التي حدثت في السنة الثانية للهجرة؟",
+options: ["بدر", "أحد", "الخندق", "تبوك"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 348,
+question: "كم عدد آيات سورة الإخلاص؟",
+options: ["3", "4", "5", "6"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 349,
+question: "ما السورة التي تبدأ بـ (قل أعوذ برب الفلق)؟",
+options: ["الناس", "الفلق", "الإخلاص", "الكافرون"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 350,
+question: "من هو النبي الذي بُعث إلى بني إسرائيل بعد موسى؟",
+options: ["عيسى", "هارون", "داود", "يوشع بن نون"],
+correct: 3,
+topic: "الأنبياء"
+},
+{
+id: 351,
+question: "كم عدد ركعات صلاة الفجر؟",
+options: ["2", "3", "4", "1"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 352,
+question: "ما حكم الحج على القادر؟",
+options: ["سنة", "فرض", "مستحب", "مباح"],
+correct: 1,
+topic: "الفقه"
+},
+{
+id: 353,
+question: "ما اسم النبي الذي ابتلع الحوت؟",
+options: ["يونس", "موسى", "إبراهيم", "نوح"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 354,
+question: "كم عدد أجزاء القرآن الكريم؟",
+options: ["29", "30", "31", "28"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 355,
+question: "من هو ثالث الخلفاء الراشدين؟",
+options: ["علي", "عثمان بن عفان", "عمر", "أبو بكر"],
+correct: 1,
+topic: "التاريخ الإسلامي"
+},
+{
+id: 356,
+question: "ما اسم أم النبي ﷺ؟",
+options: ["آمنة بنت وهب", "خديجة", "فاطمة", "حليمة"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 357,
+question: "كم عدد ركعات صلاة العصر؟",
+options: ["2", "3", "4", "5"],
+correct: 2,
+topic: "الفقه"
+},
+{
+id: 358,
+question: "ما اسم الغار الذي كان يتعبد فيه النبي قبل البعثة؟",
+options: ["ثور", "حراء", "أحد", "بدر"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 359,
+question: "ما السورة التي تسمى عروس القرآن؟",
+options: ["الرحمن", "يس", "الملك", "الواقعة"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 360,
+question: "من هو النبي الذي بُعث في قوم عاد؟",
+options: ["هود", "صالح", "شعيب", "لوط"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 361,
+question: "من هو النبي الذي بُعث في قوم ثمود؟",
+options: ["صالح", "هود", "شعيب", "إبراهيم"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 362,
+question: "كم عدد التكبيرات في الأذان؟",
+options: ["4", "6", "8", "2"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 363,
+question: "ما أول سورة في المصحف؟",
+options: ["البقرة", "الفاتحة", "الإخلاص", "العلق"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 364,
+question: "ما آخر سورة في المصحف؟",
+options: ["الفلق", "الناس", "الإخلاص", "الكوثر"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 365,
+question: "كم عدد الأشهر الهجرية؟",
+options: ["10", "11", "12", "13"],
+correct: 2,
+topic: "الفقه"
+},
+{
+id: 366,
+question: "ما اسم والد إسماعيل عليه السلام؟",
+options: ["إبراهيم", "يعقوب", "يوسف", "نوح"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 367,
+question: "من هو الصحابي الملقب بسيف الله المسلول؟",
+options: ["خالد بن الوليد", "علي", "الزبير", "سعد"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 368,
+question: "في أي عام كانت غزوة أحد؟",
+options: ["2 هـ", "3 هـ", "5 هـ", "8 هـ"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 369,
+question: "كم عدد ركعات صلاة التراويح (المشهور في الجماعة)؟",
+options: ["8", "11", "20", "13"],
+correct: 2,
+topic: "الفقه"
+},
+{
+id: 370,
+question: "ما اسم السورة التي لا تبدأ بالبسملة؟",
+options: ["التوبة", "الأنفال", "يوسف", "النور"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 371,
+question: "من هو النبي الذي فُدي بذبح عظيم؟",
+options: ["إسماعيل", "إسحاق", "يوسف", "يعقوب"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 372,
+question: "كم عدد ركعات السنة القبلية للفجر؟",
+options: ["2", "4", "1", "3"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 373,
+question: "من هو مؤذن الرسول ﷺ؟",
+options: ["بلال بن رباح", "أبو هريرة", "ابن مسعود", "أنس"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 374,
+question: "في أي سنة كانت الهجرة النبوية؟",
+options: ["610م", "622م", "630م", "615م"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 375,
+question: "كم عدد أبواب الجنة المذكورة في الحديث؟",
+options: ["6", "7", "8", "9"],
+correct: 2,
+topic: "العقيدة"
+},
+{
+id: 376,
+question: "ما أول ما نزل من القرآن؟",
+options: ["اقرأ باسم ربك", "الفاتحة", "المدثر", "القلم"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 377,
+question: "من هو النبي الذي تكلم في المهد؟",
+options: ["عيسى", "يحيى", "يوسف", "إدريس"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 378,
+question: "ما اسم زوجة فرعون المؤمنة؟",
+options: ["آسية", "مريم", "هاجر", "سارة"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 379,
+question: "كم عدد الصلوات التي فرضت أولاً ليلة الإسراء؟",
+options: ["5", "50", "10", "20"],
+correct: 1,
+topic: "السيرة"
+},
+{
+id: 380,
+question: "ما اسم السورة التي تُقرأ يوم الجمعة ويستحب قراءتها؟",
+options: ["الكهف", "يس", "الرحمن", "الواقعة"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 381,
+question: "من هو أول نبي كتب بالقلم؟",
+options: ["إدريس عليه السلام", "نوح", "آدم", "إبراهيم"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 382,
+question: "كم عدد السور التي تبدأ بـ (قل) في القرآن؟",
+options: ["3", "4", "5", "6"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 383,
+question: "ما اسم زوجة النبي ﷺ التي لُقبت بأم المساكين؟",
+options: ["زينب بنت خزيمة", "عائشة", "حفصة", "أم سلمة"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 384,
+question: "كم عدد ركعات صلاة الوتر أقلها؟",
+options: ["1", "2", "3", "5"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 385,
+question: "ما السورة التي تسمى بسورة النعم؟",
+options: ["النحل", "الرحمن", "يس", "الواقعة"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 386,
+question: "من هو النبي الذي كان ملكًا ونبيًا؟",
+options: ["سليمان عليه السلام", "يوسف", "داود", "إدريس"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 387,
+question: "كم عدد غزوات النبي ﷺ التي شارك فيها؟",
+options: ["27", "19", "17", "21"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 388,
+question: "ما اسم أطول آية في القرآن الكريم؟",
+options: ["آية الكرسي", "آية الدين", "آية النور", "آية الصيام"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 389,
+question: "من هو النبي الذي كان يعمل حدادًا؟",
+options: ["داود عليه السلام", "موسى", "إبراهيم", "نوح"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 390,
+question: "كم عدد ركعات السنة البعدية للمغرب؟",
+options: ["2", "4", "1", "3"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 391,
+question: "ما اسم العام الذي وُلد فيه النبي ﷺ؟",
+options: ["عام الفيل", "عام الحزن", "عام الهجرة", "عام بدر"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 392,
+question: "من هو الصحابي الذي كان يُسمى ذو الشهادتين؟",
+options: ["خزيمة بن ثابت", "زيد بن ثابت", "أبي بن كعب", "سعد بن معاذ"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 393,
+question: "كم عدد السور التي سميت بأسماء أنبياء؟",
+options: ["6", "5", "7", "4"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 394,
+question: "ما السورة التي تسمى الفاضحة؟",
+options: ["التوبة", "الأنفال", "الأحزاب", "المنافقون"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 395,
+question: "من هو النبي الذي أُعطي تفسير الأحلام؟",
+options: ["يوسف عليه السلام", "إبراهيم", "موسى", "داود"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 396,
+question: "كم عدد التكبيرات في الركوع والسجود في الركعة الواحدة؟",
+options: ["3", "4", "2", "5"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 397,
+question: "ما أول مسجد بُني في مكة؟",
+options: ["المسجد الحرام", "مسجد قباء", "المسجد النبوي", "مسجد الخيف"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 398,
+question: "من هو النبي الذي ابتلي بذبح ابنه؟",
+options: ["إبراهيم عليه السلام", "يعقوب", "إسحاق", "نوح"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 399,
+question: "كم عدد أيام الاعتكاف في العشر الأواخر؟",
+options: ["10", "7", "5", "3"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 400,
+question: "ما اسم السورة التي تُسمى المنجية؟",
+options: ["الملك", "يس", "الواقعة", "الدخان"],
+correct: 0,
+topic: "القرآن"
+},
+
+// تنويع الإجابات الصحيحة في باقي الأسئلة
+{
+id: 401,
+question: "في أي سورة ذُكرت قصة مريم كاملة تقريبًا؟",
+options: ["آل عمران", "مريم", "النساء", "الأنبياء"],
+correct: 1,
+topic: "القرآن"
+},
+{
+id: 402,
+question: "كم عدد ركعات صلاة الضحى أقلها؟",
+options: ["2", "3", "4", "1"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 403,
+question: "من هو النبي الذي رفعه الله إلى السماء؟",
+options: ["عيسى عليه السلام", "إدريس", "يوسف", "موسى"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 404,
+question: "ما اسم الصحابي الذي جمع الناس على صلاة التراويح؟",
+options: ["أبو بكر", "عمر بن الخطاب", "عثمان", "علي"],
+correct: 1,
+topic: "التاريخ الإسلامي"
+},
+{
+id: 405,
+question: "كم عدد آيات سورة الفاتحة؟",
+options: ["7", "6", "8", "5"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 406,
+question: "ما السورة التي تسمى أم الكتاب؟",
+options: ["الفاتحة", "البقرة", "يس", "الإخلاص"],
+correct: 0,
+topic: "القرآن"
+},
+{
+id: 407,
+question: "من هو أول من جهر بالقرآن في مكة؟",
+options: ["عبد الله بن مسعود", "عمر بن الخطاب", "أبو بكر", "بلال"],
+correct: 0,
+topic: "السيرة"
+},
+{
+id: 408,
+question: "كم عدد أشواط السعي بين الصفا والمروة؟",
+options: ["7", "6", "5", "8"],
+correct: 0,
+topic: "الفقه"
+},
+{
+id: 409,
+question: "من هو النبي الذي سُخر له الجن؟",
+options: ["سليمان", "داود", "موسى", "يوسف"],
+correct: 0,
+topic: "الأنبياء"
+},
+{
+id: 410,
+question: "ما اسم السورة التي تبدأ بـ (تبارك الذي بيده الملك)؟",
+options: ["الملك", "الواقعة", "القلم", "النبأ"],
+correct: 0,
+topic: "القرآن"
+},
+];
+
+
+            // --- تخزين أسئلة كل يوم (عشوائية) ---
+            let dailyQuestions = JSON.parse(localStorage.getItem('dailyQuestions')) || {};
+            
+            if (Object.keys(dailyQuestions).length === 0) {
+                allDays.forEach(day => {
+                    const dateKey = formatDateKey(day);
+                    const shuffled = [...questionsDatabase].sort(() => 0.5 - Math.random());
+                    dailyQuestions[dateKey] = shuffled.slice(0, 30);
+                });
+                localStorage.setItem('dailyQuestions', JSON.stringify(dailyQuestions));
+            }
+
+            // --- تخزين إجابات المستخدم ---
+            let userAnswers = JSON.parse(localStorage.getItem('userAnswers')) || {};
+
+            // --- الحالة الحالية ---
+let currentLang = localStorage.getItem('language') || 'ar';
+            let currentDate = new Date();
+            currentDate.setHours(0, 0, 0, 0);
+            
+            if (currentDate < START_DATE) currentDate = new Date(START_DATE);
+            if (currentDate > END_DATE) currentDate = new Date(END_DATE);
+            
+            let selectedDate = new Date(currentDate);
+
+            // --- دوال الثيم واللغة ---
+            function setupTheme() {
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme === 'dark') {
+                    document.body.classList.add('dark-mode');
+                }
+            }
+
+            function toggleTheme() {
+                if (document.body.classList.contains('transition-active')) return;
+                
+                const root = document.documentElement;
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                const rect = themeSwitcher.getBoundingClientRect();
+                const x = rect.left + rect.width / 2;
+                const y = rect.top + rect.height / 2;
+                
+                root.style.setProperty('--clip-x', `${x}px`);
+                root.style.setProperty('--clip-y', `${y}px`);
+                root.style.setProperty('--transition-bg', isDarkMode ? 'var(--background-color-light)' : 'var(--background-color-dark)');
+                
+                document.body.classList.add('transition-active');
+                
+                setTimeout(() => {
+                    document.body.classList.toggle('dark-mode');
+                    localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+                }, 300);
+                
+                setTimeout(() => document.body.classList.remove('transition-active'), 600);
+            }
+
+          function toggleLanguage() {
+    currentLang = currentLang === 'ar' ? 'en' : 'ar';
+
+    // توحيد اللغة مع كل صفحات صلاتي
+    localStorage.setItem('language', currentLang);
+
+    // تحديث اتجاه الصفحة
+    document.documentElement.lang = currentLang;
+    document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+
+    // تحديث زر اللغة
+    document.getElementById('lang-toggle').textContent =
+        currentLang === 'ar' ? 'EN' : 'عربي';
+
+    // ترجمة النصوص الثابتة
+    document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (translations[currentLang][key]) {
+            el.textContent = translations[currentLang][key];
+        }
+    });
+
+    // ⭐ مهم جداً: إعادة رسم كل العناصر الديناميكية
+    updateDayDisplay();   // عنوان اليوم + السؤال
+    renderCalendar();     // التقويم
+    updateStats();        // الإحصائيات
+
+    // إشعار احترافي
+    showNotification(
+        currentLang === 'ar' ? "تم تغيير اللغة" : "Language changed"
+    );
+}
+
+
+            function showNotification(message) {
+                notification.innerHTML = `<i class="fas fa-check-circle"></i> <div>${message}</div>`;
+                notification.classList.add('show');
+                setTimeout(() => notification.classList.remove('show'), 3000);
+            }
+
+            function isDayUnlocked(date) {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                return date <= today;
+            }
+
+            // --- تحديث عرض اليوم ---
+            function updateDayDisplay() {
+                const dateKey = formatDateKey(selectedDate);
+                const dayQuestions = dailyQuestions[dateKey] || [];
+                const dayAnswers = userAnswers[dateKey] || {};
+                
+                const isUnlocked = isDayUnlocked(selectedDate);
+                
+                dayTitle.textContent = `${formatDate(selectedDate)} (${dayNames[currentLang][selectedDate.getDay()]})`;
+                dayCardTitle.textContent = `${formatDate(selectedDate)} - 30 ${currentLang === 'ar' ? 'سؤال' : 'Questions'}`;
+                
+                let correctCount = 0;
+                dayQuestions.forEach((q, index) => {
+                    if (dayAnswers[index] === q.correct) correctCount++;
+                });
+                
+                scoreDisplay.innerHTML = `<i class="fas fa-star"></i> <span>${correctCount}/30</span>`;
+                
+                if (!isUnlocked) {
+                    singleQuestionContainer.innerHTML = `
+                        <div class="no-items-msg">
+                            <i class="fas fa-lock"></i>
+                            <p>${currentLang === 'ar' ? 'هذا اليوم غير متاح بعد' : 'This day is not available yet'}</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                // عرض السؤال الحالي
+                renderCurrentQuestion();
+            }
+
+            // --- عرض السؤال الحالي ---
+            function renderCurrentQuestion() {
+                const dateKey = formatDateKey(selectedDate);
+                const dayQuestions = dailyQuestions[dateKey] || [];
+                const dayAnswers = userAnswers[dateKey] || {};
+                
+                if (dayQuestions.length === 0) return;
+                
+                const q = dayQuestions[currentQuestionIndex];
+                const answered = dayAnswers[currentQuestionIndex] !== undefined;
+                const isCorrect = dayAnswers[currentQuestionIndex] === q.correct;
+                
+                questionCounter.textContent = `${currentQuestionIndex + 1} / 30`;
+                
+                // تحديث أزرار التنقل
+                prevQuestionBtn.disabled = currentQuestionIndex === 0;
+                nextQuestionBtn.disabled = currentQuestionIndex === 29;
+                
+                let html = `
+                    <div class="question-card ${answered ? 'answered' : ''}">
+                        <div class="question-number">
+                            <i class="fas fa-question-circle"></i>
+                            ${translations[currentLang].question} ${currentQuestionIndex + 1}
+                            ${answered ? (isCorrect ? '<i class="fas fa-check-circle" style="color: var(--primary-color);"></i>' : '<i class="fas fa-times-circle" style="color: var(--secondary-color);"></i>') : ''}
+                        </div>
+                        <div class="question-text">${q.question}</div>
+                        <div class="options-grid">
+                            ${q.options.map((opt, optIndex) => `
+                                <button class="option-btn 
+                                    ${answered ? (optIndex === q.correct ? 'correct' : (optIndex === dayAnswers[currentQuestionIndex] ? 'wrong' : 'disabled')) : ''}
+                                    ${answered ? 'disabled' : ''}
+                                " 
+                                    onclick="window.selectAnswer('${dateKey}', ${currentQuestionIndex}, ${optIndex}, ${q.correct})"
+                                    ${answered ? 'disabled' : ''}>
+                                    ${opt}
+                                </button>
+                            `).join('')}
+                        </div>
+                        ${answered ? `
+                            <div class="question-feedback ${isCorrect ? 'feedback-correct' : 'feedback-wrong'}">
+                                <i class="fas ${isCorrect ? 'fa-check-circle' : 'fa-times-circle'}"></i>
+                                ${isCorrect ? translations[currentLang].correct : translations[currentLang].wrong + ' ' + q.options[q.correct]}
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+                
+                singleQuestionContainer.innerHTML = html;
+            }
+
+            window.selectAnswer = function(dateKey, questionIndex, selectedIndex, correctIndex) {
+                if (!isDayUnlocked(new Date(dateKey))) return;
+                
+                if (!userAnswers[dateKey]) {
+                    userAnswers[dateKey] = {};
+                }
+                
+                userAnswers[dateKey][questionIndex] = selectedIndex;
+                localStorage.setItem('userAnswers', JSON.stringify(userAnswers));
+                
+                const isCorrect = selectedIndex === correctIndex;
+                showNotification(isCorrect ? translations[currentLang].notificationCorrect : translations[currentLang].notificationWrong);
+                
+                updateDayDisplay();
+                renderCalendar();
+                updateStats();
+            };
+
+            window.resetCurrentDay = function() {
+                const dateKey = formatDateKey(selectedDate);
+                if (!isDayUnlocked(selectedDate)) return;
+                
+                if (userAnswers[dateKey]) {
+                    delete userAnswers[dateKey];
+                    localStorage.setItem('userAnswers', JSON.stringify(userAnswers));
+                }
+                
+                currentQuestionIndex = 0;
+                updateDayDisplay();
+                renderCalendar();
+                updateStats();
+                showNotification(currentLang === 'ar' ? 'تم إعادة تعيين الاختبار' : 'Test reset');
+            };
+
+            window.navigateQuestion = function(delta) {
+                const newIndex = currentQuestionIndex + delta;
+                if (newIndex >= 0 && newIndex < 30) {
+                    currentQuestionIndex = newIndex;
+                    renderCurrentQuestion();
+                }
+            };
+
+            // --- التقويم ---
+            function renderCalendar() {
+                calendarGrid.innerHTML = '';
+                
+                allDays.forEach(day => {
+                    const dateKey = formatDateKey(day);
+                    const dayAnswers = userAnswers[dateKey] || {};
+                    const dayQuestions = dailyQuestions[dateKey] || [];
+                    
+                    const isUnlocked = isDayUnlocked(day);
+                    const isToday = isSameDay(day, new Date());
+                    const isSelected = isSameDay(day, selectedDate);
+                    
+                    let answeredCount = Object.keys(dayAnswers).length;
+                    let correctCount = 0;
+                    
+                    Object.entries(dayAnswers).forEach(([qIndex, answer]) => {
+                        if (dayQuestions[qIndex] && answer === dayQuestions[qIndex].correct) {
+                            correctCount++;
+                        }
+                    });
+                    
+                    const isCompleted = answeredCount === 30 && correctCount === 30;
+                    
+                    const dayName = dayNames[currentLang][day.getDay()];
+                    const dayDate = formatDate(day);
+                    
+                    const card = document.createElement('div');
+                    card.className = `calendar-day ${isCompleted ? 'completed' : ''} ${isToday ? 'today' : ''} ${isSelected ? 'active' : ''} ${!isUnlocked ? 'future' : ''}`;
+                    
+                    if (isUnlocked) {
+                        card.onclick = () => selectDay(day);
+                    }
+                    
+                    card.innerHTML = `
+                        <div class="calendar-day-header">
+                            <span class="calendar-day-name">${dayName}</span>
+                            <span class="calendar-day-date">${dayDate}</span>
+                        </div>
+                        <div class="calendar-day-status">
+                            <i class="fas ${isCompleted ? 'fa-check-circle' : answeredCount > 0 ? 'fa-adjust' : 'fa-circle'}"></i>
+                        </div>
+                        <div class="calendar-day-stats">
+                            ${correctCount}/30
+                        </div>
+                    `;
+                    
+                    calendarGrid.appendChild(card);
+                });
+            }
+
+            function selectDay(day) {
+                if (!isDayUnlocked(day)) return;
+                selectedDate = new Date(day);
+                currentQuestionIndex = 0;
+                updateDayDisplay();
+                renderCalendar();
+            }
+
+            // --- الإحصائيات ---
+            function updateStats() {
+                let totalAnswered = 0;
+                let totalCorrect = 0;
+                let completedDays = 0;
+                
+                allDays.forEach(day => {
+                    if (!isDayUnlocked(day)) return;
+                    
+                    const dateKey = formatDateKey(day);
+                    const dayAnswers = userAnswers[dateKey] || {};
+                    const dayQuestions = dailyQuestions[dateKey] || [];
+                    
+                    const answeredCount = Object.keys(dayAnswers).length;
+                    let correctCount = 0;
+                    
+                    Object.entries(dayAnswers).forEach(([qIndex, answer]) => {
+                        if (dayQuestions[qIndex] && answer === dayQuestions[qIndex].correct) {
+                            correctCount++;
+                        }
+                    });
+                    
+                    totalAnswered += answeredCount;
+                    totalCorrect += correctCount;
+                    
+                    if (answeredCount === 30 && correctCount === 30) {
+                        completedDays++;
+                    }
+                });
+                
+                const accuracy = totalAnswered > 0 ? Math.round((totalCorrect / totalAnswered) * 100) : 0;
+                
+                totalAnsweredEl.textContent = totalAnswered;
+                totalCorrectEl.textContent = totalCorrect;
+                accuracyEl.textContent = accuracy + '%';
+                completedDaysEl.textContent = completedDays;
+            }
+
+            // --- التنقل بين الأيام ---
+            function changeDay(delta) {
+                const currentIndex = allDays.findIndex(d => isSameDay(d, selectedDate));
+                const newIndex = currentIndex + delta;
+                
+                if (newIndex >= 0 && newIndex < allDays.length) {
+                    const newDate = allDays[newIndex];
+                    if (isDayUnlocked(newDate)) {
+                        selectedDate = new Date(newDate);
+                        currentQuestionIndex = 0;
+                        updateDayDisplay();
+                        renderCalendar();
+                    }
+                }
+            }
+
+            function goToToday() {
+                const today = new Date();
+                today.setHours(0, 0, 0, 0);
+                
+                if (today >= START_DATE && today <= END_DATE) {
+                    selectedDate = new Date(today);
+                } else {
+                    selectedDate = new Date(START_DATE);
+                }
+                
+                currentQuestionIndex = 0;
+                updateDayDisplay();
+                renderCalendar();
+            }
+
+            // --- دوال مساعدة ---
+            function formatDate(date) {
+                const d = date.getDate();
+                const m = months[currentLang][date.getMonth()];
+                return `${d} ${m}`;
+            }
+            
+            function formatDateKey(date) {
+                return date.toISOString().split('T')[0];
+            }
+            
+            function isSameDay(d1, d2) {
+                return d1.toDateString() === d2.toDateString();
+            }
+
+            // --- التمرير ---
+            function handleScroll() {
+                backToTopBtn.classList.toggle('show', window.scrollY > 300);
+            }
+            
+            function scrollToTop() { 
+                window.scrollTo({ top: 0, behavior: 'smooth' }); 
+            }
+
+            // --- التهيئة ---
+            function init() {
+                setupTheme();
+                
+                themeSwitcher.addEventListener('click', toggleTheme);
+                langSwitcher.addEventListener('click', toggleLanguage);
+                window.addEventListener('scroll', handleScroll);
+                backToTopBtn.addEventListener('click', scrollToTop);
+                
+                prevDayBtn.addEventListener('click', () => changeDay(-1));
+                nextDayBtn.addEventListener('click', () => changeDay(1));
+                todayBtn.addEventListener('click', goToToday);
+
+                document.documentElement.lang = currentLang;
+                document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+                document.getElementById('lang-toggle').textContent = currentLang === 'ar' ? 'EN' : 'عربي';
+                
+                document.querySelectorAll('[data-key]').forEach(el => {
+                    const key = el.getAttribute('data-key');
+                    if (translations[currentLang][key]) {
+                        el.textContent = translations[currentLang][key];
+                    }
+                });
+                
+                updateDayDisplay();
+                renderCalendar();
+                updateStats();
+            }
+
+            init();
+        })();
+    </script>
+</body>
+</html>

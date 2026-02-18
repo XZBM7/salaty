@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>صلاتي - مكتبة الأحاديث</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🕌</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* ========== الأنماط الأساسية من تطبيق صلاتي ========== */
+        :root {
+            --primary-color: #2a9d8f;
+            --primary-dark: #264653;
+            --secondary-color: #e76f51;
+            --accent-color: #f4a261;
+            --background-color-light: #F8FAFC;
+            --card-color-light: #FFFFFF;
+            --text-color-light: #0F172A;
+            --light-text-light: #64748B;
+            --border-color-light: #E2E8F0;
+            --background-color-dark: #0F172A;
+            --card-color-dark: #1E293B;
+            --text-color-dark: #F8FAFC;
+            --light-text-dark: #94A3B8;
+            --border-color-dark: #334155;
+
+            --background-color: var(--background-color-light);
+            --card-color: var(--card-color-light);
+            --text-color: var(--text-color-light);
+            --light-text: var(--light-text-light);
+            --border-color: var(--border-color-light);
+            
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            --radius: 16px;
+            --transition: all 0.3s ease;
+            --gradient: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+        }
+
+        body.dark-mode {
+            --background-color: var(--background-color-dark);
+            --card-color: var(--card-color-dark);
+            --text-color: var(--text-color-dark);
+            --light-text: var(--light-text-dark);
+            --border-color: var(--border-color-dark);
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
+
+        body { 
+            background-color: var(--background-color); 
+            color: var(--text-color); 
+            line-height: 1.6; 
+            padding: 20px; 
+            min-height: 100vh; 
+            transition: background-color 0.3s, color 0.2s;
+        }
+        
+        body::before { 
+            content: ''; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100vh; 
+            background-color: var(--transition-bg, transparent); 
+            z-index: 9999; 
+            clip-path: circle(0% at var(--clip-x, 50%) var(--clip-y, 50%)); 
+            transition: clip-path 0.6s cubic-bezier(0.65, 0, 0.35, 1); 
+            pointer-events: none; 
+        }
+        body.transition-active::before { 
+            clip-path: circle(150% at var(--clip-x, 50%) var(--clip-y, 50%)); 
+        }
+
+        .container { max-width: 1200px; margin: 0 auto; }
+
+        /* ===== الهيدر بنفس تصميم صلاتي ===== */
+        header { 
+            text-align: center; 
+            margin-bottom: 40px; 
+            padding: 30px; 
+            background: var(--gradient); 
+            border-radius: var(--radius); 
+            box-shadow: var(--shadow); 
+            position: relative; 
+            overflow: hidden; 
+            color: white; 
+        }
+        header::before { 
+            content: ""; 
+            position: absolute; 
+            top: -50%; 
+            left: -50%; 
+            width: 200%; 
+            height: 200%; 
+            background: rgba(255, 255, 255, 0.1); 
+            transform: rotate(25deg); 
+        }
+        .header-top { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: relative; 
+            z-index: 2; 
+            margin-bottom: 20px; 
+        }
+        .header-controls { 
+            display: flex; 
+            align-items: center; 
+            gap: 15px; 
+        }
+
+        .theme-switcher, .lang-switcher { 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-around; 
+            background-color: rgba(0, 0, 0, 0.25); 
+            padding: 5px 15px; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            position: relative; 
+            height: 40px; 
+            color: white;
+            gap: 8px;
+        }
+        .theme-switcher { width: 70px; }
+        .lang-switcher { 
+            width: 60px; 
+            justify-content: center; 
+            font-weight: bold; 
+            font-size: 1rem; 
+        }
+        
+        .theme-switcher-handle { 
+            position: absolute; 
+            width: 30px; 
+            height: 30px; 
+            background-color: var(--secondary-color); 
+            border-radius: 50%; 
+            transition: transform 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55); 
+            top: 5px; 
+        }
+        html[dir="rtl"] .theme-switcher-handle { right: 5px; }
+        html[dir="ltr"] .theme-switcher-handle { left: 5px; }
+        
+        html[dir="rtl"] body.dark-mode .theme-switcher-handle { transform: translateX(-30px); }
+        html[dir="ltr"] body.dark-mode .theme-switcher-handle { transform: translateX(30px); }
+        
+        .theme-switcher i { 
+            width: 30px; 
+            height: 30px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            color: white; 
+            z-index: 1; 
+            transition: transform 0.3s ease, color 0.3s ease; 
+        }
+        body:not(.dark-mode) .fa-sun { color: #fff; transform: scale(1.1) rotate(360deg); }
+        body.dark-mode .fa-moon { color: #fff; transform: scale(1.1) rotate(360deg); }
+        
+        h1 { 
+            margin-bottom: 10px; 
+            font-size: 2.5rem; 
+            position: relative; 
+            font-weight: 800; 
+        }
+        .subtitle { 
+            font-size: 1.2rem; 
+            opacity: 0.9; 
+            font-weight: 300; 
+        }
+
+        /* ===== شريط التنقل الرئيسي ===== */
+        .main-nav { 
+            display: flex; 
+            justify-content: center; 
+            background-color: rgba(0,0,0,0.2); 
+            border-radius: 50px; 
+            padding: 5px; 
+            margin-top: 20px; 
+            position: relative; 
+            z-index: 2; 
+            flex-wrap: wrap; 
+            gap: 5px;
+        }
+        .nav-tab { 
+            background-color: transparent; 
+            border: none; 
+            color: white; 
+            padding: 10px 20px; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            transition: var(--transition); 
+            font-weight: bold; 
+            font-size: 0.95rem; 
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+        .nav-tab.active { 
+            background-color: var(--secondary-color); 
+        }
+        .nav-tab i { font-size: 1rem; }
+
+        /* ===== الإحصائيات ===== */
+        .stats-section {
+            background-color: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .stats-section h2 {
+            color: var(--primary-color);
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.5rem;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 25px;
+            background: var(--background-color);
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+        
+        .stat-item:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+        
+        .stat-label {
+            color: var(--light-text);
+            font-size: 1rem;
+        }
+
+        /* ===== أدوات التحكم ===== */
+        .controls-section {
+            background-color: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .controls-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .controls-header h2 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .controls-grid {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        .control-select, .control-input {
+            padding: 12px 20px;
+            border-radius: 50px;
+            border: 1px solid var(--border-color);
+            background: var(--background-color);
+            color: var(--text-color);
+            font-size: 1rem;
+            font-family: 'Tajawal', sans-serif;
+        }
+        
+        .control-select {
+            min-width: 180px;
+            cursor: pointer;
+        }
+        
+        .control-input {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .control-input::placeholder {
+            color: var(--light-text);
+            opacity: 0.7;
+        }
+
+        /* ===== قائمة الأحاديث ===== */
+        .hadiths-section {
+            background-color: var(--card-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+        }
+        
+        .hadiths-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .hadiths-header h2 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .hadith-count {
+            background: var(--background-color);
+            padding: 8px 15px;
+            border-radius: 50px;
+            color: var(--primary-color);
+            font-weight: bold;
+            border: 1px solid var(--border-color);
+        }
+        
+        .hadith-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .hadith-card {
+            background: var(--background-color);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius);
+            padding: 25px;
+            transition: var(--transition);
+            position: relative;
+        }
+        
+        .hadith-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .hadith-card.completed {
+            border-color: var(--primary-color);
+            background-color: rgba(42, 157, 143, 0.05);
+        }
+        
+        .hadith-number {
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .hadith-number i {
+            color: var(--primary-color);
+        }
+        
+        .hadith-text {
+            font-family: 'Amiri', serif;
+            font-size: 1.3rem;
+            line-height: 2;
+            color: var(--text-color);
+            margin-bottom: 20px;
+        }
+        
+        .hadith-actions {
+            display: flex;
+            justify-content: flex-end;
+        }
+        
+        .mark-btn {
+            padding: 10px 25px;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 1rem;
+        }
+        
+        .mark-btn.done {
+            background: var(--primary-color);
+            color: white;
+        }
+        
+        .mark-btn.undo {
+            background: var(--secondary-color);
+            color: white;
+        }
+        
+        .mark-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* ===== زر تحميل المزيد ===== */
+        .load-more-btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 50px;
+            background: var(--gradient);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        
+        .load-more-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow);
+        }
+        
+        .load-more-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* ===== عناصر مساعدة ===== */
+        .notification { 
+            position: fixed; 
+            top: 30px; 
+            right: 30px; 
+            background: var(--gradient); 
+            color: white; 
+            padding: 15px 25px; 
+            border-radius: var(--radius); 
+            box-shadow: var(--shadow); 
+            transform: translateX(150%); 
+            transition: transform 0.4s ease; 
+            z-index: 3000; 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            max-width: 400px; 
+        }
+        .notification.show { 
+            transform: translateX(0); 
+        }
+
+        #back-to-top-btn { 
+            position: fixed; 
+            bottom: 30px; 
+            right: 30px; 
+            width: 50px; 
+            height: 50px; 
+            background: var(--primary-color); 
+            color: white; 
+            border: none; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 1.2rem; 
+            cursor: pointer; 
+            box-shadow: var(--shadow); 
+            opacity: 0; 
+            visibility: hidden; 
+            transform: translateY(20px); 
+            transition: all 0.3s ease; 
+            z-index: 1500; 
+        }
+        #back-to-top-btn.show { 
+            opacity: 1; 
+            visibility: visible; 
+            transform: translateY(0); 
+        }
+
+        .loading-msg {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--light-text);
+        }
+        
+        .loading-msg i {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--border-color);
+        }
+
+        @media (max-width: 768px) { 
+            .header-top { flex-wrap: wrap; gap: 20px; justify-content: center; }
+            h1 { font-size: 1.8rem; }
+            .main-nav { 
+                flex-wrap: wrap; 
+                justify-content: center;
+            }
+            .nav-tab { 
+                padding: 8px 12px; 
+                font-size: 0.8rem;
+            }
+            .controls-grid { flex-direction: column; }
+            .control-input { width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <div class="header-controls">
+                    <div class="theme-switcher" id="theme-switcher" title="تبديل المظهر">
+                        <div class="theme-switcher-handle"></div>
+                        <i class="fas fa-sun"></i>
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <div class="lang-switcher" id="lang-switcher" title="تغيير اللغة">
+                        <span id="lang-toggle">EN</span>
+                    </div>
+                </div>
+                <div style="flex-grow: 1;"></div>
+                <h1>
+                    <i class="fas fa-mosque"></i>
+                    <span data-key="appTitle">صلاتي</span>
+                    <span class="title-separator"> | </span>
+                    <span data-key="pageTitle">مكتبة الأحاديث</span>
+                </h1>
+                <div style="flex-grow: 1;"></div>
+                <div class="header-controls" style="visibility: hidden;">
+                    <div class="theme-switcher"></div>
+                    <div class="lang-switcher"></div>
+                </div>
+            </div>
+            
+            <p class="subtitle" data-key="subtitle">صحيح البخاري وصحيح مسلم - تتبع قراءتك للأحاديث</p>
+
+            <!-- شريط التنقل الرئيسي -->
+            <div class="main-nav">
+                <a href="index.html" class="nav-tab" data-key="navHome"><i class="fas fa-home"></i> الرئيسية</a>
+                <a href="Taktem.html" class="nav-tab" data-key="navQuran"><i class="fas fa-quran"></i> ختم القرآن</a>
+                                                <a href="quran.html" class="nav-tab " data-key="navMushaf"><i class="fas fa-book-open"></i> المصحف التفاعلي</a>
+
+                <a href="azkar_ramadan.html" class="nav-tab" data-key="navDuas"><i class="fas fa-praying-hands"></i> أدعية رمضان</a>
+                <a href="traweh.html" class="nav-tab" data-key="navTaraweeh"><i class="fas fa-mosque"></i> التراويح</a>
+                <a href="sadakate.html" class="nav-tab" data-key="navSadaqati"><i class="fas fa-hand-holding-heart"></i> صدقاتي</a>
+                <a href="mosabaka.html" class="nav-tab " data-key="navQuestions"><i class="fas fa-question-circle"></i> الأسئلة الرمضانية</a>
+                <a href="ahades.html" class="nav-tab active " data-key="navHadith"><i class="fas fa-book-open"></i> مكتبة الأحاديث</a>              
+                  <a href="lessons.html" class="nav-tab" data-key="navVideos"><i class="fas fa-video"></i> الدروس</a>
+                <a href="about.html" class="nav-tab" data-key="navAbout"><i class="fas fa-info-circle"></i> عن الموقع</a>
+            </div>
+        </header>
+
+        <main>
+            <!-- الإحصائيات -->
+            <div class="stats-section">
+                <h2><i class="fas fa-chart-pie"></i> <span data-key="statsTitle">إحصائيات القراءة</span></h2>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-value" id="readCount">0</div>
+                        <div class="stat-label" data-key="readCount">أحاديث مقروءة</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="progress">0%</div>
+                        <div class="stat-label" data-key="progress">نسبة الإنجاز</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-value" id="totalCount">0</div>
+                        <div class="stat-label" data-key="totalCount">إجمالي الأحاديث</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- أدوات التحكم -->
+            <div class="controls-section">
+                <div class="controls-header">
+                    <h2><i class="fas fa-sliders-h"></i> <span data-key="controlsTitle">أدوات البحث والتصفية</span></h2>
+                </div>
+                <div class="controls-grid">
+                    <select id="bookSelect" class="control-select">
+                        <option value="bukhari">📘 صحيح البخاري</option>
+                        <option value="muslim">📗 صحيح مسلم</option>
+                    </select>
+                    <input type="text" id="searchInput" class="control-input" placeholder="ابحث بنص الحديث أو رقم الحديث...">
+                </div>
+            </div>
+
+            <!-- قائمة الأحاديث -->
+            <div class="hadiths-section">
+                <div class="hadiths-header">
+                    <h2><i class="fas fa-book-open"></i> <span data-key="hadithListTitle">قائمة الأحاديث</span></h2>
+                    <div class="hadith-count" id="displayedCount">0 حديث</div>
+                </div>
+                <div id="hadithList" class="hadith-grid">
+                    <div class="loading-msg">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>جاري تحميل الأحاديث...</p>
+                    </div>
+                </div>
+                <button id="loadMoreBtn" class="load-more-btn" onclick="loadMore()">
+                    <i class="fas fa-arrow-down"></i> <span data-key="loadMore">تحميل المزيد من الأحاديث</span>
+                </button>
+            </div>
+        </main>
+    </div>
+
+    <button id="back-to-top-btn" title="العودة للأعلى"><i class="fas fa-arrow-up"></i></button>
+    <div class="notification" id="notification"></div>
+
+    <script>
+        (function() {
+            // --- عناصر DOM ---
+            const themeSwitcher = document.getElementById('theme-switcher');
+            const langSwitcher = document.getElementById('lang-switcher');
+            const notification = document.getElementById('notification');
+            const backToTopBtn = document.getElementById('back-to-top-btn');
+            
+            // --- عناصر الأحاديث ---
+            let hadiths = [];
+            let displayed = [];
+            let page = 1;
+            const limit = 50;
+
+            // --- الترجمات ---
+            const translations = {
+                ar: {
+                    appTitle: "صلاتي",
+                    pageTitle: "مكتبة الأحاديث",
+                    subtitle: "صحيح البخاري وصحيح مسلم - تتبع قراءتك للأحاديث",
+                    navHome: "الرئيسية",
+                    navQuran: "ختم القرآن",
+                    navDuas: "أدعية رمضان",
+                    navTaraweeh: "التراويح",
+                    navSadaqati: "صدقاتي",
+                    navHadith: "مكتبة الأحاديث",
+                    navVideos: "الدروس الدينية",
+                    navAbout: "عن الموقع",
+                    statsTitle: "إحصائيات القراءة",
+                    readCount: "أحاديث مقروءة",
+                    progress: "نسبة الإنجاز",
+                    totalCount: "إجمالي الأحاديث",
+                    controlsTitle: "أدوات البحث والتصفية",
+                    hadithListTitle: "قائمة الأحاديث",
+                    loadMore: "تحميل المزيد من الأحاديث",
+                    markRead: "تمت قراءته",
+                    markUnread: "إلغاء القراءة",
+                    notificationRead: "تم تسجيل الحديث كمقروء",
+                    notificationUnread: "تم إلغاء تسجيل الحديث",
+                    searchPlaceholder: "ابحث بنص الحديث أو رقم الحديث...",
+                    loading: "جاري تحميل الأحاديث...",
+                    navQuestions: "الأسئلة الرمضانية",
+                                                            navMushaf: "المصحف التفاعلي",
+
+                    hadithNumber: "حديث رقم"
+                },
+                en: {
+                    appTitle: "My Salah",
+                    pageTitle: "Hadith Library",
+                    subtitle: "Sahih Bukhari & Sahih Muslim - Track your hadith reading",
+                    navHome: "Home",
+                                                            navQuestions: "Ramadan Questions",
+                    navQuran: "Quran Khatm",
+                                        navMushaf: "Interactive Mushaf",
+
+                    navDuas: "Ramadan Duas",
+                    navTaraweeh: "Taraweeh",
+                    navSadaqati: "My Charity",
+                    navHadith: "Hadith Library",
+                    navVideos: "Islamic Lessons",
+                    navAbout: "About",
+                    statsTitle: "Reading Statistics",
+                    readCount: "Hadith Read",
+                    progress: "Completion Rate",
+                    totalCount: "Total Hadith",
+                    controlsTitle: "Search & Filter Tools",
+                    hadithListTitle: "Hadith List",
+                    loadMore: "Load More Hadith",
+                    markRead: "Mark as Read",
+                    markUnread: "Mark as Unread",
+                    notificationRead: "Hadith marked as read",
+                    notificationUnread: "Hadith marked as unread",
+                    searchPlaceholder: "Search by text or number...",
+                    loading: "Loading hadith...",
+                    hadithNumber: "Hadith No."
+                }
+            };
+
+            // --- الحالة الحالية ---
+            let currentLang = localStorage.getItem('lang') || 'ar';
+
+            // --- دوال الثيم واللغة ---
+            function setupTheme() {
+                const savedTheme = localStorage.getItem('theme');
+                if (savedTheme === 'dark') {
+                    document.body.classList.add('dark-mode');
+                }
+            }
+
+            function toggleTheme() {
+                if (document.body.classList.contains('transition-active')) return;
+                
+                const root = document.documentElement;
+                const isDarkMode = document.body.classList.contains('dark-mode');
+                const rect = themeSwitcher.getBoundingClientRect();
+                const x = rect.left + rect.width / 2;
+                const y = rect.top + rect.height / 2;
+                
+                root.style.setProperty('--clip-x', `${x}px`);
+                root.style.setProperty('--clip-y', `${y}px`);
+                root.style.setProperty('--transition-bg', isDarkMode ? 'var(--background-color-light)' : 'var(--background-color-dark)');
+                
+                document.body.classList.add('transition-active');
+                
+                setTimeout(() => {
+                    document.body.classList.toggle('dark-mode');
+                    localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+                }, 300);
+                
+                setTimeout(() => document.body.classList.remove('transition-active'), 600);
+            }
+
+          function toggleLanguage() {
+    currentLang = currentLang === 'ar' ? 'en' : 'ar';
+
+    // توحيد اللغة مع كل صفحات صلاتي
+    localStorage.setItem('language', currentLang);
+
+    // تحديث اتجاه الصفحة
+    document.documentElement.lang = currentLang;
+    document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+
+    // تحديث زر اللغة
+    document.getElementById('lang-toggle').textContent =
+        currentLang === 'ar' ? 'EN' : 'عربي';
+
+    // ترجمة النصوص الثابتة
+    document.querySelectorAll('[data-key]').forEach(el => {
+        const key = el.getAttribute('data-key');
+        if (translations[currentLang][key]) {
+            el.textContent = translations[currentLang][key];
+        }
+    });
+
+    // ⭐ مهم جداً: إعادة رسم كل العناصر الديناميكية
+    updateDayDisplay();   // عنوان اليوم + السؤال
+    renderCalendar();     // التقويم
+    updateStats();        // الإحصائيات
+
+    // إشعار احترافي
+    showNotification(
+        currentLang === 'ar' ? "تم تغيير اللغة" : "Language changed"
+    );
+}
+
+
+            function showNotification(message) {
+                notification.innerHTML = `<i class="fas fa-check-circle"></i> <div>${message}</div>`;
+                notification.classList.add('show');
+                setTimeout(() => notification.classList.remove('show'), 3000);
+            }
+
+            // --- دوال الأحاديث ---
+            function getCompletedKey() {
+                const book = document.getElementById("bookSelect").value;
+                return "completed_" + book;
+            }
+
+            function getCompleted() {
+                return JSON.parse(localStorage.getItem(getCompletedKey())) || [];
+            }
+
+            function saveCompleted(data) {
+                localStorage.setItem(getCompletedKey(), JSON.stringify(data));
+            }
+
+            async function loadHadiths() {
+                page = 1;
+                displayed = [];
+                document.getElementById("hadithList").innerHTML = `<div class="loading-msg"><i class="fas fa-spinner fa-spin"></i><p>${translations[currentLang].loading}</p></div>`;
+
+                const book = document.getElementById("bookSelect").value;
+                try {
+                    const res = await fetch(`https://api.hadith.gading.dev/books/${book}?range=1-${limit}`);
+                    const data = await res.json();
+                    hadiths = data.data.hadiths;
+                    displayed = [...hadiths];
+                    render();
+                } catch (error) {
+                    document.getElementById("hadithList").innerHTML = `<div class="loading-msg"><i class="fas fa-exclamation-circle"></i><p>خطأ في تحميل الأحاديث</p></div>`;
+                }
+            }
+
+            async function loadMore() {
+                page++;
+                const book = document.getElementById("bookSelect").value;
+                const end = page * limit;
+
+                try {
+                    const res = await fetch(`https://api.hadith.gading.dev/books/${book}?range=1-${end}`);
+                    const data = await res.json();
+                    hadiths = data.data.hadiths;
+                    displayed = [...hadiths];
+                    render();
+                } catch (error) {
+                    showNotification("خطأ في تحميل المزيد");
+                }
+            }
+
+            function render() {
+                const container = document.getElementById("hadithList");
+                container.innerHTML = "";
+                
+                document.getElementById("totalCount").textContent = displayed.length;
+                document.getElementById("displayedCount").textContent = `${displayed.length} ${currentLang === 'ar' ? 'حديث' : 'Hadith'}`;
+
+                const completed = getCompleted();
+
+                displayed.forEach(h => {
+                    const isDone = completed.includes(h.number);
+
+                    const card = document.createElement("div");
+                    card.className = "hadith-card" + (isDone ? " completed" : "");
+
+                    card.innerHTML = `
+                        <div class="hadith-number">
+                            <i class="fas fa-bookmark"></i>
+                            ${translations[currentLang].hadithNumber} ${h.number}
+                        </div>
+                        <div class="hadith-text">${h.arab}</div>
+                        <div class="hadith-actions">
+                            <button class="mark-btn ${isDone ? 'undo' : 'done'}" 
+                                onclick="window.toggleRead(${h.number})">
+                                <i class="fas ${isDone ? 'fa-times-circle' : 'fa-check-circle'}"></i>
+                                ${isDone ? translations[currentLang].markUnread : translations[currentLang].markRead}
+                            </button>
+                        </div>
+                    `;
+
+                    container.appendChild(card);
+                });
+
+                updateStats();
+            }
+
+            window.toggleRead = function(num) {
+                let completed = getCompleted();
+
+                if (completed.includes(num)) {
+                    completed = completed.filter(n => n !== num);
+                    showNotification(translations[currentLang].notificationUnread);
+                } else {
+                    completed.push(num);
+                    showNotification(translations[currentLang].notificationRead);
+                }
+
+                saveCompleted(completed);
+                render();
+            };
+
+            function updateStats() {
+                const completed = getCompleted();
+                const read = completed.length;
+                const total = displayed.length || 1;
+                const percent = Math.round((read / total) * 100);
+
+                document.getElementById("readCount").textContent = read;
+                document.getElementById("progress").textContent = percent + "%";
+            }
+
+            // --- البحث ---
+            document.getElementById("searchInput").addEventListener("input", (e) => {
+                const q = e.target.value.trim();
+                if (!q) {
+                    displayed = [...hadiths];
+                    render();
+                    return;
+                }
+
+                displayed = hadiths.filter(h =>
+                    (h.arab && h.arab.includes(q)) ||
+                    h.number.toString() === q
+                );
+
+                render();
+            });
+
+            document.getElementById("bookSelect").addEventListener("change", loadHadiths);
+
+            // --- التمرير ---
+            function handleScroll() {
+                backToTopBtn.classList.toggle('show', window.scrollY > 300);
+            }
+            
+            function scrollToTop() { 
+                window.scrollTo({ top: 0, behavior: 'smooth' }); 
+            }
+
+            // --- تحميل أولي ---
+            window.loadMore = loadMore;
+
+            // --- التهيئة ---
+            function init() {
+                setupTheme();
+                
+                themeSwitcher.addEventListener('click', toggleTheme);
+                langSwitcher.addEventListener('click', toggleLanguage);
+                window.addEventListener('scroll', handleScroll);
+                backToTopBtn.addEventListener('click', scrollToTop);
+
+                // تعيين اللغة الأولية
+                document.documentElement.lang = currentLang;
+                document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+                document.getElementById('lang-toggle').textContent = currentLang === 'ar' ? 'EN' : 'عربي';
+                
+                // ترجمة أولية
+                document.querySelectorAll('[data-key]').forEach(el => {
+                    const key = el.getAttribute('data-key');
+                    if (translations[currentLang][key]) {
+                        el.textContent = translations[currentLang][key];
+                    }
+                });
+                
+                document.getElementById('searchInput').placeholder = translations[currentLang].searchPlaceholder;
+                
+                // تحميل الأحاديث
+                loadHadiths();
+            }
+
+            init();
+        })();
+    </script>
+</body>
+</html>
