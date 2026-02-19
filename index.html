@@ -182,21 +182,24 @@
                 </div>
             </div>
 
-            <div id="adhkar-weekly-tracker">
-                 <div class="week-selector">
-                    <div class="week-nav">
-                        <button class="nav-btn" id="adhkar-prev-week" title="الأسبوع السابق"><i class="fas fa-chevron-right"></i></button>
-                        <button class="nav-btn" id="adhkar-next-week" title="الأسبوع التالي"><i class="fas fa-chevron-left"></i></button>
-                    </div>
-                    <div class="week-title" id="adhkar-week-title"></div>
-<button class="today-btn" id="today-btn">
-    <i class="fas fa-calendar-day"></i> 
-    <span data-translate-key="todayBtn">اليوم</span>
-</button>
+         <div id="adhkar-weekly-tracker">
+    <div class="week-selector">
+        <div class="week-nav">
+            <button class="nav-btn" id="adhkar-prev-week" title="الأسبوع السابق"><i class="fas fa-chevron-right"></i></button>
+            <button class="nav-btn" id="adhkar-next-week" title="الأسبوع التالي"><i class="fas fa-chevron-left"></i></button>
+        </div>
+        <div class="week-title" id="adhkar-week-title"></div>
+        
+        <!-- زر اليوم داخل شريط التنقل مثل الصلاة تماماً -->
+        <button class="today-btn" id="adhkar-today-btn">
+            <i class="fas fa-calendar-day"></i> 
+            <span data-translate-key="todayBtn">اليوم</span>
+        </button>
 
-<input type="date" id="date-picker" style="display:none;">
-                </div>
-
+        <!-- عناصر التقويم المخفية للصلاة والأذكار -->
+        <input type="date" id="prayer-date-picker" style="display:none;">
+        <input type="date" id="adhkar-date-picker" style="display:none;">                
+    </div>
                 <div class="week-container" id="adhkar-week-container"></div>
 
                 <div class="stats">
@@ -526,28 +529,79 @@ const anchorDate = new Date(
                 // Prayer Tracker
                 prevWeekBtn.addEventListener('click', () => changeWeek(-1));
                 nextWeekBtn.addEventListener('click', () => changeWeek(1));
-const datePicker = document.getElementById('date-picker');
+// عنصر التقويم للصلاة
+const prayerDatePicker = document.getElementById('prayer-date-picker');
 
 todayBtn.addEventListener('click', () => {
-    // يفتح التقويم حسب توقيت جهاز المستخدم
+    // تعيين التاريخ الافتراضي إلى اليوم
     const today = new Date();
-    const isoDate = today.toISOString().split('T')[0];
-    datePicker.value = isoDate;
-    datePicker.showPicker(); // يفتح التقويم مباشرة
-});
-datePicker.addEventListener('change', (e) => {
-    const selectedDate = new Date(e.target.value);
-
-    // نحسب الفرق بين التاريخ المختار واليوم الحالي
-    const today = new Date(anchorDate);
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    prayerDatePicker.value = `${year}-${month}-${day}`;
     
-    const diffTime = selectedDate - today;
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    // إظهار التقويم بطريقة مختلفة حسب الجهاز
+    if (window.innerWidth <= 768) {
+        // على الهاتف: نستخدم click() بدلاً من showPicker()
+        prayerDatePicker.style.display = 'block';
+        prayerDatePicker.style.position = 'fixed';
+        prayerDatePicker.style.top = '50%';
+        prayerDatePicker.style.left = '50%';
+        prayerDatePicker.style.transform = 'translate(-50%, -50%)';
+        prayerDatePicker.style.zIndex = '9999';
+        prayerDatePicker.style.width = '90%';
+        prayerDatePicker.style.maxWidth = '300px';
+        prayerDatePicker.style.padding = '10px';
+        prayerDatePicker.style.background = 'var(--card-color)';
+        prayerDatePicker.style.color = 'var(--text-color)';
+        prayerDatePicker.style.border = '2px solid var(--primary-color)';
+        prayerDatePicker.style.borderRadius = '50px';
+        
+        // فتح التقويم على الهاتف
+        setTimeout(() => prayerDatePicker.click(), 100);
+    } else {
+        // على الكمبيوتر: نستخدم showPicker()
+        try {
+            prayerDatePicker.showPicker();
+        } catch (e) {
+            // إذا فشل showPicker، نستخدم الطريقة التقليدية
+            prayerDatePicker.style.display = 'block';
+            prayerDatePicker.style.position = 'absolute';
+            prayerDatePicker.style.top = '100px';
+            prayerDatePicker.style.left = '50%';
+            prayerDatePicker.style.transform = 'translateX(-50%)';
+            prayerDatePicker.style.zIndex = '9999';
+            prayerDatePicker.click();
+        }
+    }
+});
 
-    // نحول الفرق إلى أسابيع
-    currentWeekOffset = Math.floor(diffDays / 7);
+// عند اختيار تاريخ في الصلاة
+prayerDatePicker.addEventListener('change', function() {
+    if (this.value) {
+        const selectedDate = new Date(this.value);
+        
+        // حساب الفرق بالأيام بين التاريخ المختار واليوم الحالي
+        const todayDate = new Date(anchorDate);
+        const diffTime = selectedDate - todayDate;
+        const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+        
+        // تحويل الفرق إلى أسابيع
+        currentWeekOffset = Math.floor(diffDays / 7);
+        
+        // تحديث العرض
+        renderWeek();
+    }
+    
+    // إخفاء عنصر التقويم بعد الاختيار
+    this.style.display = 'none';
+});
 
-    renderWeek();
+// إذا تم إلغاء التقويم
+prayerDatePicker.addEventListener('blur', function() {
+    setTimeout(() => {
+        this.style.display = 'none';
+    }, 200);
 });
                 confirmYesBtn.addEventListener('click', handleConfirmYes);
                 confirmNoBtn.addEventListener('click', () => confirmationModal.classList.remove('active'));
@@ -564,8 +618,127 @@ datePicker.addEventListener('change', (e) => {
                 completeAllAdhkarBtn.addEventListener('click', handleCompleteAllAdhkar);
                 adhkarPrevWeekBtn.addEventListener('click', () => changeAdhkarWeek(-1));
                 adhkarNextWeekBtn.addEventListener('click', () => changeAdhkarWeek(1));
+// عنصر التقويم للأذكار
+// عنصر التقويم للأذكار (تأكد من وجوده في HTML)
+const adhkarDatePicker = document.getElementById('adhkar-date-picker');
+if (!adhkarDatePicker) {
+    console.error('عنصر التقويم للأذكار غير موجود');
+}
+
+// زر اليوم في الأذكار - استخدم ID الصحيح
+const adhkarTodayBtn = document.getElementById('adhkar-today-btn');
+
 if (adhkarTodayBtn) {
-    adhkarTodayBtn.addEventListener('click', goToAdhkarToday);
+    console.log('تم العثور على زر اليوم في الأذكار'); // للتأكد
+    adhkarTodayBtn.addEventListener('click', function() {
+        console.log('تم النقر على زر اليوم في الأذكار'); // للتأكد
+        
+        // تعيين التاريخ الافتراضي إلى اليوم
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        
+        if (adhkarDatePicker) {
+            adhkarDatePicker.value = `${year}-${month}-${day}`;
+            
+            // إظهار التقويم بطريقة مختلفة حسب الجهاز
+            if (window.innerWidth <= 768) {
+                // على الهاتف
+                adhkarDatePicker.style.display = 'block';
+                adhkarDatePicker.style.position = 'fixed';
+                adhkarDatePicker.style.top = '50%';
+                adhkarDatePicker.style.left = '50%';
+                adhkarDatePicker.style.transform = 'translate(-50%, -50%)';
+                adhkarDatePicker.style.zIndex = '9999';
+                adhkarDatePicker.style.width = '90%';
+                adhkarDatePicker.style.maxWidth = '300px';
+                adhkarDatePicker.style.padding = '15px';
+                adhkarDatePicker.style.background = 'var(--card-color)';
+                adhkarDatePicker.style.color = 'var(--text-color)';
+                adhkarDatePicker.style.border = '2px solid var(--primary-color)';
+                adhkarDatePicker.style.borderRadius = '10px';
+                adhkarDatePicker.style.fontSize = '16px';
+                
+                // إضافة خلفية معتمة
+                const overlay = document.createElement('div');
+                overlay.id = 'adhkar-date-overlay';
+                overlay.style.position = 'fixed';
+                overlay.style.top = '0';
+                overlay.style.left = '0';
+                overlay.style.width = '100%';
+                overlay.style.height = '100%';
+                overlay.style.background = 'rgba(0,0,0,0.5)';
+                overlay.style.zIndex = '9998';
+                document.body.appendChild(overlay);
+                
+                // فتح التقويم
+                setTimeout(() => {
+                    adhkarDatePicker.click();
+                }, 100);
+            } else {
+                // على الكمبيوتر
+                try {
+                    adhkarDatePicker.showPicker();
+                } catch (e) {
+                    adhkarDatePicker.style.display = 'block';
+                    adhkarDatePicker.style.position = 'absolute';
+                    adhkarDatePicker.style.top = '100px';
+                    adhkarDatePicker.style.left = '50%';
+                    adhkarDatePicker.style.transform = 'translateX(-50%)';
+                    adhkarDatePicker.style.zIndex = '9999';
+                    adhkarDatePicker.click();
+                }
+            }
+        }
+    });
+} else {
+    console.error('لم يتم العثور على زر اليوم في الأذكار');
+}
+
+// عند اختيار تاريخ في الأذكار
+if (adhkarDatePicker) {
+    adhkarDatePicker.addEventListener('change', function() {
+        console.log('تم اختيار تاريخ في الأذكار:', this.value);
+        
+        if (this.value) {
+            const selectedDate = new Date(this.value);
+            
+            // حساب الفرق بالأيام
+            const todayDate = new Date(anchorDate);
+            const diffTime = selectedDate - todayDate;
+            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+            
+            // تحويل الفرق إلى أسابيع للأذكار
+            currentAdhkarWeekOffset = Math.floor(diffDays / 7);
+            
+            // تحديث عرض الأذكار
+            renderAdhkarWeek();
+        }
+        
+        // إخفاء عنصر التقويم بعد الاختيار
+        this.style.display = 'none';
+        
+        // إزالة الخلفية المعتمة
+        const overlay = document.getElementById('adhkar-date-overlay');
+        if (overlay) overlay.remove();
+    });
+
+    // إذا تم إلغاء التقويم
+    adhkarDatePicker.addEventListener('blur', function() {
+        setTimeout(() => {
+            this.style.display = 'none';
+            const overlay = document.getElementById('adhkar-date-overlay');
+            if (overlay) overlay.remove();
+        }, 200);
+    });
+
+    // عند إغلاق التقويم بدون اختيار (للأجهزة التي تدعم)
+    adhkarDatePicker.addEventListener('cancel', function() {
+        this.style.display = 'none';
+        const overlay = document.getElementById('adhkar-date-overlay');
+        if (overlay) overlay.remove();
+    });
 }
                 adhkarResetBtn.addEventListener('click', () => showConfirmation(translations.adhkarWeekReset[currentLang], resetAdhkarWeekLogic));
                 adhkarMarkAllBtn.addEventListener('click', () => showConfirmation(translations.adhkarPastCompleted[currentLang], markAllPastAdhkarAsCompletedLogic));

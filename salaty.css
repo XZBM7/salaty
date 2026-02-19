@@ -295,3 +295,153 @@ body.ramadan-mode::before {
     align-items: center;
     justify-content: center;
 }
+/* تحسين مظهر التقويم على الهاتف */
+@media (max-width: 768px) {
+    #prayer-date-picker, #adhkar-date-picker {
+        font-size: 16px; /* لمنع التكبير التلقائي على iOS */
+        direction: ltr;
+    }
+    
+    /* خلفية معتمة خلف التقويم */
+    .date-picker-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 9998;
+        display: none;
+    }
+    
+    .date-picker-overlay.active {
+        display: block;
+    }
+}
+/* تنسيق التقويم في الأذكار */
+#adhkar-date-picker {
+    direction: ltr;
+    font-family: 'Tajawal', sans-serif;
+}
+
+/* تنسيق الخلفية المعتمة */
+#adhkar-date-overlay {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* تحسين ظهور التقويم على الهاتف */
+@media (max-width: 768px) {
+    #adhkar-date-picker {
+        font-size: 16px !important;
+        box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    }
+}
+/* تنسيق شريط التنقل في الأذكار مثل الصلاة تماماً */
+#adhkar-weekly-tracker .week-selector {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: var(--card-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+#adhkar-weekly-tracker .week-nav {
+    display: flex;
+    gap: 15px;
+}
+
+#adhkar-weekly-tracker .week-nav .nav-btn {
+    background: var(--gradient);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+#adhkar-weekly-tracker .week-nav .nav-btn:hover:not(:disabled) {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+#adhkar-weekly-tracker .week-nav .nav-btn:disabled {
+    background: #cbd5e1;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+    opacity: 0.7;
+}
+
+body.dark-mode #adhkar-weekly-tracker .week-nav .nav-btn:disabled {
+    background: #475569;
+}
+
+#adhkar-weekly-tracker .week-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-color);
+    text-align: center;
+    flex-grow: 1;
+}
+
+/* تنسيق زر اليوم في الأذكار - نفس تنسيق الصلاة */
+#adhkar-today-btn {
+    background: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 12px 25px;
+    cursor: pointer;
+    transition: var(--transition);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 4px 10px rgba(231, 111, 81, 0.3);
+    font-size: 1rem;
+    margin: 0;
+}
+
+#adhkar-today-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(231, 111, 81, 0.4);
+}
+
+/* للهواتف - نفس تنسيق الصلاة */
+@media (max-width: 768px) {
+    #adhkar-weekly-tracker .week-selector {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    #adhkar-weekly-tracker .week-nav {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    #adhkar-weekly-tracker .week-title {
+        order: -1;
+        font-size: 1.3rem;
+    }
+    
+    #adhkar-today-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}

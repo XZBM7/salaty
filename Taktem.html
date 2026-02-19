@@ -1506,23 +1506,49 @@ let currentLang = localStorage.getItem('language') || 'ar';
                 });
             }
 
-            // --- حساب إحصائيات الخطة ---
+                        // --- حساب إحصائيات الخطة ---
             function calculatePlanStats(plan) {
                 let totalPagesRead = 0;
                 let daysRead = 0;
                 let maxPages = 0;
                 let bestDay = null;
+                let lastReadPage = 0; // متغير لتتبع آخر صفحة تمت قراءتها
                 
-                Object.values(plan.progress).forEach(day => {
+                // ترتيب الأيام التي تمت قراءتها لحساب آخر صفحة
+                const readDays = [];
+                
+                Object.entries(plan.progress).forEach(([date, day]) => {
                     if (day.pages > 0) {
                         totalPagesRead += day.pages;
                         daysRead++;
+                        readDays.push({ date, pages: day.pages });
                         if (day.pages > maxPages) {
                             maxPages = day.pages;
-                            bestDay = day.date;
+                            bestDay = date;
                         }
                     }
                 });
+                
+                // ترتيب الأيام تصاعدياً حسب التاريخ
+                readDays.sort((a, b) => new Date(a.date) - new Date(b.date));
+                
+                // حساب الصفحة الحالية (حيث توقفت)
+                // إذا كان هناك أيام مقروءة، نجمع الصفحات حتى آخر يوم
+                if (readDays.length > 0) {
+                    lastReadPage = totalPagesRead;
+                }
+                
+                // حساب الصفحة المتوقعة لليوم بناءً على الأيام المنقضية
+                const startDate = new Date(plan.startDate);
+                const today = getLocalToday();
+                const daysSinceStart = Math.floor((today - startDate) / (1000 * 60 * 60 * 24));
+                const currentDayIndex = Math.max(0, Math.min(daysSinceStart, plan.totalDays - 1));
+                
+                // الصفحة المفترضة بناءً على الخطة (بدون احتساب التقدم)
+                const expectedPage = (currentDayIndex + 1) * plan.pagesPerDay;
+                
+                // الصفحة الحالية هي آخر صفحة تمت قراءتها + 1 (أو الصفحة الأولى من الخطة إذا لم يبدأ بعد)
+                const currentPage = lastReadPage + 1;
                 
                 const percentage = Math.min(100, Math.round((totalPagesRead / plan.totalPages) * 100));
                 const remaining = Math.max(0, plan.totalPages - totalPagesRead);
@@ -1537,10 +1563,11 @@ let currentLang = localStorage.getItem('language') || 'ar';
                     completed,
                     daysRead,
                     maxPages,
-                    bestDay
+                    bestDay,
+                    currentPage: completed ? plan.totalPages : currentPage, // إذا اكتمل، الصفحة الحالية هي آخر صفحة
+                    expectedPage: completed ? plan.totalPages : expectedPage
                 };
             }
-
             // --- اختيار خطة ---
             window.selectPlan = function(planId) {
                 currentPlanId = planId;
@@ -1575,11 +1602,17 @@ let currentLang = localStorage.getItem('language') || 'ar';
                             </button>
                         </div>
                         
-                        <div class="plan-info">
+                                               <div class="plan-info">
                             <div class="info-card">
                                 <div class="info-label">${translations[currentLang].dailyTarget}</div>
                                 <div class="info-value">${plan.pagesPerDay}</div>
                             </div>
+                            <!-- كارد جديد لعرض الصفحة الحالية -->
+                            <div class="info-card">
+                                <div class="info-label">${currentLang === 'ar' ? 'الصفحة الحالية' : 'Current Page'}</div>
+                                <div class="info-value">${stats.currentPage}</div>
+                            </div>
+                            <!-- نهاية الكارد الجديد -->
                             <div class="info-card">
                                 <div class="info-label">${translations[currentLang].pagesRead}</div>
                                 <div class="info-value">${stats.pagesRead}</div>
