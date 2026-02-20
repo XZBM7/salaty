@@ -1689,12 +1689,13 @@ let currentLang = localStorage.getItem('language') || 'ar';
 
                 // إحصائيات إضافية
                // إحصائيات إضافية مع أفضل يوم بالتاريخ
+// ابحث عن هذا الجزء داخل renderPlanDetails وحدثه
 let bestDayDisplay = '-';
 if (stats.bestDay) {
-    // تحويل تاريخ bestDay إلى نص مفهوم
     const bestDate = new Date(stats.bestDay);
     const formattedBestDate = formatDate(bestDate);
-    bestDayDisplay = `${formattedBestDate} (${stats.maxPages} ${currentLang === 'ar' ? 'صفحة' : 'pages'})`;
+    // جعل اليوم في سطر والقيمة في سطر أو تنسيقها بشكل أفضل
+    bestDayDisplay = `<div style="font-size: 0.9rem">${formattedBestDate}</div> <div style="color: var(--accent-color)">${stats.maxPages} ${currentLang === 'ar' ? 'صفحة' : 'pages'}</div>`;
 }
 
 html += `
@@ -1872,11 +1873,18 @@ html += `
             };
 
             // --- دوال مساعدة ---
-            function formatDate(date) {
-                const d = date.getDate();
-                const m = months[currentLang][date.getMonth()];
-                return `${d} ${m}`;
-            }
+          function formatDate(date) {
+    const dayOfMonth = date.getDate();
+    const monthName = months[currentLang][date.getMonth()];
+    
+    // جلب اسم اليوم بناءً على رقم اليوم في الأسبوع (0-6)
+    const dayName = daysOfWeek[currentLang][date.getDay()];
+    
+    // إرجاع النص بالشكل: السبت، 11 فبراير
+    return currentLang === 'ar' 
+        ? `${dayName}، ${dayOfMonth} ${monthName}` 
+        : `${dayName}, ${monthName} ${dayOfMonth}`;
+}
             
            function formatDateKey(date) {
     // استخدام توقيت الجهاز المحلي وليس UTC
@@ -1891,6 +1899,11 @@ html += `
                 ar: ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"],
                 en: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
             };
+
+            const daysOfWeek = {
+    ar: ["الأحد", "الاثنين", "الثلاثاء", "الأربعاء", "الخميس", "الجمعة", "السبت"],
+    en: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]
+};
 
             // --- التمرير ---
             function handleScroll() {
